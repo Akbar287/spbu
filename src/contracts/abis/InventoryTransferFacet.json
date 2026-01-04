@@ -1,0 +1,871 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "dombakTransferId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "confirmedBy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "confirmedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DombakTransferConfirmed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "dombakTransferId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "createdBy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DombakTransferCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DombakTransferDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "jenisLossesId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "jenisLosses",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "JenisLossesCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "jenisLossesId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "JenisLossesDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "lossesId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "jenisLossesId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "LossesCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "lossesId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "LossesDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "penerimaanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "dokumenStokId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PenerimaanStokTakingCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PenerimaanStokTakingDeleted",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "confirmDombakTransfer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_produkId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_dombakDariId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_dombakKeId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_konversiId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_jamKerjaId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tanggal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_waktu",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_jumlahTransfer",
+        "type": "int256"
+      }
+    ],
+    "name": "createDombakTransfer",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_jenisLosses",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_deskripsi",
+        "type": "string"
+      }
+    ],
+    "name": "createJenisLosses",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_jenisLossesId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_dokumenStokId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tanggal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum AppStorage.SimbolLosses",
+        "name": "_simbol",
+        "type": "uint8"
+      },
+      {
+        "internalType": "int256",
+        "name": "_stok",
+        "type": "int256"
+      }
+    ],
+    "name": "createLosses",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penerimaanId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_dokumenStokId",
+        "type": "uint256"
+      }
+    ],
+    "name": "createPenerimaanStokTaking",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteDombakTransfer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteJenisLosses",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteLosses",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deletePenerimaanStokTaking",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllDombakTransfer",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "dombakTransferId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dombakDariId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dombakKeId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konversiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jamKerjaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "waktu",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int256",
+            "name": "jumlahTransfer",
+            "type": "int256"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasi",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "createdBy",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "confirmedBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "confirmedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.DombakTransfer[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllLosses",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "lossesId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jenisLossesId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dokumenStokId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum AppStorage.SimbolLosses",
+            "name": "simbol",
+            "type": "uint8"
+          },
+          {
+            "internalType": "int256",
+            "name": "stok",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Losses[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDombakTransferById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "dombakTransferId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dombakDariId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dombakKeId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konversiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jamKerjaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "waktu",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int256",
+            "name": "jumlahTransfer",
+            "type": "int256"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasi",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "createdBy",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "confirmedBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "confirmedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.DombakTransfer",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getJenisLossesById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "jenisLossesId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "jenisLosses",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.JenisLosses",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getLossesById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "lossesId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jenisLossesId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dokumenStokId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum AppStorage.SimbolLosses",
+            "name": "simbol",
+            "type": "uint8"
+          },
+          {
+            "internalType": "int256",
+            "name": "stok",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Losses",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPenerimaanStokTakingById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "penerimaanStokTakingId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "penerimaanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dokumenStokId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.PenerimaanStokTaking",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

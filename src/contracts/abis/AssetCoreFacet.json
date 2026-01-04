@@ -1,0 +1,925 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "asetId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "spbuId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "nama",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "AsetCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "asetId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "spbuId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "AsetDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "asetId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "spbuId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "nama",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "AsetUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "fasilitasId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "spbuId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "nama",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "FasilitasCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "fasilitasId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "spbuId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "FasilitasDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "fasilitasId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "spbuId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "nama",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "FasilitasUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_spbuId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_nama",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_keterangan",
+        "type": "string"
+      },
+      {
+        "internalType": "int256",
+        "name": "_jumlah",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_harga",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_penyusutan",
+        "type": "int256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_digunakan",
+        "type": "bool"
+      }
+    ],
+    "name": "createAset",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_spbuId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_nama",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_keterangan",
+        "type": "string"
+      },
+      {
+        "internalType": "int256",
+        "name": "_jumlah",
+        "type": "int256"
+      }
+    ],
+    "name": "createFasilitas",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_asetId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteAset",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_fasilitasId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteFasilitas",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllAset",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "asetId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "nama",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "keterangan",
+            "type": "string"
+          },
+          {
+            "internalType": "int256",
+            "name": "jumlah",
+            "type": "int256"
+          },
+          {
+            "internalType": "int256",
+            "name": "harga",
+            "type": "int256"
+          },
+          {
+            "internalType": "int256",
+            "name": "penyusutanPerHari",
+            "type": "int256"
+          },
+          {
+            "internalType": "bool",
+            "name": "digunakan",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Aset[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllFasilitas",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "fasilitasId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "nama",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "keterangan",
+            "type": "string"
+          },
+          {
+            "internalType": "int256",
+            "name": "jumlah",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Fasilitas[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_asetId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAsetById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "asetId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "nama",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "keterangan",
+            "type": "string"
+          },
+          {
+            "internalType": "int256",
+            "name": "jumlah",
+            "type": "int256"
+          },
+          {
+            "internalType": "int256",
+            "name": "harga",
+            "type": "int256"
+          },
+          {
+            "internalType": "int256",
+            "name": "penyusutanPerHari",
+            "type": "int256"
+          },
+          {
+            "internalType": "bool",
+            "name": "digunakan",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Aset",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_asetId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAsetWithFiles",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "asetId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "spbuId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "nama",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "keterangan",
+                "type": "string"
+              },
+              {
+                "internalType": "int256",
+                "name": "jumlah",
+                "type": "int256"
+              },
+              {
+                "internalType": "int256",
+                "name": "harga",
+                "type": "int256"
+              },
+              {
+                "internalType": "int256",
+                "name": "penyusutanPerHari",
+                "type": "int256"
+              },
+              {
+                "internalType": "bool",
+                "name": "digunakan",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "deleted",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct AppStorage.Aset",
+            "name": "aset",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "fileAsetId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "asetId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "ipfsHash",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "namaFile",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "namaDokumen",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "mimeType",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "fileSize",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "deleted",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct AppStorage.FileAset[]",
+            "name": "files",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct AsetWithFiles",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_fasilitasId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getFasilitasById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "fasilitasId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "nama",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "keterangan",
+            "type": "string"
+          },
+          {
+            "internalType": "int256",
+            "name": "jumlah",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Fasilitas",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_fasilitasId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getFasilitasWithFiles",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "fasilitasId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "spbuId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "nama",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "keterangan",
+                "type": "string"
+              },
+              {
+                "internalType": "int256",
+                "name": "jumlah",
+                "type": "int256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "deleted",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct AppStorage.Fasilitas",
+            "name": "fasilitas",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "fileFasilitasId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "fasilitasId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "ipfsHash",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "namaFile",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "namaDokumen",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "mimeType",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "fileSize",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "deleted",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct AppStorage.FileFasilitas[]",
+            "name": "files",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct FasilitasWithFiles",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_asetId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_spbuId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_nama",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_keterangan",
+        "type": "string"
+      },
+      {
+        "internalType": "int256",
+        "name": "_jumlah",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_harga",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_penyusutanPerHari",
+        "type": "int256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_digunakan",
+        "type": "bool"
+      }
+    ],
+    "name": "updateAset",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_fasilitasId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_spbuId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_nama",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_keterangan",
+        "type": "string"
+      },
+      {
+        "internalType": "int256",
+        "name": "_jumlah",
+        "type": "int256"
+      }
+    ],
+    "name": "updateFasilitas",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

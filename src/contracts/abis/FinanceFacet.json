@@ -1,0 +1,1653 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "filePenarikanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "penarikanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "FilePenarikanCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "filePenarikanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "FilePenarikanDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "filePettyCashId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "pettyCashId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "FilePettyCashCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "filePettyCashId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "FilePettyCashDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "penarikanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "acceptedBy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "acceptedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PenarikanAccepted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "penarikanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "penjualanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "walletMember",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PenarikanCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "penarikanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PenarikanDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "penarikanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PenarikanUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "penjualanPenarikanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "penjualanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "walletMember",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PenjualanPenarikanCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "penjualanPenarikanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PenjualanPenarikanDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "pettyCashId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "spbuId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum AppStorage.jenisTransaksi",
+        "name": "jenis",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PettyCashCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "pettyCashId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PettyCashDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "pettyCashId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "penerimaanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PettyCashPenerimaanLinked",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "pettyCashId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PettyCashUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penarikanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "acceptPenarikan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penarikanId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_ipfsHash",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaFile",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaDokumen",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_mimeType",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_fileSize",
+        "type": "uint256"
+      }
+    ],
+    "name": "createFilePenarikan",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pettyCashId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_ipfsHash",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaFile",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaDokumen",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_mimeType",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_fileSize",
+        "type": "uint256"
+      }
+    ],
+    "name": "createFilePettyCash",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penjualanId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tanggal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaBank",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_noReferensi",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_metodeTransfer",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_totalUang",
+        "type": "uint256"
+      }
+    ],
+    "name": "createPenarikan",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penjualanId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_walletMember",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_totalTarikanUang",
+        "type": "uint256"
+      }
+    ],
+    "name": "createPenjualanPenarikan",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_spbuId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_noKode",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_noBukti",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_deskripsi",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tanggal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_total",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum AppStorage.jenisTransaksi",
+        "name": "_jenisTransaksi",
+        "type": "uint8"
+      }
+    ],
+    "name": "createPettyCash",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_filePenarikanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteFilePenarikan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_filePettyCashId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteFilePettyCash",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penarikanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deletePenarikan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penjualanPenarikanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deletePenjualanPenarikan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pettyCashId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deletePettyCash",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllPenarikan",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "penarikanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "penjualanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaBank",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noReferensi",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "metodeTransfer",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "accepted",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "acceptedBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "acceptedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalUang",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Penarikan[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllPettyCash",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pettyCashId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "noKode",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noBukti",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "total",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum AppStorage.jenisTransaksi",
+            "name": "jenisTransaksi",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.PettyCash[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penarikanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getFilePenarikanByPenarikan",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "filePenarikanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "penarikanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "ipfsHash",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaFile",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaDokumen",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "mimeType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fileSize",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.FilePenarikan[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pettyCashId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getFilePettyCashByPettyCash",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "filePettyCashId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pettyCashId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "ipfsHash",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaFile",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaDokumen",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "mimeType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fileSize",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.FilePettyCash[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penarikanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPenarikanById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "penarikanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "penjualanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaBank",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noReferensi",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "metodeTransfer",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "accepted",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "acceptedBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "acceptedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalUang",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Penarikan",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penjualanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPenarikanByPenjualan",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "penarikanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "penjualanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaBank",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noReferensi",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "metodeTransfer",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "accepted",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "acceptedBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "acceptedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalUang",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Penarikan[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "getPenarikanByWallet",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "penarikanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "penjualanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaBank",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noReferensi",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "metodeTransfer",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "accepted",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "acceptedBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "acceptedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalUang",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Penarikan[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pettyCashId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPenerimaanByPettyCash",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penjualanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPenjualanPenarikanByPenjualan",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "penjualanPenarikanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "penjualanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalTarikanUang",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.PenjualanPenarikan[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "getPenjualanPenarikanByWallet",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "penjualanPenarikanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "penjualanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalTarikanUang",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.PenjualanPenarikan[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pettyCashId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPettyCashById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pettyCashId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "noKode",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noBukti",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "total",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum AppStorage.jenisTransaksi",
+            "name": "jenisTransaksi",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.PettyCash",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penerimaanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPettyCashByPenerimaan",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_spbuId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPettyCashBySpbu",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pettyCashId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "noKode",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noBukti",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "total",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum AppStorage.jenisTransaksi",
+            "name": "jenisTransaksi",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.PettyCash[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTotalPenarikan",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTotalPenjualanPenarikan",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTotalPettyCash",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pettyCashId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_penerimaanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "linkPettyCashToPenerimaan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penarikanId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaBank",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_noReferensi",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_metodeTransfer",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_totalUang",
+        "type": "uint256"
+      }
+    ],
+    "name": "updatePenarikan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pettyCashId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_noKode",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_noBukti",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_deskripsi",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tanggal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_total",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum AppStorage.jenisTransaksi",
+        "name": "_jenisTransaksi",
+        "type": "uint8"
+      }
+    ],
+    "name": "updatePettyCash",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

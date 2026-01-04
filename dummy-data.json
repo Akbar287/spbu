@@ -1,0 +1,264 @@
+[
+    {
+        "StatusMember": [
+            {
+                "namaStatus": "Aktif",
+                "keterangan": "Member tersebut dapat Login ke sistem"
+            },
+            {
+                "namaStatus": "Ditangguhkan",
+                "keterangan": "Member tersebut tidak dapat Login ke sistem"
+            },
+            {
+                "namaStatus": "Tidak Aktif",
+                "keterangan": "Member tersebut tidak dapat Login ke sistem"
+            }
+        ],
+        "Ktp": [
+            {
+                "statusMemberId": "Aktif",
+                "nik": "3189283745612903",
+                "nama": "superadmin",
+                "gender": "Pria",
+                "tempatLahir": "Jakarta",
+                "tanggalLahir": "1990-02-10",
+                "verified": true,
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "email": "superadmin@spbu.com",
+                "noHp": "081234567890",
+                "noWa": "081234567890",
+                "bergabungSejak": "2020-01-01"
+            }
+        ],
+        "AreaMember": [
+            {
+                "ktpId": "superadmin",
+                "provinsi": "Jakarta",
+                "kabupaten": "Jakarta Pusat",
+                "kecamatan": "Gambir",
+                "kelurahan": "Gambir",
+                "alamat": "Jalan Apapun Itu No. 1",
+                "rw": "1",
+                "rt": "1",
+                "no": "1",
+                "kodePos": "11111"
+            }
+        ],
+        "Spbu": [
+            {
+                "namaSpbu": "SPBU",
+                "nomorSpbu": "12.345.67",
+                "tanggalPendirian": "2020-01-01",
+                "alamat": "Jalan Apapun Itu No. 1",
+                "luasLahan": "5",
+                "satuanLuas": "Ha"
+            }
+        ],
+        "Divisi": [
+            {
+                "spbuId": "SPBU",
+                "namaDivisi": "Strategis",
+                "keterangan": ""
+            },
+            {
+                "spbuId": "SPBU",
+                "namaDivisi": "Operasional",
+                "keterangan": ""
+            }
+        ],
+        "Level": [
+            {
+                "divisiId": "Strategis",
+                "namaLevel": "Manajemen",
+                "keterangan": ""
+            },
+            {
+                "divisiId": "Strategis",
+                "namaLevel": "Eksekutif",
+                "keterangan": ""
+            },
+            {
+                "divisiId": "Operasional",
+                "namaLevel": "Administrasi",
+                "keterangan": ""
+            },
+            {
+                "divisiId": "Operasional",
+                "namaLevel": "Layanan Umum",
+                "keterangan": ""
+            }
+        ],
+        "Jabatan": [
+            {
+                "levelId": "Manajemen",
+                "namaJabatan": "Komisaris",
+                "keterangan": ""
+            },
+            {
+                "levelId": "Manajemen",
+                "namaJabatan": "Partner",
+                "keterangan": ""
+            },
+            {
+                "levelId": "Eksekutif",
+                "namaJabatan": "Direktur Utama",
+                "keterangan": ""
+            },
+            {
+                "levelId": "Eksekutif",
+                "namaJabatan": "Direktur",
+                "keterangan": ""
+            },
+            {
+                "levelId": "Administrasi",
+                "namaJabatan": "Admin",
+                "keterangan": ""
+            },
+            {
+                "levelId": "Operasional",
+                "namaJabatan": "Operator",
+                "keterangan": ""
+            },
+            {
+                "levelId": "Operasional",
+                "namaJabatan": "Security",
+                "keterangan": ""
+            },
+            {
+                "levelId": "Operasional",
+                "namaJabatan": "Office Boy",
+                "keterangan": ""
+            }
+        ],
+        "walletToJabatanIds": [
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Komisaris"
+            },
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Partner"
+            },
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Direktur Utama"
+            },
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Direktur"
+            },
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Admin"
+            },
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Operator"
+            },
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Security"
+            },
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Office Boy"
+            }
+        ],
+        "jabatanToWalletIds": [
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Komisaris"
+            },
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Partner"
+            },
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Direktur Utama"
+            },
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Direktur"
+            },
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Admin"
+            },
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Operator"
+            },
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Security"
+            },
+            {
+                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "namaJabatan": "Office Boy"
+            }
+        ],
+        "spbuToDivisiIds": [
+            {
+                "spbuId": "SPBU",
+                "divisiId": "Strategis"
+            },
+            {
+                "spbuId": "SPBU",
+                "divisiId": "Operasional"
+            }
+        ],
+        "divisiToLevelIds": [
+            {
+                "divisiId": "Strategis",
+                "levelId": "Manajemen"
+            },
+            {
+                "divisiId": "Strategis",
+                "levelId": "Eksekutif"
+            },
+            {
+                "divisiId": "Operasional",
+                "levelId": "Administrasi"
+            },
+            {
+                "divisiId": "Operasional",
+                "levelId": "Layanan Umum"
+            }
+        ],
+        "levelToJabatanIds": [
+            {
+                "levelId": "Manajemen",
+                "jabatanId": "Komisaris"
+            },
+            {
+                "levelId": "Manajemen",
+                "jabatanId": "Partner"
+            },
+            {
+                "levelId": "Eksekutif",
+                "jabatanId": "Direktur Utama"
+            },
+            {
+                "levelId": "Eksekutif",
+                "jabatanId": "Direktur"
+            },
+            {
+                "levelId": "Administrasi",
+                "jabatanId": "Admin"
+            },
+            {
+                "levelId": "Operasional",
+                "jabatanId": "Operator"
+            },
+            {
+                "levelId": "Operasional",
+                "jabatanId": "Security"
+            },
+            {
+                "levelId": "Operasional",
+                "jabatanId": "Office Boy"
+            }
+        ]
+    }
+]

@@ -1,0 +1,940 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "ktpId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "statusMemberId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "nik",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "nama",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "walletAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "KtpCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "ktpId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "KtpDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "ktpId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "statusMemberId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "nik",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "nama",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "KtpUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "ktpId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "walletAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "verified",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "KtpVerified",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "statusMemberId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "namaStatus",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "StatusMemberCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "statusMemberId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "StatusMemberDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "statusMemberId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "namaStatus",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "StatusMemberUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_targetAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_statusMemberId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_nik",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_nama",
+        "type": "string"
+      },
+      {
+        "internalType": "enum AppStorage.Gender",
+        "name": "_gender",
+        "type": "uint8"
+      },
+      {
+        "internalType": "string",
+        "name": "_tempatLahir",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tanggalLahir",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_email",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_noHp",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_noWa",
+        "type": "string"
+      }
+    ],
+    "name": "createKtp",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_namaStatus",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_keterangan",
+        "type": "string"
+      }
+    ],
+    "name": "createStatusMember",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_targetAddress",
+        "type": "address"
+      }
+    ],
+    "name": "deleteKtp",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteStatusMember",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllKtp",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "ktpId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "statusMemberId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "nik",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "nama",
+            "type": "string"
+          },
+          {
+            "internalType": "enum AppStorage.Gender",
+            "name": "gender",
+            "type": "uint8"
+          },
+          {
+            "internalType": "string",
+            "name": "tempatLahir",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalLahir",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "verified",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noHp",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noWa",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "bergabungSejak",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Ktp[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllStatusMember",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "statusMemberId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaStatus",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "keterangan",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.StatusMember[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getKtpById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "ktpId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "statusMemberId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "nik",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "nama",
+            "type": "string"
+          },
+          {
+            "internalType": "enum AppStorage.Gender",
+            "name": "gender",
+            "type": "uint8"
+          },
+          {
+            "internalType": "string",
+            "name": "tempatLahir",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalLahir",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "verified",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noHp",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noWa",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "bergabungSejak",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Ktp",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_statusMemberId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getKtpByStatusMember",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "ktpId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "statusMemberId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "nik",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "nama",
+            "type": "string"
+          },
+          {
+            "internalType": "enum AppStorage.Gender",
+            "name": "gender",
+            "type": "uint8"
+          },
+          {
+            "internalType": "string",
+            "name": "tempatLahir",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalLahir",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "verified",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noHp",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noWa",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "bergabungSejak",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Ktp[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "getKtpByWallet",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "ktpId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "statusMemberId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "nik",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "nama",
+            "type": "string"
+          },
+          {
+            "internalType": "enum AppStorage.Gender",
+            "name": "gender",
+            "type": "uint8"
+          },
+          {
+            "internalType": "string",
+            "name": "tempatLahir",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalLahir",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "verified",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noHp",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noWa",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "bergabungSejak",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Ktp",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getStatusMemberById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "statusMemberId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaStatus",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "keterangan",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.StatusMember",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_targetAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_statusMemberId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_nik",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_nama",
+        "type": "string"
+      },
+      {
+        "internalType": "enum AppStorage.Gender",
+        "name": "_gender",
+        "type": "uint8"
+      },
+      {
+        "internalType": "string",
+        "name": "_tempatLahir",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tanggalLahir",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_email",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_noHp",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_noWa",
+        "type": "string"
+      }
+    ],
+    "name": "updateKtp",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaStatus",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_keterangan",
+        "type": "string"
+      }
+    ],
+    "name": "updateStatusMember",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_walletAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "_verified",
+        "type": "bool"
+      }
+    ],
+    "name": "verifyKtp",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

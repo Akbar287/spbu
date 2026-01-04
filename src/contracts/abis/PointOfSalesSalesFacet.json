@@ -1,0 +1,655 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "penjualanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "standMeterId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DetailPenjualanCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DetailPenjualanDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "walletMember",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PenjualanCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PenjualanDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "verifiedBy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "verifiedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PenjualanVerifiedAdmin",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "verifiedBy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "verifiedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PenjualanVerifiedDirektur",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penjualanId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_standMeterId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_hargaId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_liter",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_totalDetailJual",
+        "type": "uint256"
+      }
+    ],
+    "name": "createDetailPenjualan",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_statusSetoranId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_produkId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_spbuId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_nozzleId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_jamKerjaId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tanggal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_totalUangKotak",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_totalPenjualan",
+        "type": "uint256"
+      }
+    ],
+    "name": "createPenjualan",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteDetailPenjualan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deletePenjualan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllPenjualan",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "penjualanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "statusSetoranId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "nozzleId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jamKerjaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalUangKotak",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalPenjualan",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "verifiedAdmin",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "verifiedDirektur",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "verifiedByAdmin",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "verifiedByDirektur",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "verifiedAtAdmin",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "verifiedAtDirektur",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Penjualan[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDetailPenjualanById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "detailPenjualanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "penjualanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "standMeterId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "hargaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "liter",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalDetailJual",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.DetailPenjualan",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_penjualanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDetailPenjualanByPenjualan",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "detailPenjualanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "penjualanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "standMeterId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "hargaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "liter",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalDetailJual",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.DetailPenjualan[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPenjualanById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "penjualanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "statusSetoranId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "nozzleId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jamKerjaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalUangKotak",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalPenjualan",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "verifiedAdmin",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "verifiedDirektur",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "verifiedByAdmin",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "verifiedByDirektur",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "verifiedAtAdmin",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "verifiedAtDirektur",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Penjualan",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "verifyPenjualanAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "verifyPenjualanDirektur",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

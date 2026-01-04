@@ -1,0 +1,799 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "areaMemberId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "ktpId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "provinsi",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "kabupaten",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "AreaMemberCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "areaMemberId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "AreaMemberDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "areaMemberId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "ktpId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "provinsi",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "kabupaten",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "AreaMemberUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "notifikasiId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "ktpId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "judul",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "NotifikasiCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "notifikasiId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "NotifikasiDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "notifikasiId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "judul",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "read",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "NotifikasiUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_targetAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_provinsi",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_kabupaten",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_kecamatan",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_kelurahan",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_alamat",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_rw",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_rt",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_no",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_kodePos",
+        "type": "string"
+      }
+    ],
+    "name": "createAreaMember",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_targetAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_judul",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_konten",
+        "type": "string"
+      }
+    ],
+    "name": "createNotifikasi",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_targetAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_areaMemberId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteAreaMember",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_targetAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_notifikasiId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteNotifikasi",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAreaMemberById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "areaMemberId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ktpId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "provinsi",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "kabupaten",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "kecamatan",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "kelurahan",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "alamat",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "rw",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "rt",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "no",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "kodePos",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.AreaMember",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAreaMembersByKtp",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "areaMemberId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ktpId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "provinsi",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "kabupaten",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "kecamatan",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "kelurahan",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "alamat",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "rw",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "rt",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "no",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "kodePos",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.AreaMember[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getNotifikasiById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "notifikasiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "judul",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "konten",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "read",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Notifikasi",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getNotifikasiByKtp",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "notifikasiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "judul",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "konten",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "read",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Notifikasi[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "getUnreadNotifikasi",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "notifikasiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "judul",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "konten",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "read",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Notifikasi[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_targetAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_notifikasiId",
+        "type": "uint256"
+      }
+    ],
+    "name": "markNotifikasiAsRead",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_targetAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_areaMemberId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_provinsi",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_kabupaten",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_kecamatan",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_kelurahan",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_alamat",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_rw",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_rt",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_no",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_kodePos",
+        "type": "string"
+      }
+    ],
+    "name": "updateAreaMember",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_targetAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_notifikasiId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_judul",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_konten",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "_read",
+        "type": "bool"
+      }
+    ],
+    "name": "updateNotifikasi",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
