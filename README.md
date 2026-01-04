@@ -1,70 +1,279 @@
-# Getting Started with Create React App
+# ⛽ SPBU Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
 
-## Available Scripts
+![Solidity](https://img.shields.io/badge/Solidity-363636?style=for-the-badge&logo=solidity&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=for-the-badge&logo=Ethereum&logoColor=white)
+![Hardhat](https://img.shields.io/badge/Hardhat-FFF100?style=for-the-badge&logo=hardhat&logoColor=black)
 
-In the project directory, you can run:
+**Sistem Manajemen SPBU Berbasis Blockchain dengan Diamond Pattern**
 
-### `npm start`
+[Demo](#demo) • [Fitur](#-fitur) • [Instalasi](#-instalasi) • [Arsitektur](#-arsitektur) • [Kontribusi](#-kontribusi)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+</div>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 📖 Tentang Project
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+SPBU Management System adalah aplikasi manajemen stasiun pengisian bahan bakar umum (SPBU) yang terintegrasi dengan teknologi blockchain Ethereum. Aplikasi ini menggunakan **Diamond Pattern (EIP-2535)** untuk smart contract yang modular dan upgradeable.
 
-### `npm run build`
+### Mengapa Blockchain?
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 🔐 **Immutable Records** - Data transaksi tidak dapat dimanipulasi
+- 🔍 **Transparency** - Semua operasi dapat diaudit
+- 🛡️ **Security** - Akses dikontrol dengan role-based permission
+- ⚡ **Decentralized** - Tidak bergantung pada single point of failure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## ✨ Fitur
 
-### `npm run eject`
+### 🏢 Manajemen Organisasi
+- **SPBU** - Kelola data stasiun SPBU (nama, alamat, koordinat)
+- **Divisi** - Struktur organisasi divisi
+- **Jabatan** - Manajemen jabatan karyawan
+- **Level** - Tingkatan level pengguna
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 👥 Human Capital
+- Manajemen data karyawan
+- Pengaturan role & permission
+- Absensi dan kehadiran
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### ⏰ Attendance System
+- **Hari** - Konfigurasi hari kerja/libur
+- **Jam Kerja** - Pengaturan shift kerja per SPBU
+- **Status Kehadiran** - Status hadir, izin, sakit, dll
+- **Status Presensi** - Check-in/check-out tracking
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 📦 Inventory & Logistics
+- Manajemen stok BBM
+- Transfer antar lokasi
+- Monitoring level tangki
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 💰 Point of Sales
+- Transaksi penjualan
+- Laporan harian
+- Integrasi dengan inventory
 
-## Learn More
+### 📋 Procurement
+- Perencanaan pembelian
+- Approval workflow
+- Konfigurasi pajak pembelian
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 💳 Finance
+- Setoran bank
+- Closing penjualan
+- Laporan keuangan
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 🛠️ Tech Stack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+| Layer | Technology |
+|-------|------------|
+| **Frontend** | React 18, TypeScript, TailwindCSS, Framer Motion |
+| **Routing** | React Router v6 |
+| **Form** | React Hook Form + Yup Validation |
+| **Web3** | wagmi, viem |
+| **Smart Contract** | Solidity 0.8.33, Hardhat |
+| **Pattern** | Diamond Pattern (EIP-2535) |
+| **Local Blockchain** | Ganache |
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 📦 Instalasi
 
-### Making a Progressive Web App
+### Prerequisites
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Node.js >= 18.x
+- Yarn atau npm
+- Ganache (untuk local blockchain)
 
-### Advanced Configuration
+### 1. Clone Repository
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+git clone https://github.com/Akbar287/spbu.git
+cd spbu
+```
 
-### Deployment
+### 2. Install Dependencies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+yarn install
+# atau
+npm install
+```
 
-### `npm run build` fails to minify
+### 3. Setup Environment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+cp .env.example .env
+```
+
+Edit `.env` dan isi:
+```env
+DEPLOYER_PRIVATE_KEY=your_private_key_from_ganache
+```
+
+### 4. Start Ganache
+
+Jalankan Ganache GUI atau CLI pada port `7545`
+
+### 5. Deploy Smart Contracts
+
+```bash
+# Compile contracts
+npx hardhat compile
+
+# Deploy to Ganache
+npx hardhat run scripts/deploy.js --network ganache
+
+# Register facet selectors
+node scripts/register-facets.cjs
+
+# Setup admin role
+node scripts/manage-roles.cjs
+
+# (Optional) Seed initial data
+node scripts/seed-data.cjs
+```
+
+### 6. Update Frontend Config
+
+Update `src/contracts/config.ts` dengan alamat contract dari deployment.
+
+### 7. Start Development Server
+
+```bash
+yarn start
+# atau
+npm start
+```
+
+Aplikasi akan berjalan di [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🏗️ Arsitektur
+
+### Diamond Pattern Structure
+
+```
+MainDiamond (Proxy)
+├── AccessControlFacet      # Role & permission management
+├── OrganizationFacet       # SPBU, Divisi, Jabatan, Level
+├── IdentityMemberFacet     # User management
+├── IdentityNotifFacet      # Notifications
+├── HumanCapitalFacet       # Employee management
+├── AttendanceConfigFacet   # Hari, JamKerja, StatusKehadiran
+├── AttendanceRecordFacet   # Attendance records
+├── AssetCoreFacet          # Asset management
+├── AssetFileFacet          # Asset files
+├── InventoryCoreFacet      # Inventory management
+├── InventoryDocsFacet      # Inventory documents
+├── InventoryTransferFacet  # Stock transfers
+├── LogisticCoreFacet       # Logistics core
+├── LogisticFileFacet       # Logistics files
+├── PengadaanCoreFacet      # Procurement & Tax settings
+├── PengadaanPaymentFacet   # Payment processing
+├── PointOfSalesCoreFacet   # POS core
+├── PointOfSalesSalesFacet  # Sales transactions
+├── FinanceFacet            # Financial operations
+└── QualityControlFacet     # QC operations
+```
+
+### Project Structure
+
+```
+spbu/
+├── contracts/              # Solidity smart contracts
+│   ├── domains/           # Facet contracts
+│   ├── storage/           # AppStorage (shared state)
+│   └── MainDiamond.sol    # Diamond proxy
+├── scripts/               # Deployment & utility scripts
+├── src/
+│   ├── components/        # Reusable React components
+│   ├── config/            # App configuration
+│   ├── contracts/         # ABIs & contract config
+│   ├── pages/             # Page components
+│   │   ├── Konfigurasi/   # Configuration pages
+│   │   ├── Stok/          # Stock management
+│   │   ├── Setoran/       # Deposit management
+│   │   └── ...
+│   ├── router/            # Route definitions
+│   ├── types/             # TypeScript types
+│   └── validation/        # Form validation schemas
+├── deployments/           # Deployment artifacts
+└── hardhat.config.cjs     # Hardhat configuration
+```
+
+---
+
+## 🔧 Scripts
+
+| Command | Description |
+|---------|-------------|
+| `yarn start` | Start development server |
+| `yarn build` | Build for production |
+| `yarn test` | Run tests |
+| `npx hardhat compile` | Compile smart contracts |
+| `node scripts/register-facets.cjs` | Register facet selectors |
+| `node scripts/manage-roles.cjs` | Setup admin roles |
+| `node scripts/seed-data.cjs` | Seed initial data |
+| `node scripts/export-abis.cjs` | Export ABIs to frontend |
+
+---
+
+## 🔐 Role-Based Access Control
+
+| Role | Description |
+|------|-------------|
+| `ADMIN_ROLE` | Full system access |
+| `MANAGER_ROLE` | Management operations |
+| `OPERATOR_ROLE` | Daily operations |
+| `VIEWER_ROLE` | Read-only access |
+
+---
+
+## 📸 Screenshots
+
+*Coming soon*
+
+---
+
+## 🤝 Kontribusi
+
+Kontribusi sangat diterima! Silakan buka issue atau submit pull request.
+
+1. Fork repository
+2. Buat feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push ke branch (`git push origin feature/AmazingFeature`)
+5. Buka Pull Request
+
+---
+
+## 📝 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+
+## 📧 Contact
+
+Akbar - [@Akbar287](https://github.com/Akbar287)
+
+Project Link: [https://github.com/Akbar287/spbu](https://github.com/Akbar287/spbu)
+
+---
+
+<div align="center">
+
+**⭐ Star this repo if you find it helpful!**
+
+Made with ❤️ and ☕
+
+</div>
