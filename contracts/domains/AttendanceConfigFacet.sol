@@ -445,4 +445,16 @@ contract AttendanceConfigFacet {
             result[i] = s.jamKerjaList[ids[i]];
         return result;
     }
+
+    function getHariByJamKerja(
+        uint256 _jamKerjaId
+    ) external view returns (AppStorage.Hari[] memory) {
+        AppStorage.AttendaceStorage storage s = AppStorage.attendanceStorage();
+        uint256[] memory hariIds = s.jamKerjaToHariList[_jamKerjaId];
+        AppStorage.Hari[] memory result = new AppStorage.Hari[](hariIds.length);
+        for (uint256 i = 0; i < hariIds.length; i++) {
+            result[i] = s.hariList[hariIds[i]];
+        }
+        return result;
+    }
 }

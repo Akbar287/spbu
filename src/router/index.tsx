@@ -15,14 +15,12 @@ import AsetCreate from '@/pages/Master/Aset/AsetCreate'
 import AsetShow from '@/pages/Master/Aset/AsetShow'
 import AsetEdit from '@/pages/Master/Aset/AsetEdit'
 import FileAsetIndex from '@/pages/Master/Aset/FileAset/FileAsetIndex'
-import FileAsetEdit from '@/pages/Master/Aset/FileAset/FileAsetEdit'
 import FileAsetShow from '@/pages/Master/Aset/FileAset/FileAsetShow'
 import FileAsetCreate from '@/pages/Master/Aset/FileAset/FileAsetCreate'
 import FasilitasEdit from '@/pages/Master/Fasilitas/FasilitasEdit'
 import FasilitasShow from '@/pages/Master/Fasilitas/FasilitasShow'
 import FasilitasCreate from '@/pages/Master/Fasilitas/FasilitasCreate'
 import FasilitasIndex from '@/pages/Master/Fasilitas/FasilitasIndex'
-import FileFasilitasEdit from '@/pages/Master/Fasilitas/FileFasilitas/FileFasilitasEdit'
 import FileFasilitasShow from '@/pages/Master/Fasilitas/FileFasilitas/FileFasilitasShow'
 import FileFasilitasCreate from '@/pages/Master/Fasilitas/FileFasilitas/FileFasilitasCreate'
 import FileFasilitasIndex from '@/pages/Master/Fasilitas/FileFasilitas/FileFasilitasIndex'
@@ -295,7 +293,6 @@ export default function index() {
                         <Route path="aset/:asetId/file" element={<FileAsetIndex />} />
                         <Route path="aset/:asetId/file/create" element={<FileAsetCreate />} />
                         <Route path="aset/:asetId/file/:fileAsetId" element={<FileAsetShow />} />
-                        <Route path="aset/:asetId/file/:fileAsetId/edit" element={<FileAsetEdit />} />
 
                         {/* Fasilitas & File Fasilitas */}
                         <Route path="fasilitas" element={<FasilitasIndex />} />
@@ -306,7 +303,6 @@ export default function index() {
                         <Route path="fasilitas/:fasilitasId/file" element={<FileFasilitasIndex />} />
                         <Route path="fasilitas/:fasilitasId/file/create" element={<FileFasilitasCreate />} />
                         <Route path="fasilitas/:fasilitasId/file/:fileFasilitasId" element={<FileFasilitasShow />} />
-                        <Route path="fasilitas/:fasilitasId/file/:fileFasilitasId/edit" element={<FileFasilitasEdit />} />
 
                         {/* Produk */}
                         <Route path="produk" element={<ProdukIndex />} />
@@ -655,10 +651,10 @@ export default function index() {
                         <Route path="pajak/:pajakId" element={<PajakShow />} />
                         <Route path="pajak/:pajakId/edit" element={<PajakEdit />} />
 
-                        <Route path="jam_kerja" element={<JamKerjaIndex />} />
-                        <Route path="jam_kerja/create" element={<JamKerjaCreate />} />
-                        <Route path="jam_kerja/:jamKerjaId" element={<JamKerjaShow />} />
-                        <Route path="jam_kerja/:jamKerjaId/edit" element={<JamKerjaEdit />} />
+                        <Route path="jam-kerja" element={<JamKerjaIndex />} />
+                        <Route path="jam-kerja/create" element={<JamKerjaCreate />} />
+                        <Route path="jam-kerja/:jamKerjaId" element={<JamKerjaShow />} />
+                        <Route path="jam-kerja/:jamKerjaId/edit" element={<JamKerjaEdit />} />
 
                         {/* <Route path="import" element={<ImportIndex />} /> */}
                     </Route>
