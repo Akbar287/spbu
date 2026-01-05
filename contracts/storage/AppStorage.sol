@@ -68,21 +68,6 @@ library AppStorage {
      * - PARTNER_ROLE    : Mitra eksternal (supplier, dll)
      */
 
-    // Role untuk level tertinggi dalam organisasi
-    bytes32 public constant KOMISARIS_ROLE = keccak256("KOMISARIS_ROLE");
-    bytes32 public constant DIREKTUR_ROLE = keccak256("DIREKTUR_ROLE");
-
-    // Role untuk pengelola sistem
-    bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
-
-    // Role untuk karyawan operasional
-    bytes32 public constant OPERATOR_ROLE = keccak256("OPERATOR_ROLE");
-    bytes32 public constant SECURITY_ROLE = keccak256("SECURITY_ROLE");
-    bytes32 public constant OFFICEBOY_ROLE = keccak256("OFFICEBOY_ROLE");
-
-    // Role untuk mitra eksternal
-    bytes32 public constant PARTNER_ROLE = keccak256("PARTNER_ROLE");
-
     // ==================== 2. Domain Identifikasi ====================
     /**
      * @notice Domain untuk mengelola identitas member dan karyawan
@@ -253,6 +238,7 @@ library AppStorage {
         uint256 createdAt;
         uint256 updatedAt;
         bool deleted;
+        bytes32 roleHash;
     }
 
     struct OrganisasiStorage {

@@ -90,19 +90,6 @@
   },
   {
     "inputs": [],
-    "name": "KOMISARIS_ROLE",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "OPERATOR_ROLE",
     "outputs": [
       {
@@ -128,6 +115,29 @@
       }
     ],
     "name": "grantRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "_role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "_account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_jabatanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "grantRoleWithJabatan",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -189,6 +199,29 @@
       }
     ],
     "name": "revokeRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "_role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "_account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_jabatanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "revokeRoleWithJabatan",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

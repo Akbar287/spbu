@@ -15,7 +15,8 @@ require('dotenv').config();
 const { createPublicClient, http } = require('viem');
 
 // Configuration
-const DIAMOND_ADDRESS = '0x22f108f5a0773bc8749fd751ac280d0cb789690a';
+const DIAMOND_ADDRESS = '0x305afe61b4ad6af5ec1b67b28293e25a726088bf';
+const ADMIN_ADDRESS = '0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1';
 const RPC_URL = 'http://127.0.0.1:7545';
 
 // Load ABIs
@@ -150,12 +151,30 @@ async function main() {
         console.log('\n📋 TABLE: Ktp (Members)');
         console.log('-'.repeat(80));
         try {
-            const [result] = await publicClient.readContract({
-                address: DIAMOND_ADDRESS,
+            const { encodeFunctionData, decodeFunctionResult } = require('viem');
+
+            // Encode the function call
+            const callData = encodeFunctionData({
                 abi: COMBINED_ABI,
                 functionName: 'getAllKtp',
                 args: [0n, 100n],
             });
+
+            // Make raw eth_call with from parameter
+            const rawResult = await publicClient.call({
+                to: DIAMOND_ADDRESS,
+                data: callData,
+                account: ADMIN_ADDRESS,
+            });
+
+            // Decode the result
+            const decoded = decodeFunctionResult({
+                abi: COMBINED_ABI,
+                functionName: 'getAllKtp',
+                data: rawResult.data,
+            });
+
+            const result = decoded[0];
 
             const data = result.filter(r => !r.deleted).map(r => ({
                 ID: Number(r.ktpId),
@@ -273,6 +292,7 @@ async function main() {
                 'Level ID': Number(r.levelId),
                 'Nama Jabatan': r.namaJabatan,
                 Keterangan: truncate(r.keterangan, 30) || '-',
+                'RoleHash': r.roleHash,
                 'Created': formatDate(r.createdAt),
             }));
 

@@ -75,6 +75,45 @@ contract IdentityMemberFacet {
         }
     }
 
+    // ==================== Data Fix ====================
+    /**
+     * @notice Fix KTP mapping for orphaned data
+     * @dev Admin only - adds ktpId to allKtpIds and statusMemberToKtpIds
+     */
+    function fixKtpMapping(uint256 _ktpId) external {
+        _onlyAdmin();
+        AppStorage.IdentityStorage storage s = AppStorage.identityStorage();
+        AppStorage.Ktp memory ktp = s.ktp[_ktpId];
+        require(ktp.ktpId != 0, "KTP not found");
+
+        // Add to allKtpIds if not exists
+        bool existsInAll = false;
+        for (uint256 i = 0; i < s.allKtpIds.length; i++) {
+            if (s.allKtpIds[i] == _ktpId) {
+                existsInAll = true;
+                break;
+            }
+        }
+        if (!existsInAll) {
+            s.allKtpIds.push(_ktpId);
+        }
+
+        // Add to statusMemberToKtpIds if not exists
+        bool existsInStatus = false;
+        uint256[] storage statusKtps = s.statusMemberToKtpIds[
+            ktp.statusMemberId
+        ];
+        for (uint256 i = 0; i < statusKtps.length; i++) {
+            if (statusKtps[i] == _ktpId) {
+                existsInStatus = true;
+                break;
+            }
+        }
+        if (!existsInStatus) {
+            statusKtps.push(_ktpId);
+        }
+    }
+
     // ==================== StatusMember CRUD ====================
     function createStatusMember(
         string calldata _namaStatus,
@@ -240,11 +279,13 @@ contract IdentityMemberFacet {
         ktp.gender = _gender;
         ktp.tempatLahir = _tempatLahir;
         ktp.tanggalLahir = _tanggalLahir;
+        ktp.walletAddress = _targetAddress;
         ktp.email = _email;
         ktp.noHp = _noHp;
         ktp.noWa = _noWa;
         ktp.updatedAt = block.timestamp;
         s.ktp[ktp.ktpId] = ktp;
+        s.ktpMember[_targetAddress] = ktp;
 
         emit KtpUpdated(
             ktp.ktpId,
@@ -265,6 +306,7 @@ contract IdentityMemberFacet {
         ktp.updatedAt = block.timestamp;
         s.ktp[ktp.ktpId].deleted = true;
         s.ktp[ktp.ktpId].updatedAt = block.timestamp;
+
         _removeFromArray(s.allKtpIds, ktp.ktpId);
         _removeFromArray(s.statusMemberToKtpIds[ktp.statusMemberId], ktp.ktpId);
 
@@ -321,5 +363,28 @@ contract IdentityMemberFacet {
         AppStorage.Ktp[] memory result = new AppStorage.Ktp[](ids.length);
         for (uint256 i = 0; i < ids.length; i++) result[i] = s.ktp[ids[i]];
         return result;
+    }
+
+    function getJabatanFromKtp(
+        uint256 _offset,
+        uint256 _limit,
+        uint256 _ktpId
+    )
+        external
+        view
+        returns (AppStorage.Jabatan[] memory result, uint256 total)
+    {
+        AppStorage.IdentityStorage storage is_ = AppStorage.identityStorage();
+        AppStorage.OrganisasiStorage storage os = AppStorage.orgStorage();
+        AppStorage.Ktp memory ktp = is_.ktp[_ktpId];
+        require(ktp.ktpId != 0 && !ktp.deleted, "KTP not found");
+
+        uint256[] memory ids = os.walletToJabatanIds[ktp.walletAddress];
+        total = ids.length;
+        if (_offset >= total) return (new AppStorage.Jabatan[](0), total);
+        uint256 len = (total - _offset) < _limit ? (total - _offset) : _limit;
+        result = new AppStorage.Jabatan[](len);
+        for (uint256 i = 0; i < len; i++)
+            result[i] = os.jabatanList[ids[_offset + i]];
     }
 }

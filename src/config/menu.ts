@@ -25,7 +25,7 @@ export const allMenuCategories: MenuCategory[] = [
             { id: 'fasilitas', title: 'Fasilitas', icon: Layers, path: '/master/fasilitas', color: 'from-violet-500 to-purple-600' },
             { id: 'produk', title: 'Produk', icon: Package, path: '/master/produk', color: 'from-violet-500 to-purple-600' },
             { id: 'harga', title: 'Harga', icon: Tag, path: '/master/harga', color: 'from-violet-500 to-purple-600' },
-            { id: 'pegawai', title: 'Pegawai', icon: Users, path: '/master/pegawai', color: 'from-violet-500 to-purple-600' },
+            { id: 'pegawai', title: 'Pegawai', icon: Users, path: '/master/member', color: 'from-violet-500 to-purple-600' },
             { id: 'dombak', title: 'Dombak', icon: ClipboardList, path: '/master/dombak', color: 'from-violet-500 to-purple-600' },
             { id: 'payung', title: 'Payung', icon: Shield, path: '/master/payung', color: 'from-violet-500 to-purple-600' },
             { id: 'dispenser', title: 'Dispenser', icon: Fuel, path: '/master/dispenser', color: 'from-violet-500 to-purple-600' },

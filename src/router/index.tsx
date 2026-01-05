@@ -2,7 +2,6 @@ import AuthMiddleware from '@/middleware/AuthMiddleware'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import Home from '@/pages/dashboard/Home'
-
 import Profil from '@/pages/Profil/Profil'
 import ProfilEdit from '@/pages/Profil/ProfilEdit'
 import Notifikasi from '@/pages/Notifikasi/Notifikasi'
@@ -28,7 +27,6 @@ import ProdukEdit from '@/pages/Master/Produk/ProdukEdit'
 import ProdukShow from '@/pages/Master/Produk/ProdukShow'
 import ProdukCreate from '@/pages/Master/Produk/ProdukCreate'
 import ProdukIndex from '@/pages/Master/Produk/ProdukIndex'
-import HargaEdit from '@/pages/Master/Harga/HargaEdit'
 import HargaShow from '@/pages/Master/Harga/HargaShow'
 import HargaRiwayatShow from '@/pages/Master/Harga/HargaRiwayatShow'
 import HargaRiwayatIndex from '@/pages/Master/Harga/HargaRiwayatIndex'
@@ -52,8 +50,6 @@ import PayungEdit from '@/pages/Master/Payung/PayungEdit'
 import PayungShow from '@/pages/Master/Payung/PayungShow'
 import PayungCreate from '@/pages/Master/Payung/PayungCreate'
 import PayungIndex from '@/pages/Master/Payung/PayungIndex'
-import PayungDombakIndex from '@/pages/Master/Payung/PayungDombakIndex'
-import PayungDombakCreate from '@/pages/Master/Payung/PayungDombakCreate'
 import DispenserEdit from '@/pages/Master/Dispenser/DispenserEdit'
 import DispenserShow from '@/pages/Master/Dispenser/DispenserShow'
 import DispenserCreate from '@/pages/Master/Dispenser/DispenserCreate'
@@ -310,13 +306,13 @@ export default function index() {
                         <Route path="produk/:produkId" element={<ProdukShow />} />
                         <Route path="produk/:produkId/edit" element={<ProdukEdit />} />
 
+                        {/* Harga Riwayat */}
+                        <Route path="harga/riwayat" element={<HargaRiwayatIndex />} />
+                        <Route path="harga/riwayat/:hargaId" element={<HargaRiwayatShow />} />
                         {/* Harga */}
                         <Route path="harga" element={<HargaIndex />} />
                         <Route path="harga/create" element={<HargaCreate />} />
-                        <Route path="harga/riwayat" element={<HargaRiwayatIndex />} />
-                        <Route path="harga/riwayat/:hargaId" element={<HargaRiwayatShow />} />
                         <Route path="harga/:hargaId" element={<HargaShow />} />
-                        <Route path="harga/:hargaId/edit" element={<HargaEdit />} />
 
                         {/* Member */}
                         <Route path="member" element={<MemberIndex />} />
@@ -344,9 +340,6 @@ export default function index() {
                         <Route path="payung/create" element={<PayungCreate />} />
                         <Route path="payung/:payungId" element={<PayungShow />} />
                         <Route path="payung/:payungId/edit" element={<PayungEdit />} />
-                        {/* Payung Dombak Relation */}
-                        <Route path="payung/:payungId/dombak" element={<PayungDombakIndex />} />
-                        <Route path="payung/:payungId/dombak/create" element={<PayungDombakCreate />} />
 
                         {/* Dispenser & Nozzle */}
                         <Route path="dispenser" element={<DispenserIndex />} />

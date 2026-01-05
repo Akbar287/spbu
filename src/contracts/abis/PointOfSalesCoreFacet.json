@@ -59,6 +59,31 @@
         "type": "uint256"
       },
       {
+        "indexed": false,
+        "internalType": "string",
+        "name": "namaDispenser",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DispenserUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
         "indexed": true,
         "internalType": "uint256",
         "name": "produkId",
@@ -161,6 +186,31 @@
       {
         "indexed": false,
         "internalType": "string",
+        "name": "namaNozzle",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "NozzleUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
         "name": "namaPayung",
         "type": "string"
       },
@@ -191,6 +241,31 @@
       }
     ],
     "name": "PayungDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "namaPayung",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PayungUpdated",
     "type": "event"
   },
   {
@@ -247,6 +322,31 @@
         "type": "uint256"
       },
       {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "nozzleId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "StandMeterUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
         "indexed": false,
         "internalType": "string",
         "name": "namaStatus",
@@ -279,6 +379,31 @@
       }
     ],
     "name": "StatusSetoranDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "namaStatus",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "StatusSetoranUpdated",
     "type": "event"
   },
   {
@@ -331,11 +456,6 @@
         "internalType": "uint256",
         "name": "_hargaBeli",
         "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "_isDefault",
-        "type": "bool"
       }
     ],
     "name": "createHarga",
@@ -389,6 +509,11 @@
         "internalType": "string",
         "name": "_namaPayung",
         "type": "string"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_dombakIds",
+        "type": "uint256[]"
       },
       {
         "internalType": "bool",
@@ -552,6 +677,559 @@
     "inputs": [
       {
         "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllDispenser",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "dispenserId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "payungId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaDispenser",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "aktif",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Dispenser[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllHarga",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "hargaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jamKerjaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "hargaJual",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "hargaBeli",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isDefault",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Harga[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllHargaDefaultOff",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "hargaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jamKerjaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "hargaJual",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "hargaBeli",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isDefault",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Harga[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllHargaDefaultOn",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "hargaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jamKerjaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "hargaJual",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "hargaBeli",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isDefault",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Harga[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllNozzle",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "nozzleId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dispenserId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaNozzle",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "aktif",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Nozzle[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllPayung",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "payungId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaPayung",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "aktif",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Payung[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllStandMeter",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "standMeterId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "nozzleId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jamKerjaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dombakId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "standMeterAwal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "standMeterAkhir",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasi",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.StandMeter[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllStatusSetoran",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "statusSetoranId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaStatus",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.StatusSetoran[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
         "name": "_id",
         "type": "uint256"
       }
@@ -599,6 +1277,25 @@
         "internalType": "struct AppStorage.Dispenser",
         "name": "",
         "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_payungId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDombakByPayungId",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
       }
     ],
     "stateMutability": "view",
@@ -912,6 +1609,156 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaDispenser",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_payungId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_aktif",
+        "type": "bool"
+      }
+    ],
+    "name": "updateDispenser",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_dispenserId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_produkId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaNozzle",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "_aktif",
+        "type": "bool"
+      }
+    ],
+    "name": "updateNozzle",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaPayung",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_dombakIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "bool",
+        "name": "_aktif",
+        "type": "bool"
+      }
+    ],
+    "name": "updatePayung",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_nozzleId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_jamKerjaId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_dombakId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tanggal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_standMeterAwal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_standMeterAkhir",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateStandMeter",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaStatus",
+        "type": "string"
+      }
+    ],
+    "name": "updateStatusSetoran",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]

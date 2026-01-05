@@ -691,6 +691,11 @@
             "internalType": "bool",
             "name": "deleted",
             "type": "bool"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "roleHash",
+            "type": "bytes32"
           }
         ],
         "internalType": "struct AppStorage.Jabatan[]",
@@ -1011,6 +1016,11 @@
             "internalType": "bool",
             "name": "deleted",
             "type": "bool"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "roleHash",
+            "type": "bytes32"
           }
         ],
         "internalType": "struct AppStorage.Jabatan",
@@ -1067,6 +1077,11 @@
             "internalType": "bool",
             "name": "deleted",
             "type": "bool"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "roleHash",
+            "type": "bytes32"
           }
         ],
         "internalType": "struct AppStorage.Jabatan[]",
@@ -1123,6 +1138,11 @@
             "internalType": "bool",
             "name": "deleted",
             "type": "bool"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "roleHash",
+            "type": "bytes32"
           }
         ],
         "internalType": "struct AppStorage.Jabatan[]",
@@ -1293,6 +1313,11 @@
                 "internalType": "bool",
                 "name": "deleted",
                 "type": "bool"
+              },
+              {
+                "internalType": "bytes32",
+                "name": "roleHash",
+                "type": "bytes32"
               }
             ],
             "internalType": "struct AppStorage.Jabatan",

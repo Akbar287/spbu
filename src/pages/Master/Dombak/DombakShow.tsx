@@ -1,7 +1,431 @@
-import React from 'react'
+'use client';
+
+import React, { useState, useMemo, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useReadContract, useWriteContract } from 'wagmi';
+import {
+    Container, ArrowLeft, Edit3, Trash2, Hash, FileText,
+    AlertCircle, Loader2, Sparkles, CheckCircle2, Building2, TrendingDown, Clock, CheckCircle, XCircle
+} from 'lucide-react';
+import { DIAMOND_ADDRESS, DIAMOND_ABI } from '@/contracts/config';
+
+// Blockchain Interfaces
+interface BlockchainDombak {
+    dombakId: bigint;
+    spbuId: bigint;
+    namaDombak: string;
+    aktif: boolean;
+    createdAt: bigint;
+    updatedAt: bigint;
+    deleted: boolean;
+}
+
+interface BlockchainSpbu {
+    spbuId: bigint;
+    namaSpbu: string;
+    deleted: boolean;
+}
+
+// Display Interface
+interface DombakData {
+    dombakId: number;
+    spbuId: number;
+    spbuName: string;
+    namaDombak: string;
+    aktif: boolean;
+    createdAt: Date;
+    updatedAt: Date;
+}
 
 export default function DombakShow() {
+    const navigate = useNavigate();
+    const { dombakId } = useParams<{ dombakId: string }>();
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    // Fetch Dombak Data
+    const { data: blockchainDombak, isLoading: isLoadingDombak, error: errorDombak } = useReadContract({
+        address: DIAMOND_ADDRESS as `0x${string}`,
+        abi: DIAMOND_ABI,
+        functionName: 'getDombakById',
+        args: dombakId ? [BigInt(dombakId)] : undefined,
+        query: {
+            enabled: !!dombakId,
+        },
+    });
+
+    const spbuId = blockchainDombak ? (blockchainDombak as BlockchainDombak).spbuId : undefined;
+
+    // Fetch SPBU Data
+    const { data: blockchainSpbu, isLoading: isLoadingSpbu } = useReadContract({
+        address: DIAMOND_ADDRESS as `0x${string}`,
+        abi: DIAMOND_ABI,
+        functionName: 'getSpbuById',
+        args: spbuId ? [spbuId] : undefined,
+        query: {
+            enabled: !!spbuId,
+        },
+    });
+
+    // Write Contract Hook
+    const { writeContract, isPending: isWritePending, isSuccess: isWriteSuccess } = useWriteContract();
+
+    // Handle delete success
+    useEffect(() => {
+        if (isWriteSuccess && isDeleting) {
+            setIsDeleting(false);
+            navigate('/master/dombak');
+        }
+    }, [isWriteSuccess, isDeleting, navigate]);
+
+    // Format Data
+    const dombakData = useMemo((): DombakData | null => {
+        if (!blockchainDombak) return null;
+        const d = blockchainDombak as BlockchainDombak;
+
+        if (d.deleted || Number(d.dombakId) === 0) return null;
+
+        let spbuName = 'Loading...';
+        if (blockchainSpbu) {
+            const spbu = blockchainSpbu as BlockchainSpbu;
+            spbuName = spbu.namaSpbu;
+        }
+
+        return {
+            dombakId: Number(d.dombakId),
+            spbuId: Number(d.spbuId),
+            spbuName: spbuName,
+            namaDombak: d.namaDombak,
+            aktif: d.aktif,
+            createdAt: new Date(Number(d.createdAt) * 1000),
+            updatedAt: new Date(Number(d.updatedAt) * 1000),
+        };
+    }, [blockchainDombak, blockchainSpbu]);
+
+    const isLoading = isLoadingDombak || (!!spbuId && isLoadingSpbu);
+    const notFound = !isLoading && !errorDombak && !dombakData;
+
+    // Format datetime
+    const formatDateTime = (date: Date) => {
+        return date.toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+    };
+
+    const handleDelete = async () => {
+        if (!dombakId) return;
+        setIsDeleting(true);
+        try {
+            writeContract({
+                address: DIAMOND_ADDRESS as `0x${string}`,
+                abi: DIAMOND_ABI,
+                functionName: 'deleteDombak',
+                args: [BigInt(dombakId)],
+            });
+        } catch (error) {
+            console.error('Error deleting:', error);
+            setIsDeleting(false);
+        }
+    };
+
+    // Loading state
+    if (isLoading) {
+        return (
+            <div className="min-h-screen relative overflow-hidden">
+                <div className="absolute inset-0 bg-indigo-100/80 dark:bg-slate-900" />
+                <div className="relative z-10 flex items-center justify-center min-h-screen">
+                    <motion.div
+                        className="flex flex-col items-center gap-4"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                    >
+                        <Loader2 className="w-12 h-12 text-indigo-500 animate-spin" />
+                        <p className="text-slate-600 dark:text-slate-400 font-medium">Memuat detail Dombak...</p>
+                    </motion.div>
+                </div>
+            </div>
+        );
+    }
+
+    // Not found state
+    if (notFound || !dombakData) {
+        return (
+            <div className="min-h-screen relative overflow-hidden">
+                <div className="absolute inset-0 bg-indigo-100/80 dark:bg-slate-900" />
+                <div className="relative z-10 flex items-center justify-center min-h-screen">
+                    <motion.div
+                        className="flex flex-col items-center gap-4 text-center p-8"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                    >
+                        <div className="p-4 bg-red-100 dark:bg-red-900/30 rounded-full">
+                            <AlertCircle className="w-12 h-12 text-red-500" />
+                        </div>
+                        <h2 className="text-2xl font-bold text-slate-800 dark:text-white">Dombak Tidak Ditemukan</h2>
+                        <p className="text-slate-600 dark:text-slate-400">Data Dombak dengan ID {dombakId} tidak ditemukan.</p>
+                        <motion.button
+                            onClick={() => navigate('/master/dombak')}
+                            className="mt-4 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-2xl"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            Kembali ke Daftar
+                        </motion.button>
+                    </motion.div>
+                </div>
+            </div>
+        );
+    }
+
+    const detailItems = [
+        { label: 'ID Dombak', value: dombakData.dombakId.toString(), icon: Hash, color: 'indigo' },
+        { label: 'Nama Dombak', value: dombakData.namaDombak, icon: Container, color: 'purple' },
+        { label: 'SPBU', value: dombakData.spbuName, icon: Building2, color: 'blue' },
+        { label: 'Dibuat', value: formatDateTime(dombakData.createdAt), icon: Clock, color: 'slate' },
+        { label: 'Diperbarui', value: formatDateTime(dombakData.updatedAt), icon: Clock, color: 'gray' },
+    ];
+
+    const colorMap: Record<string, { bg: string; text: string; darkBg: string; darkText: string }> = {
+        indigo: { bg: 'bg-indigo-100', text: 'text-indigo-600', darkBg: 'dark:bg-indigo-900/30', darkText: 'dark:text-indigo-400' },
+        purple: { bg: 'bg-purple-100', text: 'text-purple-600', darkBg: 'dark:bg-purple-900/30', darkText: 'dark:text-purple-400' },
+        blue: { bg: 'bg-blue-100', text: 'text-blue-600', darkBg: 'dark:bg-blue-900/30', darkText: 'dark:text-blue-400' },
+        slate: { bg: 'bg-slate-100', text: 'text-slate-600', darkBg: 'dark:bg-slate-900/30', darkText: 'dark:text-slate-400' },
+        gray: { bg: 'bg-gray-100', text: 'text-gray-600', darkBg: 'dark:bg-gray-900/30', darkText: 'dark:text-gray-400' },
+    };
+
     return (
-        <div>DombakShow</div>
-    )
+        <div className="min-h-screen relative overflow-hidden">
+            {/* Background */}
+            <div className="absolute inset-0 bg-indigo-100/80 dark:bg-slate-900" />
+
+            {/* Animated Background Gradients */}
+            <div className="fixed inset-0 pointer-events-none overflow-hidden">
+                <motion.div
+                    className="absolute -top-1/2 -left-1/2 w-full h-full rounded-full bg-gradient-to-r from-indigo-400/20 to-purple-400/20 dark:from-indigo-600/30 dark:to-purple-600/30 blur-3xl"
+                    animate={{ x: [0, 100, 0], y: [0, 50, 0], scale: [1, 1.2, 1] }}
+                    transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                <motion.div
+                    className="absolute -bottom-1/2 -right-1/2 w-full h-full rounded-full bg-gradient-to-l from-blue-400/15 to-cyan-400/15 dark:from-blue-500/20 dark:to-cyan-500/20 blur-3xl"
+                    animate={{ x: [0, -80, 0], y: [0, -60, 0], scale: [1.2, 1, 1.2] }}
+                    transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+                />
+            </div>
+
+            {/* Content Container */}
+            <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+                {/* Back Button */}
+                <motion.button
+                    onClick={() => navigate('/master/dombak')}
+                    className="mb-6 flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm text-slate-600 dark:text-slate-300 font-medium rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 transition-colors shadow-sm mt-32"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    whileHover={{ x: -5 }}
+                    whileTap={{ scale: 0.95 }}
+                >
+                    <ArrowLeft className="w-4 h-4" />
+                    Kembali
+                </motion.button>
+
+                {/* Header */}
+                <motion.div
+                    className="mb-8"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                >
+                    <div className="flex items-center justify-between flex-wrap gap-4">
+                        <div className="flex items-center gap-4">
+                            <motion.div
+                                className="p-4 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-lg shadow-indigo-500/30"
+                                whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
+                                transition={{ duration: 0.5 }}
+                            >
+                                <Container className="w-8 h-8 text-white" />
+                            </motion.div>
+                            <div>
+                                <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
+                                    Detail Dombak
+                                </h1>
+                                <p className="text-slate-500 dark:text-slate-400 mt-1">
+                                    {dombakData.namaDombak}
+                                </p>
+                            </div>
+                        </div>
+                        {/* Action Buttons */}
+                        <div className="flex items-center gap-2">
+                            <motion.button
+                                onClick={() => navigate(`/master/dombak/${dombakData.dombakId}/edit`)}
+                                className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium rounded-xl shadow-lg shadow-emerald-500/30"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <Edit3 className="w-4 h-4" />
+                                Edit
+                            </motion.button>
+                            <motion.button
+                                onClick={() => setShowDeleteModal(true)}
+                                className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-red-500 to-pink-500 text-white font-medium rounded-xl shadow-lg shadow-red-500/30"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <Trash2 className="w-4 h-4" />
+                                Hapus
+                            </motion.button>
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* Status Badge */}
+                <motion.div
+                    className={`mb-6 p-4 backdrop-blur-sm rounded-2xl border flex items-center gap-3 ${dombakData.aktif
+                        ? 'bg-emerald-50/80 dark:bg-emerald-900/20 border-emerald-200/50 dark:border-emerald-500/30'
+                        : 'bg-red-50/80 dark:bg-red-900/20 border-red-200/50 dark:border-red-500/30'
+                        }`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 }}
+                >
+                    {dombakData.aktif ? (
+                        <>
+                            <CheckCircle className="w-6 h-6 text-emerald-500" />
+                            <div>
+                                <h3 className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">Dombak Aktif</h3>
+                                <p className="text-sm text-emerald-600 dark:text-emerald-400">Dombak ini sedang aktif digunakan</p>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <XCircle className="w-6 h-6 text-red-500" />
+                            <div>
+                                <h3 className="text-sm font-semibold text-red-700 dark:text-red-300">Tidak Aktif</h3>
+                                <p className="text-sm text-red-600 dark:text-red-400">Dombak ini sedang dinonaktifkan</p>
+                            </div>
+                        </>
+                    )}
+                </motion.div>
+
+                {/* Detail Card */}
+                <motion.div
+                    className="relative overflow-hidden rounded-3xl border border-slate-200/50 dark:border-slate-700/50"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                >
+                    {/* Glassmorphism Background */}
+                    <div className="absolute inset-0 bg-white/60 dark:bg-slate-800/40 backdrop-blur-md" />
+
+                    {/* Animated Sparkles */}
+                    {[...Array(5)].map((_, i) => (
+                        <motion.div
+                            key={i}
+                            className="absolute pointer-events-none"
+                            style={{ top: `${15 + (i * 18)}%`, left: `${10 + (i * 20)}%` }}
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: [0, 1, 1, 0], scale: [0, 1, 1, 0], rotate: [0, 180] }}
+                            transition={{ duration: 3, repeat: Infinity, delay: i * 0.8, ease: 'easeInOut' }}
+                        >
+                            <Sparkles className="w-4 h-4 text-indigo-400/60 dark:text-indigo-300/40" />
+                        </motion.div>
+                    ))}
+
+                    {/* Content */}
+                    <div className="relative z-10 p-6 md:p-8 space-y-4">
+                        {detailItems.map((item, index) => {
+                            const colors = colorMap[item.color];
+                            return (
+                                <motion.div
+                                    key={item.label}
+                                    className="flex items-start gap-4 p-4 bg-white/50 dark:bg-slate-700/30 rounded-2xl border border-slate-100 dark:border-slate-700/50"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.3 + index * 0.05 }}
+                                >
+                                    <div className={`p-3 ${colors.bg} ${colors.darkBg} rounded-xl`}>
+                                        <item.icon className={`w-5 h-5 ${colors.text} ${colors.darkText}`} />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide">
+                                            {item.label}
+                                        </p>
+                                        <p className="mt-1 text-lg font-semibold text-slate-700 dark:text-slate-200 break-words">
+                                            {item.value}
+                                        </p>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
+                    </div>
+                </motion.div>
+            </div>
+
+            {/* Delete Confirmation Modal */}
+            <AnimatePresence>
+                {showDeleteModal && (
+                    <motion.div
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setShowDeleteModal(false)}
+                    >
+                        <motion.div
+                            className="relative w-full max-w-md bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden"
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className="p-6 text-center">
+                                <div className="mx-auto w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mb-4">
+                                    <Trash2 className="w-8 h-8 text-red-500" />
+                                </div>
+                                <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-2">
+                                    Hapus Dombak?
+                                </h3>
+                                <p className="text-slate-600 dark:text-slate-400 mb-6">
+                                    Apakah Anda yakin ingin menghapus <strong>{dombakData.namaDombak}</strong>? Tindakan ini tidak dapat dibatalkan.
+                                </p>
+                                <div className="flex gap-3">
+                                    <motion.button
+                                        onClick={() => setShowDeleteModal(false)}
+                                        disabled={isDeleting}
+                                        className="flex-1 px-4 py-3 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-semibold rounded-2xl"
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                    >
+                                        Batal
+                                    </motion.button>
+                                    <motion.button
+                                        onClick={handleDelete}
+                                        disabled={isDeleting}
+                                        className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-red-500 to-pink-500 text-white font-semibold rounded-2xl disabled:opacity-70"
+                                        whileHover={{ scale: isDeleting ? 1 : 1.02 }}
+                                        whileTap={{ scale: isDeleting ? 1 : 0.98 }}
+                                    >
+                                        {isDeleting ? (
+                                            <>
+                                                <Loader2 className="w-4 h-4 animate-spin" />
+                                                Menghapus...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Trash2 className="w-4 h-4" />
+                                                Hapus
+                                            </>
+                                        )}
+                                    </motion.button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
 }

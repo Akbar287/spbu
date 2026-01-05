@@ -1,7 +1,9 @@
 /**
- * Upgrade AttendanceConfigFacet Only
- * This script deploys only AttendanceConfigFacet and updates the Diamond
- * Run: node scripts/upgrade-attendance-config.cjs
+ * Generic Upgrade Facet Script
+ * This script deploys any facet and updates the Diamond
+ * 
+ * Usage: node scripts/upgrade-facet.cjs --nama=FacetName
+ * Example: node scripts/upgrade-facet.cjs --nama=PointOfSalesCoreFacet
  */
 
 require('dotenv').config();
@@ -9,6 +11,40 @@ const fs = require('fs');
 const path = require('path');
 const { createPublicClient, createWalletClient, http, keccak256, toBytes } = require('viem');
 const { privateKeyToAccount } = require('viem/accounts');
+
+// Parse command line arguments
+function parseArgs() {
+    const args = process.argv.slice(2);
+    const result = {};
+
+    for (const arg of args) {
+        if (arg.startsWith('--')) {
+            const [key, value] = arg.slice(2).split('=');
+            result[key] = value;
+        }
+    }
+
+    return result;
+}
+
+const args = parseArgs();
+const FACET_NAME = args.nama;
+
+if (!FACET_NAME) {
+    console.error('❌ Error: --nama parameter is required');
+    console.error('Usage: node scripts/upgrade-facet.cjs --nama=FacetName');
+    console.error('Example: node scripts/upgrade-facet.cjs --nama=PointOfSalesCoreFacet');
+    process.exit(1);
+}
+
+// Convert FacetName to SCREAMING_SNAKE_CASE for deployment key
+function toScreamingSnakeCase(str) {
+    return str
+        .replace(/Facet$/, '')
+        .replace(/([A-Z])/g, '_$1')
+        .toUpperCase()
+        .replace(/^_/, '') + '_FACET';
+}
 
 // Configuration
 const deploymentPath = path.join(__dirname, '../deployments/ganache.json');
@@ -50,7 +86,7 @@ const DIAMOND_ABI = [
     },
 ];
 
-// Load artifact
+// Load artifact from contracts/domains
 function loadArtifact(contractName) {
     const artifactPath = path.join(
         __dirname,
@@ -59,7 +95,7 @@ function loadArtifact(contractName) {
         `${contractName}.json`
     );
     if (!fs.existsSync(artifactPath)) {
-        throw new Error(`Artifact not found: ${artifactPath}`);
+        throw new Error(`Artifact not found: ${artifactPath}\nMake sure the facet exists in contracts/domains/ and run 'npx hardhat compile' first.`);
     }
     return require(artifactPath);
 }
@@ -94,14 +130,18 @@ async function deployContract(contractName, artifact) {
 
 async function main() {
     console.log("\n========================================");
-    console.log("  UPGRADING AttendanceConfigFacet ONLY");
+    console.log(`  UPGRADING ${FACET_NAME}`);
     console.log("========================================\n");
     console.log("Deployer:", account.address);
     console.log("Diamond Address:", DIAMOND_ADDRESS);
 
-    // Deploy AttendanceConfigFacet
-    const artifact = loadArtifact('AttendanceConfigFacet');
-    const facetAddress = await deployContract('AttendanceConfigFacet', artifact);
+    // Load artifact
+    console.log(`\n📂 Loading ${FACET_NAME} artifact...`);
+    const artifact = loadArtifact(FACET_NAME);
+    console.log(`✅ Artifact loaded successfully`);
+
+    // Deploy Facet
+    const facetAddress = await deployContract(FACET_NAME, artifact);
 
     // Get selectors
     console.log("\n📝 Extracting function selectors...");
@@ -109,7 +149,7 @@ async function main() {
     console.log(`Total selectors: ${selectors.length}`);
 
     // Update Diamond
-    console.log("\n🔄 Updating Diamond with new AttendanceConfigFacet...");
+    console.log(`\n🔄 Updating Diamond with new ${FACET_NAME}...`);
     const hash = await walletClient.writeContract({
         address: DIAMOND_ADDRESS,
         abi: DIAMOND_ABI,
@@ -121,20 +161,24 @@ async function main() {
 
     // Update deployment file
     console.log("\n📄 Updating deployment file...");
-    deploymentData.contracts.ATTENDANCECONFIG_FACET = facetAddress;
+    const deploymentKey = toScreamingSnakeCase(FACET_NAME);
+    deploymentData.contracts[deploymentKey] = facetAddress;
     fs.writeFileSync(deploymentPath, JSON.stringify(deploymentData, null, 2));
-    console.log("✅ deployments/ganache.json updated");
+    console.log(`✅ deployments/ganache.json updated (${deploymentKey})`);
 
     // Update ABI files
     console.log("\n📄 Updating ABI files...");
     const abiDir = path.join(__dirname, '../src/contracts/abis');
 
-    // Save AttendanceConfigFacet ABI
-    fs.writeFileSync(
-        path.join(abiDir, 'AttendanceConfigFacet.json'),
-        JSON.stringify(artifact.abi, null, 2)
-    );
-    console.log("✅ AttendanceConfigFacet.json updated");
+    // Ensure ABI directory exists
+    if (!fs.existsSync(abiDir)) {
+        fs.mkdirSync(abiDir, { recursive: true });
+    }
+
+    // Save facet ABI
+    const facetAbiPath = path.join(abiDir, `${FACET_NAME}.json`);
+    fs.writeFileSync(facetAbiPath, JSON.stringify(artifact.abi, null, 2));
+    console.log(`✅ ${FACET_NAME}.json updated`);
 
     // Update DiamondCombined.json
     const combinedPath = path.join(abiDir, 'DiamondCombined.json');
@@ -167,14 +211,18 @@ async function main() {
     console.log("\n========================================");
     console.log("  UPGRADE COMPLETE!");
     console.log("========================================");
-    console.log(`\nAttendanceConfigFacet: ${facetAddress}`);
+    console.log(`\n${FACET_NAME}: ${facetAddress}`);
     console.log(`Diamond: ${DIAMOND_ADDRESS}`);
+    console.log("\nABI Files Updated:");
+    console.log(`  - src/contracts/abis/${FACET_NAME}.json`);
+    console.log(`  - src/contracts/abis/DiamondCombined.json`);
     console.log("\n");
 }
 
 main()
     .then(() => process.exit(0))
     .catch((error) => {
-        console.error(error);
+        console.error("\n❌ Upgrade failed:");
+        console.error(error.message || error);
         process.exit(1);
     });

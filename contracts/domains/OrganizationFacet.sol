@@ -130,6 +130,36 @@ contract OrganizationFacet {
         }
     }
 
+    /**
+     * @notice Generate role hash from jabatan name
+     * @dev Converts name to uppercase, replaces spaces with underscore, appends _ROLE suffix
+     * @param _namaJabatan The jabatan name to convert
+     * @return bytes32 The keccak256 hash of the role name
+     */
+    function _generateRoleHash(
+        string memory _namaJabatan
+    ) internal pure returns (bytes32) {
+        bytes memory nameBytes = bytes(_namaJabatan);
+        bytes memory result = new bytes(nameBytes.length);
+
+        for (uint256 i = 0; i < nameBytes.length; i++) {
+            bytes1 char = nameBytes[i];
+            // Convert lowercase to uppercase (a-z: 97-122 -> A-Z: 65-90)
+            if (char >= 0x61 && char <= 0x7A) {
+                result[i] = bytes1(uint8(char) - 32);
+            }
+            // Replace space with underscore
+            else if (char == 0x20) {
+                result[i] = bytes1(0x5F); // underscore
+            } else {
+                result[i] = char;
+            }
+        }
+
+        // Append "_ROLE" suffix and hash
+        return keccak256(abi.encodePacked(string(result), "_ROLE"));
+    }
+
     // ==================== SPBU CRUD (Admin Only) ====================
 
     function createSpbu(
@@ -542,6 +572,9 @@ contract OrganizationFacet {
         s.jabatanCounter++;
         uint256 newId = s.jabatanCounter;
 
+        // Generate role hash from jabatan name
+        bytes32 roleHash = _generateRoleHash(_namaJabatan);
+
         s.jabatanList[newId] = AppStorage.Jabatan({
             jabatanId: newId,
             levelId: _levelId,
@@ -549,7 +582,8 @@ contract OrganizationFacet {
             keterangan: _keterangan,
             createdAt: block.timestamp,
             updatedAt: block.timestamp,
-            deleted: false
+            deleted: false,
+            roleHash: roleHash
         });
 
         // Add to global ID array
@@ -591,6 +625,9 @@ contract OrganizationFacet {
         data.namaJabatan = _namaJabatan;
         data.keterangan = _keterangan;
         data.updatedAt = block.timestamp;
+
+        // Regenerate roleHash if name changed
+        data.roleHash = _generateRoleHash(_namaJabatan);
 
         emit JabatanUpdated(
             _jabatanId,
