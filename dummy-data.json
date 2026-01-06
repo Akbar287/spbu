@@ -1,5 +1,29 @@
 [
     {
+        "SatuanUkurTinggi": [
+            {
+                "namaSatuan": "Centimeter",
+                "singkatan": "cm",
+                "keterangan": "Satuan ukuran tinggi"
+            },
+            {
+                "namaSatuan": "Meter",
+                "singkatan": "m",
+                "keterangan": "Satuan ukuran tinggi"
+            }
+        ],
+        "SatuanUkurVolume": [
+            {
+                "namaSatuan": "Liter",
+                "singkatan": "L",
+                "keterangan": "Satuan ukuran tinggi"
+            },
+            {
+                "namaSatuan": "Kiloliter",
+                "singkatan": "KL",
+                "keterangan": "Satuan ukuran tinggi"
+            }
+        ],
         "StatusMember": [
             {
                 "namaStatus": "Aktif",

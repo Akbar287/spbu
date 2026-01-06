@@ -25,6 +25,8 @@ const IdentityMemberABI = require('../src/contracts/abis/IdentityMemberFacet.jso
 const IdentityNotifABI = require('../src/contracts/abis/IdentityNotifFacet.json');
 const OrganizationABI = require('../src/contracts/abis/OrganizationFacet.json');
 const InventoryCoreFacetABI = require('../src/contracts/abis/InventoryCoreFacet.json');
+const InventoryDocsFacetABI = require('../src/contracts/abis/InventoryDocsFacet.json');
+const PointOfSalesCoreFacetABI = require('../src/contracts/abis/PointOfSalesCoreFacet.json');
 const AssetCoreFacetABI = require('../src/contracts/abis/AssetCoreFacet.json');
 const AttendanceConfigFacetABI = require('../src/contracts/abis/AttendanceConfigFacet.json');
 
@@ -34,6 +36,8 @@ const COMBINED_ABI = [
     ...IdentityNotifABI,
     ...OrganizationABI,
     ...InventoryCoreFacetABI,
+    ...InventoryDocsFacetABI,
+    ...PointOfSalesCoreFacetABI,
     ...AssetCoreFacetABI,
     ...AttendanceConfigFacetABI,
 ];
@@ -349,6 +353,130 @@ async function main() {
                 'SPBU ID': Number(r.spbuId),
                 Nama: r.namaDombak,
                 Kapasitas: Number(r.kapasitas),
+                'Created': formatDate(r.createdAt),
+            }));
+
+            console.table(data);
+            console.log(`Total: ${data.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // Konversi
+        console.log('\n📋 TABLE: Konversi');
+        console.log('-'.repeat(80));
+        try {
+            const result = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'getAllKonversi',
+                args: [0n, 100n, 0n, 0n, 0n],
+            });
+
+            const data = (result || []).filter(r => !r.deleted).map(r => ({
+                ID: Number(r.konversiId),
+                'Dombak ID': Number(r.dombakId),
+                'Tinggi (cm)': Number(r.tinggi) / 100,
+                'Volume (L)': Number(r.volume) / 100,
+                'Created': formatDate(r.createdAt),
+            }));
+
+            console.table(data);
+            console.log(`Total: ${data.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // Payung
+        console.log('\n📋 TABLE: Payung');
+        console.log('-'.repeat(80));
+        try {
+            const result = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'getAllPayung',
+                args: [0n, 100n],
+            });
+
+            const data = (result || []).filter(r => !r.deleted).map(r => ({
+                ID: Number(r.payungId),
+                Nama: r.namaPayung,
+                'Created': formatDate(r.createdAt),
+            }));
+
+            console.table(data);
+            console.log(`Total: ${data.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // Dispenser
+        console.log('\n📋 TABLE: Dispenser');
+        console.log('-'.repeat(80));
+        try {
+            const result = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'getAllDispenser',
+                args: [0n, 100n],
+            });
+
+            const data = (result || []).filter(r => !r.deleted).map(r => ({
+                ID: Number(r.dispenserId),
+                'Payung ID': Number(r.payungId),
+                Nama: r.namaDispenser,
+                'Status': r.aktif ? '✅' : '❌',
+                'Created': formatDate(r.createdAt),
+            }));
+
+            console.table(data);
+            console.log(`Total: ${data.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // Nozzle
+        console.log('\n📋 TABLE: Nozzle');
+        console.log('-'.repeat(80));
+        try {
+            const result = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'getAllNozzle',
+                args: [0n, 100n],
+            });
+
+            const data = (result || []).filter(r => !r.deleted).map(r => ({
+                ID: Number(r.nozzleId),
+                'Dispenser ID': Number(r.dispenserId),
+                'Produk ID': Number(r.produkId),
+                Nama: r.namaNozzle,
+                'Status': r.aktif ? '✅' : '❌',
+                'Created': formatDate(r.createdAt),
+            }));
+
+            console.table(data);
+            console.log(`Total: ${data.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // StandMeter
+        console.log('\n📋 TABLE: StandMeter');
+        console.log('-'.repeat(80));
+        try {
+            const result = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'getAllStandMeter',
+                args: [0n, 100n],
+            });
+
+            const data = (result || []).filter(r => !r.deleted).map(r => ({
+                ID: Number(r.standMeterId),
+                'Nozzle ID': Number(r.nozzleId),
+                'Meter Awal': Number(r.meterAwal) / 100,
+                'Meter Akhir': Number(r.meterAkhir) / 100,
                 'Created': formatDate(r.createdAt),
             }));
 

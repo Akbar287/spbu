@@ -286,6 +286,63 @@ contract InventoryDocsFacet {
         return newId;
     }
 
+    function updateKonversi(
+        uint256 _id,
+        uint256 _dombakId,
+        uint256 _satuanUkurTinggiId,
+        uint256 _satuanUkurVolumeId,
+        uint256 _tinggi,
+        uint256 _volume
+    ) external {
+        _onlyAdmin();
+        AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
+        AppStorage.Konversi storage data = s.konversiList[_id];
+        require(data.konversiId != 0, "Not found");
+
+        if (_dombakId != data.dombakId) {
+            require(s.dombakList[_dombakId].dombakId != 0, "Dombak not found");
+            _removeFromArray(s.dombakToKonversiIds[data.dombakId], _id);
+            s.dombakToKonversiIds[_dombakId].push(_id);
+        }
+
+        if (_satuanUkurTinggiId != data.satuanUkurTinggiId) {
+            require(
+                s
+                    .satuanUkurTinggiList[_satuanUkurTinggiId]
+                    .satuanUkurTinggiId != 0,
+                "S. Tinggi not found"
+            );
+            _removeFromArray(
+                s.satuanUkurTinggiToKonversiIds[data.satuanUkurTinggiId],
+                _id
+            );
+            s.satuanUkurTinggiToKonversiIds[_satuanUkurTinggiId].push(_id);
+        }
+
+        if (_satuanUkurVolumeId != data.satuanUkurVolumeId) {
+            require(
+                s
+                    .satuanUkurVolumeList[_satuanUkurVolumeId]
+                    .satuanUkurVolumeId != 0,
+                "S. Volume not found"
+            );
+            _removeFromArray(
+                s.satuanUkurVolumeToKonversiIds[data.satuanUkurVolumeId],
+                _id
+            );
+            s.satuanUkurVolumeToKonversiIds[_satuanUkurVolumeId].push(_id);
+        }
+
+        data.dombakId = _dombakId;
+        data.satuanUkurTinggiId = _satuanUkurTinggiId;
+        data.satuanUkurVolumeId = _satuanUkurVolumeId;
+        data.tinggi = _tinggi;
+        data.volume = _volume;
+        data.updatedAt = block.timestamp;
+
+        emit KonversiUpdated(_id, block.timestamp);
+    }
+
     function deleteKonversi(uint256 _id) external {
         _onlyAdmin();
         AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
@@ -296,6 +353,14 @@ contract InventoryDocsFacet {
         data.updatedAt = block.timestamp;
         _removeFromArray(s.konversiIds, _id);
         _removeFromArray(s.dombakToKonversiIds[data.dombakId], _id);
+        _removeFromArray(
+            s.satuanUkurTinggiToKonversiIds[data.satuanUkurTinggiId],
+            _id
+        );
+        _removeFromArray(
+            s.satuanUkurVolumeToKonversiIds[data.satuanUkurVolumeId],
+            _id
+        );
 
         emit KonversiDeleted(_id, block.timestamp);
     }
@@ -304,6 +369,67 @@ contract InventoryDocsFacet {
         uint256 _id
     ) external view returns (AppStorage.Konversi memory) {
         return AppStorage.inventoryStorage().konversiList[_id];
+    }
+
+    function getAllKonversi(
+        uint256 offset,
+        uint256 limit,
+        uint256 dombakId,
+        uint256 tinggi,
+        uint256 volume
+    ) external view returns (AppStorage.Konversi[] memory) {
+        AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
+        uint256[] storage sourceIds;
+
+        // 1. Determine base list (Optimization)
+        // Only dombakId has an index mapping we can utilize
+        if (dombakId != 0) {
+            sourceIds = s.dombakToKonversiIds[dombakId];
+        } else {
+            sourceIds = s.konversiIds;
+        }
+
+        uint256 totalSource = sourceIds.length;
+        AppStorage.Konversi[] memory tempResult = new AppStorage.Konversi[](
+            limit
+        );
+        uint256 count = 0;
+        uint256 skipped = 0;
+
+        for (uint256 i = 0; i < totalSource; i++) {
+            // Optimization: if we already have enough items, break
+            if (count == limit) break;
+
+            uint256 id = sourceIds[i];
+            AppStorage.Konversi storage data = s.konversiList[id];
+
+            if (data.deleted) continue;
+
+            // Filter by Tinggi
+            if (tinggi != 0 && data.tinggi != tinggi) continue;
+
+            // Filter by Volume
+            if (volume != 0 && data.volume != volume) continue;
+
+            // Pagination: Skip
+            if (skipped < offset) {
+                skipped++;
+                continue;
+            }
+
+            // Pagination: Take
+            tempResult[count] = data;
+            count++;
+        }
+
+        // Resize array if result < limit
+        if (count < limit) {
+            assembly {
+                mstore(tempResult, count)
+            }
+            return tempResult;
+        }
+        return tempResult;
     }
 
     // ==================== SatuanUkurTinggi CRUD ====================
@@ -325,14 +451,34 @@ contract InventoryDocsFacet {
             deleted: false
         });
 
+        s.satuanUkurTinggiIds.push(newId);
+
         emit SatuanUkurTinggiCreated(newId, _namaSatuan, block.timestamp);
         return newId;
+    }
+
+    function updateSatuanUkurTinggi(
+        uint256 _id,
+        string calldata _namaSatuan,
+        string calldata _singkatan
+    ) external {
+        _onlyAdmin();
+        AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
+        AppStorage.SatuanUkurTinggi storage data = s.satuanUkurTinggiList[_id];
+        require(data.satuanUkurTinggiId != 0, "Not found");
+
+        data.namaSatuan = _namaSatuan;
+        data.singkatan = _singkatan;
+        data.updatedAt = block.timestamp;
+
+        emit SatuanUkurTinggiUpdated(_id, _namaSatuan, block.timestamp);
     }
 
     function deleteSatuanUkurTinggi(uint256 _id) external {
         _onlyAdmin();
         AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
         s.satuanUkurTinggiList[_id].deleted = true;
+        _removeFromArray(s.satuanUkurTinggiIds, _id);
         emit SatuanUkurTinggiDeleted(_id, block.timestamp);
     }
 
@@ -340,6 +486,31 @@ contract InventoryDocsFacet {
         uint256 _id
     ) external view returns (AppStorage.SatuanUkurTinggi memory) {
         return AppStorage.inventoryStorage().satuanUkurTinggiList[_id];
+    }
+
+    function getCountSatuanUkurTinggi() external view returns (uint256) {
+        return AppStorage.inventoryStorage().satuanUkurTinggiIds.length;
+    }
+
+    function getCountSatuanUkurVolume() external view returns (uint256) {
+        return AppStorage.inventoryStorage().satuanUkurVolumeIds.length;
+    }
+
+    function getAllSatuanUkurTinggi(
+        uint256 offset,
+        uint256 limit
+    ) external view returns (AppStorage.SatuanUkurTinggi[] memory) {
+        AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
+        uint256[] memory allIds = s.satuanUkurTinggiIds;
+        uint256 total = allIds.length;
+        if (offset >= total) return new AppStorage.SatuanUkurTinggi[](0);
+        uint256 len = (total - offset) < limit ? (total - offset) : limit;
+        AppStorage.SatuanUkurTinggi[]
+            memory result = new AppStorage.SatuanUkurTinggi[](len);
+        for (uint256 i = 0; i < len; i++) {
+            result[i] = s.satuanUkurTinggiList[allIds[offset + i]];
+        }
+        return result;
     }
 
     // ==================== SatuanUkurVolume CRUD ====================
@@ -361,13 +532,33 @@ contract InventoryDocsFacet {
             deleted: false
         });
 
+        s.satuanUkurVolumeIds.push(newId);
+
         emit SatuanUkurVolumeCreated(newId, _namaSatuan, block.timestamp);
         return newId;
+    }
+
+    function updateSatuanUkurVolume(
+        uint256 _id,
+        string calldata _namaSatuan,
+        string calldata _singkatan
+    ) external {
+        _onlyAdmin();
+        AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
+        AppStorage.SatuanUkurVolume storage data = s.satuanUkurVolumeList[_id];
+        require(data.satuanUkurVolumeId != 0, "Not found");
+
+        data.namaSatuan = _namaSatuan;
+        data.singkatan = _singkatan;
+        data.updatedAt = block.timestamp;
+
+        emit SatuanUkurVolumeUpdated(_id, _namaSatuan, block.timestamp);
     }
 
     function deleteSatuanUkurVolume(uint256 _id) external {
         _onlyAdmin();
         AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
+        _removeFromArray(s.satuanUkurVolumeIds, _id);
         s.satuanUkurVolumeList[_id].deleted = true;
         emit SatuanUkurVolumeDeleted(_id, block.timestamp);
     }
@@ -376,6 +567,23 @@ contract InventoryDocsFacet {
         uint256 _id
     ) external view returns (AppStorage.SatuanUkurVolume memory) {
         return AppStorage.inventoryStorage().satuanUkurVolumeList[_id];
+    }
+
+    function getAllSatuanUkurVolume(
+        uint256 offset,
+        uint256 limit
+    ) external view returns (AppStorage.SatuanUkurVolume[] memory) {
+        AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
+        uint256[] memory allIds = s.satuanUkurVolumeIds;
+        uint256 total = allIds.length;
+        if (offset >= total) return new AppStorage.SatuanUkurVolume[](0);
+        uint256 len = (total - offset) < limit ? (total - offset) : limit;
+        AppStorage.SatuanUkurVolume[]
+            memory result = new AppStorage.SatuanUkurVolume[](len);
+        for (uint256 i = 0; i < len; i++) {
+            result[i] = s.satuanUkurVolumeList[allIds[offset + i]];
+        }
+        return result;
     }
 
     // ==================== Pagination ====================

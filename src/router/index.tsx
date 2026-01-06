@@ -259,6 +259,14 @@ import FilePostCreate from '@/pages/Artikel/Post/FilePost/FilePostCreate'
 import FilePostIndex from '@/pages/Artikel/Post/FilePost/FilePostIndex'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import SatuanUkurTinggiIndex from '@/pages/Konfigurasi/SatuanUkurTinggi/SatuanUkurTinggiIndex'
+import SatuanUkurTinggiCreate from '@/pages/Konfigurasi/SatuanUkurTinggi/SatuanUkurTinggiCreate'
+import SatuanUkurTinggiEdit from '@/pages/Konfigurasi/SatuanUkurTinggi/SatuanUkurTinggiEdit'
+import SatuanUkurTinggiShow from '@/pages/Konfigurasi/SatuanUkurTinggi/SatuanUkurTinggiShow'
+import SatuanUkurVolumeEdit from '@/pages/Konfigurasi/SatuanUkurVolume/SatuanUkurVolumeEdit'
+import SatuanUkurVolumeShow from '@/pages/Konfigurasi/SatuanUkurVolume/SatuanUkurVolumeShow'
+import SatuanUkurVolumeCreate from '@/pages/Konfigurasi/SatuanUkurVolume/SatuanUkurVolumeCreate'
+import SatuanUkurVolumeIndex from '@/pages/Konfigurasi/SatuanUkurVolume/SatuanUkurVolumeIndex'
 
 
 export default function index() {
@@ -648,6 +656,16 @@ export default function index() {
                         <Route path="jam-kerja/create" element={<JamKerjaCreate />} />
                         <Route path="jam-kerja/:jamKerjaId" element={<JamKerjaShow />} />
                         <Route path="jam-kerja/:jamKerjaId/edit" element={<JamKerjaEdit />} />
+
+                        <Route path="satuan-ukur-tinggi" element={<SatuanUkurTinggiIndex />} />
+                        <Route path="satuan-ukur-tinggi/create" element={<SatuanUkurTinggiCreate />} />
+                        <Route path="satuan-ukur-tinggi/:id" element={<SatuanUkurTinggiShow />} />
+                        <Route path="satuan-ukur-tinggi/:id/edit" element={<SatuanUkurTinggiEdit />} />
+
+                        <Route path="satuan-ukur-volume" element={<SatuanUkurVolumeIndex />} />
+                        <Route path="satuan-ukur-volume/create" element={<SatuanUkurVolumeCreate />} />
+                        <Route path="satuan-ukur-volume/:id" element={<SatuanUkurVolumeShow />} />
+                        <Route path="satuan-ukur-volume/:id/edit" element={<SatuanUkurVolumeEdit />} />
 
                         {/* <Route path="import" element={<ImportIndex />} /> */}
                     </Route>

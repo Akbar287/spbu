@@ -474,14 +474,15 @@ contract PointOfSalesCoreFacet {
         AppStorage.Dispenser storage data = s.dispenserList[_id];
         require(data.dispenserId != 0 && !data.deleted, "Not found");
 
-        data.namaDispenser = _namaDispenser;
-        data.aktif = _aktif;
-        data.updatedAt = block.timestamp;
-
         if (_payungId != data.payungId) {
             _removeFromArray(s.payungToDispenserList[data.payungId], _id);
             s.payungToDispenserList[_payungId].push(_id);
         }
+        data.payungId = _payungId;
+        data.namaDispenser = _namaDispenser;
+        data.aktif = _aktif;
+        data.updatedAt = block.timestamp;
+
         emit DispenserUpdated(_id, _namaDispenser, block.timestamp);
     }
 
@@ -563,12 +564,14 @@ contract PointOfSalesCoreFacet {
     ) external {
         _onlyAdmin();
         AppStorage.PointOfSalesStorage storage s = AppStorage.posStorage();
+        AppStorage.InventoryStorage storage inv = AppStorage.inventoryStorage();
         AppStorage.Nozzle storage data = s.nozzleList[_id];
         require(data.nozzleId != 0 && !data.deleted, "Not found");
-
-        data.namaNozzle = _namaNozzle;
-        data.aktif = _aktif;
-        data.updatedAt = block.timestamp;
+        require(
+            s.dispenserList[_dispenserId].dispenserId != 0,
+            "Dispenser not found"
+        );
+        require(inv.produkList[_produkId].produkId != 0, "Produk not found");
 
         if (_dispenserId != data.dispenserId) {
             _removeFromArray(s.dispenserToNozzleList[data.dispenserId], _id);
@@ -578,6 +581,12 @@ contract PointOfSalesCoreFacet {
             _removeFromArray(s.produkToNozzleList[data.produkId], _id);
             s.produkToNozzleList[_produkId].push(_id);
         }
+        data.dispenserId = _dispenserId;
+        data.produkId = _produkId;
+        data.namaNozzle = _namaNozzle;
+        data.aktif = _aktif;
+        data.updatedAt = block.timestamp;
+
         emit NozzleUpdated(_id, _namaNozzle, block.timestamp);
     }
 

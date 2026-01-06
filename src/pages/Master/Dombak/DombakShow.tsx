@@ -260,6 +260,15 @@ export default function DombakShow() {
                         {/* Action Buttons */}
                         <div className="flex items-center gap-2">
                             <motion.button
+                                onClick={() => navigate(`/master/dombak/${dombakData.dombakId}/konversi`)}
+                                className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-medium rounded-xl shadow-lg shadow-yellow-500/30"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <FileText className="w-4 h-4" />
+                                Konversi
+                            </motion.button>
+                            <motion.button
                                 onClick={() => navigate(`/master/dombak/${dombakData.dombakId}/edit`)}
                                 className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium rounded-xl shadow-lg shadow-emerald-500/30"
                                 whileHover={{ scale: 1.05 }}

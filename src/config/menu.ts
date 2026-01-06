@@ -149,6 +149,8 @@ export const allMenuCategories: MenuCategory[] = [
             { id: 'pajak', title: 'Pajak', icon: Receipt, path: '/konfigurasi/pajak', color: 'from-slate-500 to-gray-600' },
             { id: 'hari', title: 'Hari', icon: Calendar, path: '/konfigurasi/hari', color: 'from-slate-500 to-gray-600' },
             { id: 'jam-kerja', title: 'Jam Kerja', icon: Clock, path: '/konfigurasi/jam-kerja', color: 'from-slate-500 to-gray-600' },
+            { id: 'satuan-ukur-volume', title: 'Satuan Ukur Volume', icon: Clock, path: '/konfigurasi/satuan-ukur-volume', color: 'from-slate-500 to-gray-600' },
+            { id: 'satuan-ukur-tinggi', title: 'Satuan Ukur Tinggi', icon: Clock, path: '/konfigurasi/satuan-ukur-tinggi', color: 'from-slate-500 to-gray-600' },
         ],
     },
 ];

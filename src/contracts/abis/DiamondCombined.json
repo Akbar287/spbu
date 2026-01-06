@@ -5046,1019 +5046,6 @@
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "dokumenStokId",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "confirmedBy",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "confirmedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "DokumenStokConfirmed",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "dokumenStokId",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "wallet",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "DokumenStokCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "dokumenStokId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "DokumenStokDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "dokumenStokId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "FileDokumenStokCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "FileDokumenStokDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "konversiId",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "dombakId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "KonversiCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "konversiId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "KonversiDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "konversiId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "updatedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "KonversiUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "namaSatuan",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "SatuanUkurTinggiCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "SatuanUkurTinggiDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "namaSatuan",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "updatedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "SatuanUkurTinggiUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "namaSatuan",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "SatuanUkurVolumeCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "SatuanUkurVolumeDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "namaSatuan",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "updatedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "SatuanUkurVolumeUpdated",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_dokumenStokId",
-        "type": "uint256"
-      }
-    ],
-    "name": "confirmDokumenStok",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_stokInventoryId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_typeDokumenStokId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_jamKerjaId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_dombakId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_tanggal",
-        "type": "uint256"
-      },
-      {
-        "internalType": "int256",
-        "name": "_stokAwal",
-        "type": "int256"
-      },
-      {
-        "internalType": "int256",
-        "name": "_stokAkhir",
-        "type": "int256"
-      }
-    ],
-    "name": "createDokumenStok",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_dokumenStokId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_ipfsHash",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_namaFile",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_namaDokumen",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_mimeType",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_fileSize",
-        "type": "uint256"
-      }
-    ],
-    "name": "createFileDokumenStok",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_dombakId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_satuanUkurTinggiId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_satuanUkurVolumeId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_tinggi",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_volume",
-        "type": "uint256"
-      }
-    ],
-    "name": "createKonversi",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "_namaSatuan",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_singkatan",
-        "type": "string"
-      }
-    ],
-    "name": "createSatuanUkurTinggi",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "_namaSatuan",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_singkatan",
-        "type": "string"
-      }
-    ],
-    "name": "createSatuanUkurVolume",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteDokumenStok",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteFileDokumenStok",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteKonversi",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteSatuanUkurTinggi",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteSatuanUkurVolume",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_offset",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_limit",
-        "type": "uint256"
-      }
-    ],
-    "name": "getAllDokumenStok",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "dokumenStokId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "stokInventoryId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "typeDokumenStokId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "jamKerjaId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "dombakId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "wallet",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "tanggal",
-            "type": "uint256"
-          },
-          {
-            "internalType": "int256",
-            "name": "stokAwal",
-            "type": "int256"
-          },
-          {
-            "internalType": "int256",
-            "name": "stokAkhir",
-            "type": "int256"
-          },
-          {
-            "internalType": "bool",
-            "name": "confirmation",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "confirmedBy",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "confirmedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.DokumenStok[]",
-        "name": "result",
-        "type": "tuple[]"
-      },
-      {
-        "internalType": "uint256",
-        "name": "total",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getDokumenStokById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "dokumenStokId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "stokInventoryId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "typeDokumenStokId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "jamKerjaId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "dombakId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "wallet",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "tanggal",
-            "type": "uint256"
-          },
-          {
-            "internalType": "int256",
-            "name": "stokAwal",
-            "type": "int256"
-          },
-          {
-            "internalType": "int256",
-            "name": "stokAkhir",
-            "type": "int256"
-          },
-          {
-            "internalType": "bool",
-            "name": "confirmation",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "confirmedBy",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "confirmedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.DokumenStok",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_dokumenStokId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getFileDokumenStokByDokumenStok",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "fileDokumenStokId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "dokumenStokId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "ipfsHash",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaFile",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaDokumen",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "mimeType",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "fileSize",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.FileDokumenStok[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getKonversiById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "konversiId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "dombakId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "satuanUkurTinggiId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "satuanUkurVolumeId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "tinggi",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "volume",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.Konversi",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getSatuanUkurTinggiById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "satuanUkurTinggiId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "namaSatuan",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "singkatan",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.SatuanUkurTinggi",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getSatuanUkurVolumeById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "satuanUkurVolumeId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "namaSatuan",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "singkatan",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.SatuanUkurVolume",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
         "name": "dombakTransferId",
         "type": "uint256"
       },
@@ -22027,6 +21014,1327 @@
       }
     ],
     "name": "updateStatusSetoran",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "dokumenStokId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "confirmedBy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "confirmedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DokumenStokConfirmed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "dokumenStokId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DokumenStokCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "dokumenStokId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DokumenStokDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "dokumenStokId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "FileDokumenStokCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "FileDokumenStokDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "konversiId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "dombakId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "KonversiCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "konversiId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "KonversiDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "konversiId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "KonversiUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "namaSatuan",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "SatuanUkurTinggiCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "SatuanUkurTinggiDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "namaSatuan",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "SatuanUkurTinggiUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "namaSatuan",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "SatuanUkurVolumeCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "SatuanUkurVolumeDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "namaSatuan",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "SatuanUkurVolumeUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_dokumenStokId",
+        "type": "uint256"
+      }
+    ],
+    "name": "confirmDokumenStok",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_stokInventoryId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_typeDokumenStokId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_jamKerjaId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_dombakId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tanggal",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_stokAwal",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_stokAkhir",
+        "type": "int256"
+      }
+    ],
+    "name": "createDokumenStok",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_dokumenStokId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_ipfsHash",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaFile",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaDokumen",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_mimeType",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_fileSize",
+        "type": "uint256"
+      }
+    ],
+    "name": "createFileDokumenStok",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_dombakId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_satuanUkurTinggiId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_satuanUkurVolumeId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tinggi",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_volume",
+        "type": "uint256"
+      }
+    ],
+    "name": "createKonversi",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_namaSatuan",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_singkatan",
+        "type": "string"
+      }
+    ],
+    "name": "createSatuanUkurTinggi",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_namaSatuan",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_singkatan",
+        "type": "string"
+      }
+    ],
+    "name": "createSatuanUkurVolume",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteDokumenStok",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteFileDokumenStok",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteKonversi",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteSatuanUkurTinggi",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteSatuanUkurVolume",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllDokumenStok",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "dokumenStokId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stokInventoryId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "typeDokumenStokId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jamKerjaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dombakId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "wallet",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int256",
+            "name": "stokAwal",
+            "type": "int256"
+          },
+          {
+            "internalType": "int256",
+            "name": "stokAkhir",
+            "type": "int256"
+          },
+          {
+            "internalType": "bool",
+            "name": "confirmation",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "confirmedBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "confirmedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.DokumenStok[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "dombakId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tinggi",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "volume",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllKonversi",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "konversiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dombakId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "satuanUkurTinggiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "satuanUkurVolumeId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tinggi",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "volume",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Konversi[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllSatuanUkurTinggi",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "satuanUkurTinggiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaSatuan",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "singkatan",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.SatuanUkurTinggi[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllSatuanUkurVolume",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "satuanUkurVolumeId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaSatuan",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "singkatan",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.SatuanUkurVolume[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getCountSatuanUkurTinggi",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getCountSatuanUkurVolume",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDokumenStokById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "dokumenStokId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stokInventoryId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "typeDokumenStokId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jamKerjaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dombakId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "wallet",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int256",
+            "name": "stokAwal",
+            "type": "int256"
+          },
+          {
+            "internalType": "int256",
+            "name": "stokAkhir",
+            "type": "int256"
+          },
+          {
+            "internalType": "bool",
+            "name": "confirmation",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "confirmedBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "confirmedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.DokumenStok",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_dokumenStokId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getFileDokumenStokByDokumenStok",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "fileDokumenStokId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dokumenStokId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "ipfsHash",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaFile",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaDokumen",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "mimeType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fileSize",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.FileDokumenStok[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getKonversiById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "konversiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dombakId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "satuanUkurTinggiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "satuanUkurVolumeId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tinggi",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "volume",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Konversi",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getSatuanUkurTinggiById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "satuanUkurTinggiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaSatuan",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "singkatan",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.SatuanUkurTinggi",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getSatuanUkurVolumeById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "satuanUkurVolumeId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaSatuan",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "singkatan",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.SatuanUkurVolume",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_dombakId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_satuanUkurTinggiId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_satuanUkurVolumeId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tinggi",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_volume",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateKonversi",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaSatuan",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_singkatan",
+        "type": "string"
+      }
+    ],
+    "name": "updateSatuanUkurTinggi",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaSatuan",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_singkatan",
+        "type": "string"
+      }
+    ],
+    "name": "updateSatuanUkurVolume",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
