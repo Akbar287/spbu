@@ -27,6 +27,7 @@ import "./storage/AppStorage.sol";
  * - PointOfSalesFacet: StatusSetoran, Harga, Payung, Dispenser, Nozzle, Penjualan
  * - FinanceFacet: PettyCash, Penarikan, PenjualanPenarikan
  * - QualityControlFacet: Tera, DetailTera, TeraReturn
+ * - CmsFacet: Tag, Artikel, Artikel-Kategori Relation, Artikel-Tag Relation
  */
 contract MainDiamond {
     // ==================== Events ====================

@@ -75,7 +75,8 @@ export const FACET_ADDRESSES = {
     POS_CORE: "0x2209d6d08a67f8cccc602ef86d7117694ae5c88b",
     POS_SALES: "0xb6427b2c8d06532f1e2d6916f3339cac709aa993",
     FINANCE: "0x1d4c27de810f7e1b458f04d4247486866f5f5978",
-    QUALITY_CONTROL: "0x37d0bfd192e6dd21feffbfbd4c72451b5eeb036a"
+    QUALITY_CONTROL: "0x37d0bfd192e6dd21feffbfbd4c72451b5eeb036a",
+    CMS: "0xa466e40296c0cb90528c9ebaf15c2c8be994f017"
 } as const;
 
 // Legacy aliases for backward compatibility

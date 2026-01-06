@@ -1656,6 +1656,51 @@ library AppStorage {
         uint256 teraReturnCounter;
     }
 
+    struct Kategori {
+        uint256 kategoriId;
+        string kategori;
+        string deskripsi;
+        uint256 createdAt;
+        uint256 updatedAt;
+        bool deleted;
+    }
+
+    struct Tag {
+        uint256 tagId;
+        string nama;
+        string deskripsi;
+        uint256 createdAt;
+        uint256 updatedAt;
+        bool deleted;
+    }
+
+    struct Artikel {
+        uint256 artikelId;
+        string title;
+        string content;
+        bool active;
+        address walletMember;
+        uint256 createdAt;
+        uint256 updatedAt;
+        bool deleted;
+    }
+
+    struct CmsStorage {
+        mapping(uint256 => Kategori) kategoriList;
+        mapping(uint256 => Tag) tagList;
+        mapping(uint256 => Artikel) artikelList;
+        mapping(uint256 => uint256[]) kategoriToArtikelList;
+        mapping(uint256 => uint256[]) artikelToKategoriList;
+        mapping(uint256 => uint256[]) tagToArtikelList;
+        mapping(uint256 => uint256[]) artikelToTagList;
+        uint256[] kategoriIdList;
+        uint256[] tagIdList;
+        uint256[] artikelIdList;
+        uint256 kategoriIdCounter;
+        uint256 tagIdCounter;
+        uint256 artikelIdCounter;
+    }
+
     // ============================================================================
     //                    DIAMOND STORAGE - ACCESS CONTROL
     // ============================================================================
@@ -1694,6 +1739,7 @@ library AppStorage {
     bytes32 constant KEUANGAN_POSITION = keccak256("spbu.storage.keuangan");
     bytes32 constant ATTENDANCE_POSITION = keccak256("spbu.storage.attendance");
     bytes32 constant QC_POSITION = keccak256("spbu.storage.qualityControl");
+    bytes32 constant CMS_POSITION = keccak256("spbu.storage.cms");
 
     /**
      * @notice Get AccessControl storage
@@ -1846,6 +1892,16 @@ library AppStorage {
         returns (QualityControlStorage storage s)
     {
         bytes32 position = QC_POSITION;
+        assembly {
+            s.slot := position
+        }
+    }
+
+    /**
+     * @notice Get CMS storage
+     */
+    function cmsStorage() internal pure returns (CmsStorage storage s) {
+        bytes32 position = CMS_POSITION;
         assembly {
             s.slot := position
         }
