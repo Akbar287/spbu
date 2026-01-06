@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, Fuel, Database, Shield, Box } from 'lucide-react';
+import {
+    ChevronDown, Fuel, Database, Shield, Box, X, Send,
+    MessageCircle, Linkedin, Paperclip, Loader2, Mail,
+    FileText, User, CheckCircle2, Sparkles
+} from 'lucide-react';
 
 // Blockchain Block Component
 const BlockchainBlock = ({ delay = 0, x = 0, targetY = -300, size = 40 }: { delay?: number; x?: number; targetY?: number; size?: number }) => (
@@ -1210,37 +1214,157 @@ const Scene7 = ({ onComplete }: { onComplete: () => void }) => {
 
 // Main content (original hero content)
 const MainHeroContent = () => {
+    const [showModal, setShowModal] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitSuccess, setSubmitSuccess] = useState(false);
+    const [formData, setFormData] = useState({ name: '', subject: '', message: '' });
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
     const containerVariants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.3 } } };
     const itemVariants = { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const } } };
 
+    const scrollToFeatures = () => {
+        const featuresSection = document.getElementById('features');
+        if (featuresSection) {
+            featuresSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            // Fallback: scroll down by viewport height
+            window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        const mailtoLink = `mailto:muhammadakbar007akbar@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Nama: ${formData.name}\n\nPesan:\n${formData.message}\n\n${selectedFile ? `File terlampir: ${selectedFile.name}` : ''}`)}`;
+        setTimeout(() => {
+            window.open(mailtoLink, '_blank');
+            setSubmitSuccess(true);
+            setIsSubmitting(false);
+            setTimeout(() => {
+                setShowModal(false);
+                setSubmitSuccess(false);
+                setFormData({ name: '', subject: '', message: '' });
+                setSelectedFile(null);
+            }, 2000);
+        }, 1500);
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setSelectedFile(e.target.files[0]);
+        }
+    };
+
     return (
-        <motion.div className="relative z-10 text-center px-4 max-w-5xl mx-auto" variants={containerVariants} initial="hidden" animate="visible">
-            <motion.div variants={itemVariants} className="mb-6">
-                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-100/80 dark:bg-white/10 backdrop-blur-sm border border-violet-200 dark:border-white/20 text-violet-700 dark:text-white/90 text-sm font-medium">
-                    <span className="w-2 h-2 bg-emerald-500 dark:bg-emerald-400 rounded-full animate-pulse" />
-                    Blockchain-Powered SPBU Management
-                </span>
+        <>
+            <motion.div className="relative z-10 text-center px-4 max-w-5xl mx-auto" variants={containerVariants} initial="hidden" animate="visible">
+                <motion.div variants={itemVariants} className="mb-6">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-100/80 dark:bg-white/10 backdrop-blur-sm border border-violet-200 dark:border-white/20 text-violet-700 dark:text-white/90 text-sm font-medium">
+                        <span className="w-2 h-2 bg-emerald-500 dark:bg-emerald-400 rounded-full animate-pulse" />
+                        Blockchain-Powered SPBU Management
+                    </span>
+                </motion.div>
+                <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+                    <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 dark:from-white dark:via-purple-200 dark:to-cyan-200 bg-clip-text text-transparent">Revolusi Digital</span><br />
+                    <span className="bg-gradient-to-r from-cyan-600 via-violet-600 to-pink-600 dark:from-cyan-300 dark:via-violet-300 dark:to-pink-300 bg-clip-text text-transparent">Stasiun Pengisian BBM</span>
+                </motion.h1>
+                <motion.p variants={itemVariants} className="text-lg md:text-xl text-slate-600 dark:text-white/70 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Transformasi manajemen SPBU dengan teknologi blockchain. Transparan, aman, dan terdesentralisasi untuk era baru industri energi.
+                </motion.p>
+                <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+                    <Button size="lg" onClick={() => setShowModal(true)} className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white px-8 py-6 text-lg rounded-xl shadow-2xl shadow-violet-500/25 transition-all duration-300 hover:scale-105">Mulai Sekarang</Button>
+                    <Button size="lg" variant="outline" onClick={scrollToFeatures} className="border-violet-300 dark:border-white/30 text-violet-700 dark:text-white hover:bg-violet-50 dark:hover:bg-white/10 px-8 py-6 text-lg rounded-xl backdrop-blur-sm transition-all duration-300 hover:scale-105">Pelajari Lebih Lanjut</Button>
+                </motion.div>
+                <motion.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 1 } } }} initial="hidden" animate="visible" className="flex justify-center gap-8">
+                    {[{ icon: Fuel, label: "Penjualan", color: "from-amber-500 to-orange-500" }, { icon: Database, label: "Supply Chain", color: "from-cyan-500 to-blue-500" }, { icon: Shield, label: "Keamanan", color: "from-emerald-500 to-green-500" }].map((item, index) => (
+                        <motion.div key={index} variants={{ hidden: { opacity: 0, scale: 0 }, visible: { opacity: 1, scale: 1, transition: { type: "spring", stiffness: 200, damping: 15 } } }} whileHover={{ scale: 1.1, y: -5 }} className="flex flex-col items-center gap-2">
+                            <div className={`p-4 rounded-2xl bg-gradient-to-br ${item.color} shadow-lg`}><item.icon className="w-6 h-6 text-white" /></div>
+                            <span className="text-slate-500 dark:text-white/60 text-sm">{item.label}</span>
+                        </motion.div>
+                    ))}
+                </motion.div>
             </motion.div>
-            <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
-                <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 dark:from-white dark:via-purple-200 dark:to-cyan-200 bg-clip-text text-transparent">Revolusi Digital</span><br />
-                <span className="bg-gradient-to-r from-cyan-600 via-violet-600 to-pink-600 dark:from-cyan-300 dark:via-violet-300 dark:to-pink-300 bg-clip-text text-transparent">Stasiun Pengisian BBM</span>
-            </motion.h1>
-            <motion.p variants={itemVariants} className="text-lg md:text-xl text-slate-600 dark:text-white/70 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Transformasi manajemen SPBU dengan teknologi blockchain. Transparan, aman, dan terdesentralisasi untuk era baru industri energi.
-            </motion.p>
-            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-                <Button size="lg" className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white px-8 py-6 text-lg rounded-xl shadow-2xl shadow-violet-500/25 transition-all duration-300 hover:scale-105">Mulai Sekarang</Button>
-                <Button size="lg" variant="outline" className="border-violet-300 dark:border-white/30 text-violet-700 dark:text-white hover:bg-violet-50 dark:hover:bg-white/10 px-8 py-6 text-lg rounded-xl backdrop-blur-sm transition-all duration-300 hover:scale-105">Pelajari Lebih Lanjut</Button>
-            </motion.div>
-            <motion.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 1 } } }} initial="hidden" animate="visible" className="flex justify-center gap-8">
-                {[{ icon: Fuel, label: "Penjualan", color: "from-amber-500 to-orange-500" }, { icon: Database, label: "Supply Chain", color: "from-cyan-500 to-blue-500" }, { icon: Shield, label: "Keamanan", color: "from-emerald-500 to-green-500" }].map((item, index) => (
-                    <motion.div key={index} variants={{ hidden: { opacity: 0, scale: 0 }, visible: { opacity: 1, scale: 1, transition: { type: "spring", stiffness: 200, damping: 15 } } }} whileHover={{ scale: 1.1, y: -5 }} className="flex flex-col items-center gap-2">
-                        <div className={`p-4 rounded-2xl bg-gradient-to-br ${item.color} shadow-lg`}><item.icon className="w-6 h-6 text-white" /></div>
-                        <span className="text-slate-500 dark:text-white/60 text-sm">{item.label}</span>
+
+            {/* Contact Modal */}
+            <AnimatePresence>
+                {showModal && (
+                    <motion.div className="fixed inset-0 z-50 flex items-center justify-center p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                        <motion.div className="absolute inset-0 bg-black/60 backdrop-blur-sm" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => !isSubmitting && setShowModal(false)} />
+                        <motion.div className="relative w-full max-w-lg bg-white dark:bg-slate-800 rounded-3xl shadow-2xl overflow-hidden" initial={{ opacity: 0, scale: 0.9, y: 50 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 50 }} transition={{ type: 'spring', damping: 20 }}>
+                            <div className="relative h-32 overflow-hidden">
+                                <motion.div className="absolute inset-0 bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600" animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }} transition={{ duration: 5, repeat: Infinity, ease: 'linear' }} style={{ backgroundSize: '200% 200%' }} />
+                                {[...Array(5)].map((_, i) => (
+                                    <motion.div key={i} className="absolute" style={{ left: `${15 + i * 18}%`, top: `${30 + (i % 2) * 30}%` }} animate={{ y: [-5, 5, -5], opacity: [0.5, 1, 0.5], scale: [1, 1.2, 1] }} transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}>
+                                        <Sparkles className="w-4 h-4 text-white/50" />
+                                    </motion.div>
+                                ))}
+                                <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+                                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', delay: 0.2 }} className="p-3 bg-white/20 backdrop-blur-sm rounded-2xl mb-2">
+                                        <Mail className="w-8 h-8" />
+                                    </motion.div>
+                                    <h3 className="text-xl font-bold">Hubungi Kami</h3>
+                                    <p className="text-white/80 text-sm">Konsultasi gratis untuk proyek Anda</p>
+                                </div>
+                                <motion.button onClick={() => !isSubmitting && setShowModal(false)} className="absolute top-4 right-4 p-2 bg-white/20 hover:bg-white/30 rounded-full text-white transition-colors" whileHover={{ scale: 1.1, rotate: 90 }} whileTap={{ scale: 0.9 }}>
+                                    <X className="w-5 h-5" />
+                                </motion.button>
+                            </div>
+                            <form onSubmit={handleSubmit} className="p-6 space-y-5">
+                                {submitSuccess ? (
+                                    <motion.div className="py-8 text-center" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }}>
+                                        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', delay: 0.1 }} className="mx-auto w-16 h-16 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mb-4">
+                                            <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+                                        </motion.div>
+                                        <h4 className="text-xl font-bold text-slate-800 dark:text-white mb-2">Pesan Terkirim!</h4>
+                                        <p className="text-slate-600 dark:text-slate-400">Kami akan segera menghubungi Anda</p>
+                                    </motion.div>
+                                ) : (
+                                    <>
+                                        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
+                                            <label className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"><User className="w-4 h-4 text-violet-500" />Nama Lengkap</label>
+                                            <input type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="John Doe" className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-xl border border-slate-200 dark:border-slate-600 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 outline-none transition-all text-slate-700 dark:text-slate-200 placeholder-slate-400" />
+                                        </motion.div>
+                                        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+                                            <label className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"><FileText className="w-4 h-4 text-violet-500" />Judul / Subjek</label>
+                                            <input type="text" required value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} placeholder="Konsultasi Implementasi Blockchain SPBU" className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-xl border border-slate-200 dark:border-slate-600 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 outline-none transition-all text-slate-700 dark:text-slate-200 placeholder-slate-400" />
+                                        </motion.div>
+                                        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
+                                            <label className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"><MessageCircle className="w-4 h-4 text-violet-500" />Pesan</label>
+                                            <textarea required rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} placeholder="Jelaskan kebutuhan Anda..." className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700/50 rounded-xl border border-slate-200 dark:border-slate-600 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 outline-none transition-all text-slate-700 dark:text-slate-200 placeholder-slate-400 resize-none" />
+                                        </motion.div>
+                                        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
+                                            <label className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"><Paperclip className="w-4 h-4 text-violet-500" />Lampiran (Opsional)</label>
+                                            <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" />
+                                            <motion.button type="button" onClick={() => fileInputRef.current?.click()} className={`w-full px-4 py-3 rounded-xl border-2 border-dashed transition-all ${selectedFile ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20' : 'border-slate-300 dark:border-slate-600 hover:border-violet-400 bg-slate-50 dark:bg-slate-700/50'}`} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
+                                                {selectedFile ? (<span className="flex items-center justify-center gap-2 text-emerald-600 dark:text-emerald-400"><CheckCircle2 className="w-5 h-5" />{selectedFile.name}</span>) : (<span className="flex items-center justify-center gap-2 text-slate-500"><Paperclip className="w-5 h-5" />Klik untuk upload file</span>)}
+                                            </motion.button>
+                                        </motion.div>
+                                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
+                                            <motion.button type="submit" disabled={isSubmitting} className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-violet-500/30 disabled:opacity-70 disabled:cursor-not-allowed transition-all" whileHover={{ scale: isSubmitting ? 1 : 1.02 }} whileTap={{ scale: isSubmitting ? 1 : 0.98 }}>
+                                                {isSubmitting ? (<><Loader2 className="w-5 h-5 animate-spin" />Mengirim...</>) : (<><Send className="w-5 h-5" />Kirim Pesan</>)}
+                                            </motion.button>
+                                        </motion.div>
+                                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="pt-4 border-t border-slate-200 dark:border-slate-700">
+                                            <p className="text-center text-sm text-slate-500 dark:text-slate-400 mb-3">Atau hubungi langsung via:</p>
+                                            <div className="flex justify-center gap-3">
+                                                <motion.a href="https://wa.me/6281288748757?text=Saya%20ingin%20konsultasi%20mengenai%20Integrasi%20Sistem%20SPBU%20dengan%20Blockchain" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-medium rounded-xl hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                                    <MessageCircle className="w-4 h-4" />WhatsApp
+                                                </motion.a>
+                                                <motion.a href="https://www.linkedin.com/in/muhammad-akbar-596803201/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium rounded-xl hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                                    <Linkedin className="w-4 h-4" />LinkedIn
+                                                </motion.a>
+                                            </div>
+                                        </motion.div>
+                                    </>
+                                )}
+                            </form>
+                        </motion.div>
                     </motion.div>
-                ))}
-            </motion.div>
-        </motion.div>
+                )}
+            </AnimatePresence>
+        </>
     );
 };
 
