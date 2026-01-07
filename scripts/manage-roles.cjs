@@ -13,11 +13,14 @@ const DEPLOYER_PK = process.env.DEPLOYER_PRIVATE_KEY;
 
 // Role Definitions (Must match AccessControlFacet.sol)
 const ROLES = {
-    'DEFAULT_ADMIN_ROLE': '0x0000000000000000000000000000000000000000000000000000000000000000',
     'KOMISARIS_ROLE': keccak256(stringToBytes("KOMISARIS_ROLE")),
+    'DIREKTUR_UTAMA_ROLE': keccak256(stringToBytes("DIREKTUR_UTAMA_ROLE")),
     'DIREKTUR_ROLE': keccak256(stringToBytes("DIREKTUR_ROLE")),
     'ADMIN_ROLE': keccak256(stringToBytes("ADMIN_ROLE")),
     'OPERATOR_ROLE': keccak256(stringToBytes("OPERATOR_ROLE")),
+    'SECURITY_ROLE': keccak256(stringToBytes("SECURITY_ROLE")),
+    'OFFICE_BOY_ROLE': keccak256(stringToBytes("OFFICE_BOY_ROLE")),
+    'PARTNER_ROLE': keccak256(stringToBytes("PARTNER_ROLE"))
 };
 
 function showHelp() {
@@ -30,7 +33,9 @@ Options:
   --help          Show this help message
   --grant         Grant a role to a wallet
   --revoke        Revoke a role from a wallet
+  --check         Check roles for a wallet
   --role=<ROLE>   Specify the role name (see Supported Roles below)
+                  For --check, omit to check all roles
   --wallet=<ADDR> Specify the target wallet address
 
 Supported Roles:
@@ -39,6 +44,8 @@ ${Object.keys(ROLES).map(r => `  - ${r} (${ROLES[r]})`).join('\n')}
 Examples:
   node scripts/manage-roles.cjs --grant --role=ADMIN_ROLE --wallet=0x123...
   node scripts/manage-roles.cjs --revoke --role=OPERATOR_ROLE --wallet=0x456...
+  node scripts/manage-roles.cjs --check --wallet=0x789...
+  node scripts/manage-roles.cjs --check --role=ADMIN_ROLE --wallet=0x789...
 `);
 }
 
@@ -66,36 +73,44 @@ async function main() {
     // Parse Args
     const isGrant = args.includes('--grant');
     const isRevoke = args.includes('--revoke');
+    const isCheck = args.includes('--check');
 
     const roleArg = args.find(a => a.startsWith('--role='));
     const walletArg = args.find(a => a.startsWith('--wallet='));
 
-    if (!isGrant && !isRevoke) {
-        console.error('❌ Error: Must specify --grant or --revoke');
+    if (!isGrant && !isRevoke && !isCheck) {
+        console.error('❌ Error: Must specify --grant, --revoke, or --check');
         showHelp();
         process.exit(1);
     }
 
-    if (isGrant && isRevoke) {
-        console.error('❌ Error: Cannot specify both --grant and --revoke');
+    if ((isGrant && isRevoke) || (isGrant && isCheck) || (isRevoke && isCheck)) {
+        console.error('❌ Error: Cannot specify multiple actions (--grant, --revoke, --check)');
         process.exit(1);
     }
 
-    if (!roleArg || !walletArg) {
-        console.error('❌ Error: Must specify both --role and --wallet');
+    if (!walletArg) {
+        console.error('❌ Error: Must specify --wallet');
         showHelp();
         process.exit(1);
     }
 
-    const roleName = roleArg.split('=')[1];
+    // For grant/revoke, role is required
+    if ((isGrant || isRevoke) && !roleArg) {
+        console.error('❌ Error: Must specify --role for --grant or --revoke');
+        showHelp();
+        process.exit(1);
+    }
+
+    const roleName = roleArg ? roleArg.split('=')[1] : null;
     const walletAddr = walletArg.split('=')[1];
 
-    if (!ROLES[roleName]) {
+    if (roleName && !ROLES[roleName]) {
         console.error(`❌ Error: Invalid role '${roleName}'. Use --help to see supported roles.`);
         process.exit(1);
     }
 
-    const roleHash = ROLES[roleName];
+    const roleHash = roleName ? ROLES[roleName] : null;
 
     // Setup Client
     const account = privateKeyToAccount(DEPLOYER_PK);
@@ -120,14 +135,15 @@ async function main() {
         transport: http(RPC_URL)
     });
 
-    // ABI for AccessControl
+    // ABI for AccessControl + Jabatan
     const accessControlABI = [
         {
             inputs: [
                 { internalType: "bytes32", name: "role", type: "bytes32" },
-                { internalType: "address", name: "account", type: "address" }
+                { internalType: "address", name: "account", type: "address" },
+                { internalType: "uint256", name: "_jabatanId", type: "uint256" }
             ],
-            name: "grantRole",
+            name: "grantRoleWithJabatan",
             outputs: [],
             stateMutability: "nonpayable",
             type: "function"
@@ -135,9 +151,10 @@ async function main() {
         {
             inputs: [
                 { internalType: "bytes32", name: "role", type: "bytes32" },
-                { internalType: "address", name: "account", type: "address" }
+                { internalType: "address", name: "account", type: "address" },
+                { internalType: "uint256", name: "_jabatanId", type: "uint256" }
             ],
-            name: "revokeRole",
+            name: "revokeRoleWithJabatan",
             outputs: [],
             stateMutability: "nonpayable",
             type: "function"
@@ -151,16 +168,122 @@ async function main() {
             outputs: [{ internalType: "bool", name: "", type: "bool" }],
             stateMutability: "view",
             type: "function"
+        },
+        {
+            inputs: [
+                { internalType: "uint256", name: "_offset", type: "uint256" },
+                { internalType: "uint256", name: "_limit", type: "uint256" }
+            ],
+            name: "getAllJabatan",
+            outputs: [
+                {
+                    components: [
+                        { internalType: "uint256", name: "jabatanId", type: "uint256" },
+                        { internalType: "uint256", name: "levelId", type: "uint256" },
+                        { internalType: "string", name: "namaJabatan", type: "string" },
+                        { internalType: "string", name: "keterangan", type: "string" },
+                        { internalType: "bytes32", name: "roleHash", type: "bytes32" },
+                        { internalType: "uint256", name: "createdAt", type: "uint256" },
+                        { internalType: "uint256", name: "updatedAt", type: "uint256" },
+                        { internalType: "bool", name: "deleted", type: "bool" }
+                    ],
+                    internalType: "struct AppStorage.Jabatan[]",
+                    name: "",
+                    type: "tuple[]"
+                },
+                { internalType: "uint256", name: "", type: "uint256" }
+            ],
+            stateMutability: "view",
+            type: "function"
         }
     ];
 
-    console.log(`\n🔮 Role Management`);
+    // Handle --check command
+    if (isCheck) {
+        console.log(`\n🔍 Role Check`);
+        console.log('='.repeat(50));
+        console.log(`Wallet:  ${walletAddr}`);
+        console.log(`Diamond: ${DIAMOND_ADDRESS}`);
+        console.log('-'.repeat(50));
+
+        try {
+            if (roleName) {
+                // Check specific role
+                const hasRole = await publicClient.readContract({
+                    address: DIAMOND_ADDRESS,
+                    abi: accessControlABI,
+                    functionName: 'hasRole',
+                    args: [roleHash, walletAddr]
+                });
+                console.log(`${roleName}: ${hasRole ? '✅ YES' : '❌ NO'}`);
+            } else {
+                // Check all roles
+                console.log('\nRole Status:');
+                for (const [name, hash] of Object.entries(ROLES)) {
+                    const hasRole = await publicClient.readContract({
+                        address: DIAMOND_ADDRESS,
+                        abi: accessControlABI,
+                        functionName: 'hasRole',
+                        args: [hash, walletAddr]
+                    });
+                    console.log(`  ${hasRole ? '✅' : '❌'} ${name}`);
+                }
+            }
+            console.log('\n🎉 Check complete.');
+        } catch (error) {
+            console.error('\n❌ Check failed:');
+            console.error(error.message || error);
+        }
+        return;
+    }
+
+    // Fetch all jabatan to find matching one
+    console.log('\n🔍 Finding matching Jabatan...');
+    let jabatanId = null;
+    try {
+        const [jabatanList] = await publicClient.readContract({
+            address: DIAMOND_ADDRESS,
+            abi: accessControlABI,
+            functionName: 'getAllJabatan',
+            args: [BigInt(0), BigInt(100)]
+        });
+
+        // Convert role name to jabatan name (e.g., ADMIN_ROLE -> Admin, DIREKTUR_ROLE -> Direktur)
+        const jabatanName = roleName
+            .replace('_ROLE', '')
+            .split('_')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+
+        for (const j of jabatanList) {
+            if (!j.deleted && j.namaJabatan.toLowerCase() === jabatanName.toLowerCase()) {
+                jabatanId = j.jabatanId;
+                console.log(`✅ Found Jabatan: "${j.namaJabatan}" (ID: ${jabatanId})`);
+                break;
+            }
+        }
+
+        if (!jabatanId) {
+            console.error(`❌ Error: No Jabatan found matching role "${roleName}" (looked for "${jabatanName}")`);
+            console.log('\nAvailable Jabatan:');
+            jabatanList.filter(j => !j.deleted).forEach(j => {
+                console.log(`  - ID ${j.jabatanId}: ${j.namaJabatan}`);
+            });
+            process.exit(1);
+        }
+    } catch (error) {
+        console.error('❌ Error fetching Jabatan:', error.message);
+        process.exit(1);
+    }
+
+    console.log(`\n🔮 Role Management (with Jabatan Sync)`);
     console.log('='.repeat(50));
-    console.log(`Action: ${isGrant ? 'GRANT' : 'REVOKE'}`);
-    console.log(`Role:   ${roleName} (${roleHash})`);
-    console.log(`Wallet: ${walletAddr}`);
-    console.log(`Diamond: ${DIAMOND_ADDRESS}`);
-    console.log(`Admin:  ${account.address}`);
+    console.log(`Action:    ${isGrant ? 'GRANT' : 'REVOKE'}`);
+    console.log(`Role:      ${roleName} (${roleHash})`);
+    console.log(`Jabatan:   ID ${jabatanId}`);
+    console.log(`Wallet:    ${walletAddr}`);
+    console.log(`Diamond:   ${DIAMOND_ADDRESS}`);
+    console.log(`Admin:     ${account.address}`);
     console.log('-'.repeat(50));
 
     try {
@@ -186,15 +309,15 @@ async function main() {
         const hash = await client.writeContract({
             address: DIAMOND_ADDRESS,
             abi: accessControlABI,
-            functionName: isGrant ? 'grantRole' : 'revokeRole',
-            args: [roleHash, walletAddr]
+            functionName: isGrant ? 'grantRoleWithJabatan' : 'revokeRoleWithJabatan',
+            args: [roleHash, walletAddr, jabatanId]
         });
 
         console.log(`✅ Transaction submitted: ${hash}`);
         console.log('⏳ Waiting for confirmation...');
 
         await publicClient.waitForTransactionReceipt({ hash });
-        console.log('🎉 Success! Role updated.');
+        console.log('🎉 Success! Role and Jabatan updated.');
 
     } catch (error) {
         console.error('\n❌ Transaction failed:');
@@ -203,3 +326,4 @@ async function main() {
 }
 
 main().catch(console.error);
+

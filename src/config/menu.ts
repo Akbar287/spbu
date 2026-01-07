@@ -3,7 +3,8 @@ import {
     FileText, DollarSign, Calendar, Settings, Users, Building, Briefcase,
     Clock, CreditCard, BarChart3, PieChart, TrendingUp, Fuel, Shield,
     Boxes, ClipboardList, Tag, Database,
-    UserCircle, Layers, BookOpen, Newspaper, CheckCircle, ArrowUpRight
+    UserCircle, Layers, BookOpen, Newspaper, CheckCircle, ArrowUpRight,
+    Ruler
 } from 'lucide-react';
 import { MenuCategory, RoleMenuAccessConfig, RoleNamesConfig, RoleType } from '../types/dashboard';
 
@@ -149,8 +150,9 @@ export const allMenuCategories: MenuCategory[] = [
             { id: 'pajak', title: 'Pajak', icon: Receipt, path: '/konfigurasi/pajak', color: 'from-slate-500 to-gray-600' },
             { id: 'hari', title: 'Hari', icon: Calendar, path: '/konfigurasi/hari', color: 'from-slate-500 to-gray-600' },
             { id: 'jam-kerja', title: 'Jam Kerja', icon: Clock, path: '/konfigurasi/jam-kerja', color: 'from-slate-500 to-gray-600' },
-            { id: 'satuan-ukur-volume', title: 'Satuan Ukur Volume', icon: Clock, path: '/konfigurasi/satuan-ukur-volume', color: 'from-slate-500 to-gray-600' },
-            { id: 'satuan-ukur-tinggi', title: 'Satuan Ukur Tinggi', icon: Clock, path: '/konfigurasi/satuan-ukur-tinggi', color: 'from-slate-500 to-gray-600' },
+            { id: 'satuan-ukur-volume', title: 'Satuan Ukur Volume', icon: Ruler, path: '/konfigurasi/satuan-ukur-volume', color: 'from-slate-500 to-gray-600' },
+            { id: 'satuan-ukur-tinggi', title: 'Satuan Ukur Tinggi', icon: Ruler, path: '/konfigurasi/satuan-ukur-tinggi', color: 'from-slate-500 to-gray-600' },
+            { id: 'status-purchase', title: 'Status Purchase', icon: CreditCard, path: '/konfigurasi/status-purchase', color: 'from-slate-500 to-gray-600' },
         ],
     },
 ];

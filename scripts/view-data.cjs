@@ -29,6 +29,7 @@ const InventoryDocsFacetABI = require('../src/contracts/abis/InventoryDocsFacet.
 const PointOfSalesCoreFacetABI = require('../src/contracts/abis/PointOfSalesCoreFacet.json');
 const AssetCoreFacetABI = require('../src/contracts/abis/AssetCoreFacet.json');
 const AttendanceConfigFacetABI = require('../src/contracts/abis/AttendanceConfigFacet.json');
+const PengadaanCoreFacetABI = require('../src/contracts/abis/PengadaanCoreFacet.json');
 
 const COMBINED_ABI = [
     ...AccessControlABI,
@@ -40,6 +41,7 @@ const COMBINED_ABI = [
     ...PointOfSalesCoreFacetABI,
     ...AssetCoreFacetABI,
     ...AttendanceConfigFacetABI,
+    ...PengadaanCoreFacetABI,
 ];
 
 // Parse CLI arguments
@@ -51,6 +53,7 @@ const getDomain = () => {
     if (args.includes('--Inventory') || args.includes('-inv')) return 'Inventory';
     if (args.includes('--Asset') || args.includes('-a')) return 'Asset';
     if (args.includes('--Attendance') || args.includes('-att')) return 'Attendance';
+    if (args.includes('--Pengadaan') || args.includes('-p')) return 'Pengadaan';
     if (args.includes('--MainDiamond') || args.includes('-m') || args.length === 0) return 'MainDiamond';
     return 'MainDiamond';
 };
@@ -94,6 +97,7 @@ Options:
   --Inventory, -inv      Show Inventory domain tables (Produk, Dombak)
   --Asset, -a            Show Asset domain tables (Fasilitas, Aset)
   --Attendance, -att     Show Attendance domain tables (StatusPresensi, Hari, JamKerja)
+  --Pengadaan, -p        Show Pengadaan domain tables (StatusPurchase, RencanaPembelian, etc.)
   --help, -h             Show this help message
 
 Examples:
@@ -592,6 +596,225 @@ async function main() {
 
             console.table(data);
             console.log(`Total: ${data.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+    }
+
+    // ==================== PENGADAAN DOMAIN ====================
+    if (domain === 'MainDiamond' || domain === 'Pengadaan') {
+        console.log('\n🔷 DOMAIN: PENGADAAN');
+        console.log('='.repeat(80));
+
+        // StatusPurchase
+        console.log('\n📋 TABLE: StatusPurchase');
+        console.log('-'.repeat(80));
+        try {
+            const result = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'getAllStatusPurchase',
+                args: [],
+            });
+
+            const data = (result || []).filter(r => !r.deleted && r.statusPurchaseId !== 0n).map(r => ({
+                ID: Number(r.statusPurchaseId),
+                'Nama Status': r.namaStatus,
+                'Created': formatDate(r.createdAt),
+            }));
+
+            console.table(data);
+            console.log(`Total: ${data.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // PajakPembelianLib
+        console.log('\n📋 TABLE: PajakPembelianLib');
+        console.log('-'.repeat(80));
+        try {
+            const result = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'getAllPajakPembelianLib',
+                args: [],
+            });
+
+            const data = (result || []).filter(r => !r.deleted && r.pajakPembelianLibId !== 0n).map(r => ({
+                ID: Number(r.pajakPembelianLibId),
+                'Nama': r.namaPajak,
+                'PPN (%)': (Number(r.ppn) / 100).toFixed(2),
+                'PPBKB (%)': (Number(r.ppbkb) / 100).toFixed(2),
+                'PPH (%)': (Number(r.pph) / 100).toFixed(2),
+                'Aktif': r.aktif ? '✅' : '❌',
+                'Created': formatDate(r.createdAt),
+            }));
+
+            console.table(data);
+            console.log(`Total: ${data.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // RencanaPembelian
+        console.log('\n📋 TABLE: RencanaPembelian');
+        console.log('-'.repeat(80));
+        try {
+            const result = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'getAllRencanaPembelian',
+                args: [],
+            });
+
+            const data = (result || []).filter(r => !r.deleted && r.rencanaPembelianId !== 0n).map(r => ({
+                ID: Number(r.rencanaPembelianId),
+                'Kode': r.kodePembelian,
+                'SPBU ID': Number(r.spbuId),
+                'Status ID': Number(r.statusPurchaseId),
+                'Tgl Pembelian': formatDate(r.tanggalPembelian),
+                'Grand Total': (Number(r.grandTotal) / 100).toLocaleString('id-ID'),
+                'Konfirmasi': r.konfirmasi ? '✅' : '❌',
+                'Created': formatDate(r.createdAt),
+            }));
+
+            console.table(data);
+            console.log(`Total: ${data.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // DetailRencanaPembelian
+        console.log('\n📋 TABLE: DetailRencanaPembelian');
+        console.log('-'.repeat(80));
+        try {
+            const result = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'getAllDetailRencanaPembelian',
+                args: [],
+            });
+
+            const data = (result || []).filter(r => !r.deleted && r.detailRencanaPembelianId !== 0n).map(r => ({
+                'ID': Number(r.detailRencanaPembelianId),
+                'RP ID': Number(r.rencanaPembelianId),
+                'Produk ID': Number(r.produkId),
+                'Jumlah': Number(r.jumlah),
+                'Harga': (Number(r.harga) / 100).toLocaleString('id-ID'),
+                'SubTotal': (Number(r.subTotal) / 100).toLocaleString('id-ID'),
+            }));
+
+            console.table(data);
+            console.log(`Total: ${data.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // PajakPembelian
+        console.log('\n📋 TABLE: PajakPembelian');
+        console.log('-'.repeat(80));
+        try {
+            const result = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'getAllPajakPembelian',
+                args: [],
+            });
+
+            const data = (result || []).filter(r => !r.deleted && r.pajakPembelianId !== 0n).map(r => ({
+                'ID': Number(r.pajakPembelianId),
+                'RP ID': Number(r.rencanaPembelianId),
+                'Net': (Number(r.netPrice) / 100).toLocaleString('id-ID'),
+                'PPN': (Number(r.ppn) / 100).toLocaleString('id-ID'),
+                'PPBKB': (Number(r.ppbkb) / 100).toLocaleString('id-ID'),
+                'PPH': (Number(r.pph) / 100).toLocaleString('id-ID'),
+                'Gross': (Number(r.grossPrice) / 100).toLocaleString('id-ID'),
+            }));
+
+            console.table(data);
+            console.log(`Total: ${data.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // PajakPembelian via getRincianPembelianDetails
+        console.log('\n📋 TABLE: PajakPembelian (sampled from RP ID 1-10)');
+        console.log('-'.repeat(80));
+        try {
+            const pajakData = [];
+            for (let rpId = 1; rpId <= 10; rpId++) {
+                try {
+                    const rincian = await publicClient.readContract({
+                        address: DIAMOND_ADDRESS,
+                        abi: COMBINED_ABI,
+                        functionName: 'getRincianPembelianDetails',
+                        args: [BigInt(rpId)],
+                    });
+                    if (rincian && rincian.length > 0) {
+                        const item = rincian[0];
+                        pajakData.push({
+                            'Pajak ID': Number(item.pajakPembelianId),
+                            'RP ID': rpId,
+                            'Kode': item.kodePembelian,
+                            'Net Price': (Number(item.net) / 100).toLocaleString('id-ID'),
+                            'PPN': (Number(item.ppn) / 100).toLocaleString('id-ID'),
+                            'PPBKB': (Number(item.ppbkb) / 100).toLocaleString('id-ID'),
+                            'PPH': (Number(item.pph) / 100).toLocaleString('id-ID'),
+                            'Gross': (Number(item.gross) / 100).toLocaleString('id-ID'),
+                        });
+                    }
+                } catch (err) {
+                    // Ignore non-existent IDs
+                }
+            }
+            if (pajakData.length > 0) {
+                console.table(pajakData);
+            } else {
+                console.log('No pajak data found\n');
+            }
+            console.log(`Total: ${pajakData.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // DetailRencanaPembelian
+        console.log('\n📋 TABLE: DetailRencanaPembelian (sampled from RP ID 1-10)');
+        console.log('-'.repeat(80));
+        try {
+            const detailData = [];
+            for (let rpId = 1; rpId <= 10; rpId++) {
+                try {
+                    const rincian = await publicClient.readContract({
+                        address: DIAMOND_ADDRESS,
+                        abi: COMBINED_ABI,
+                        functionName: 'getRincianPembelianDetails',
+                        args: [BigInt(rpId)],
+                    });
+                    if (rincian && rincian.length > 0) {
+                        rincian.forEach(r => {
+                            (r.produk || []).forEach(p => {
+                                detailData.push({
+                                    'Detail ID': Number(p.detailRencanaPembelianId),
+                                    'RP ID': rpId,
+                                    'Produk': p.namaProduk,
+                                    'Qty': Number(p.quantity).toLocaleString('id-ID'),
+                                    'Satuan': p.satuan,
+                                    'Harga': (Number(p.harga) / 100).toLocaleString('id-ID'),
+                                    'Total': (Number(p.total) / 100).toLocaleString('id-ID'),
+                                });
+                            });
+                        });
+                    }
+                } catch (err) {
+                    // Ignore non-existent IDs
+                }
+            }
+            if (detailData.length > 0) {
+                console.table(detailData);
+            } else {
+                console.log('No detail data found\n');
+            }
+            console.log(`Total: ${detailData.length} records\n`);
         } catch (e) {
             console.log(`Error: ${e.message.split('\n')[0]}\n`);
         }

@@ -9059,786 +9059,6 @@
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "rencanaPembelianId",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "produkId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "DetailRencanaPembelianCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "DetailRencanaPembelianDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "spbuId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "kodePembelian",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "RencanaPembelianCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "RencanaPembelianDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "konfirmasiBy",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "konfirmasiAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "RencanaPembelianKonfirmasi",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "updatedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "RencanaPembelianUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "spbuId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "namaStatus",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "StatusPurchaseCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "StatusPurchaseDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "namaStatus",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "updatedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "StatusPurchaseUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "pembayaranId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "FilePembayaranCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "FilePembayaranDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "rencanaPembelianId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "PembayaranCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "PembayaranDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "konfirmasiBy",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "konfirmasiAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "PembayaranKonfirmasiAdmin",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "konfirmasiBy",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "konfirmasiAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "PembayaranKonfirmasiDirektur",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_pembayaranId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_ipfsHash",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_namaFile",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_namaDokumen",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_mimeType",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_fileSize",
-        "type": "uint256"
-      }
-    ],
-    "name": "createFilePembayaran",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_rencanaPembelianId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_noCekBg",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_noRekening",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_namaRekening",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_namaBank",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_totalBayar",
-        "type": "uint256"
-      }
-    ],
-    "name": "createPembayaran",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteFilePembayaran",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "deletePembayaran",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_pembayaranId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getFilePembayaranByPembayaran",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "filePembayaranId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "pembayaranId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "ipfsHash",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaFile",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaDokumen",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "mimeType",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "fileSize",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.FilePembayaran[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getPembayaranById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "pembayaranId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "rencanaPembelianId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "walletMember",
-            "type": "address"
-          },
-          {
-            "internalType": "string",
-            "name": "noCekBg",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "noRekening",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaRekening",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaBank",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "totalBayar",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "konfirmasiAdmin",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
-            "name": "konfirmasiDirektur",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "konfirmasiByAdmin",
-            "type": "address"
-          },
-          {
-            "internalType": "address",
-            "name": "konfirmasiByDirektur",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "konfirmasiAtAdmin",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "konfirmasiAtDirektur",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.Pembayaran",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_rencanaPembelianId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getPembayaranByRencanaPembelian",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "pembayaranId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "rencanaPembelianId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "walletMember",
-            "type": "address"
-          },
-          {
-            "internalType": "string",
-            "name": "noCekBg",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "noRekening",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaRekening",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaBank",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "totalBayar",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "konfirmasiAdmin",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
-            "name": "konfirmasiDirektur",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "konfirmasiByAdmin",
-            "type": "address"
-          },
-          {
-            "internalType": "address",
-            "name": "konfirmasiByDirektur",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "konfirmasiAtAdmin",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "konfirmasiAtDirektur",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.Pembayaran[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "konfirmasiAdminPembayaran",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "konfirmasiDirekturPembayaran",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
         "name": "penjualanId",
         "type": "uint256"
       },
@@ -13219,1434 +12439,6 @@
       }
     ],
     "name": "updateTera",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "rencanaPembelianId",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "produkId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "DetailRencanaPembelianCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "DetailRencanaPembelianDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "rencanaPembelianId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "PajakPembelianCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "PajakPembelianDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "ppn",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "ppbkb",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "pph",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "PajakPembelianLibCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "PajakPembelianLibDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "updatedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "PajakPembelianLibUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "spbuId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "kodePembelian",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "RencanaPembelianCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "RencanaPembelianDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "konfirmasiBy",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "konfirmasiAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "RencanaPembelianKonfirmasi",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "updatedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "RencanaPembelianUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "spbuId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "namaStatus",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "StatusPurchaseCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "StatusPurchaseDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "namaStatus",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "updatedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "StatusPurchaseUpdated",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_rencanaPembelianId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_produkId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_harga",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_jumlah",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_subTotal",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_satuanJumlah",
-        "type": "string"
-      }
-    ],
-    "name": "createDetailRencanaPembelian",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_rencanaPembelianId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_pajakPembelianLibId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_netPrice",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_ppn",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_ppbkb",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_pph",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_grossPrice",
-        "type": "uint256"
-      }
-    ],
-    "name": "createPajakPembelian",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_ppn",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_ppbkb",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_pph",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "_aktif",
-        "type": "bool"
-      }
-    ],
-    "name": "createPajakPembelianLib",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_spbuId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_statusPurchaseId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_tanggalPembelian",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_kodePembelian",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_deskripsi",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_grandTotal",
-        "type": "uint256"
-      }
-    ],
-    "name": "createRencanaPembelian",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_spbuId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_namaStatus",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_deskripsi",
-        "type": "string"
-      },
-      {
-        "internalType": "bool",
-        "name": "_aktif",
-        "type": "bool"
-      }
-    ],
-    "name": "createStatusPurchase",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteDetailRencanaPembelian",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "deletePajakPembelian",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "deletePajakPembelianLib",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteRencanaPembelian",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteStatusPurchase",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_offset",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_limit",
-        "type": "uint256"
-      }
-    ],
-    "name": "getAllPajakPembelianLib",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "pajakPembelianLibId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "ppn",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "ppbkb",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "pph",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "aktif",
-            "type": "bool"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.PajakPembelianLib[]",
-        "name": "",
-        "type": "tuple[]"
-      },
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getDetailRencanaPembelianById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "detailRencanaPembelianId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "rencanaPembelianId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "produkId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "harga",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "jumlah",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "subTotal",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "satuanJumlah",
-            "type": "string"
-          },
-          {
-            "internalType": "bool",
-            "name": "konfirmasi",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "konfirmasiBy",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "konfirmasiAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "ms2",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "ms2By",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "ms2At",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "delivery",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "deliveryBy",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "deliveryAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.DetailRencanaPembelian",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_rencanaPembelianId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getDetailRencanaPembelianByRencana",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "detailRencanaPembelianId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "rencanaPembelianId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "produkId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "harga",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "jumlah",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "subTotal",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "satuanJumlah",
-            "type": "string"
-          },
-          {
-            "internalType": "bool",
-            "name": "konfirmasi",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "konfirmasiBy",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "konfirmasiAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "ms2",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "ms2By",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "ms2At",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "delivery",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "deliveryBy",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "deliveryAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.DetailRencanaPembelian[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getPajakPembelianById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "pajakPembelianId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "rencanaPembelianId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "pajakPembelianLibId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "netPrice",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "ppn",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "ppbkb",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "pph",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "grossPrice",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.PajakPembelian",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_rencanaPembelianId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getPajakPembelianByRencanaPembelian",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "pajakPembelianId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "rencanaPembelianId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "pajakPembelianLibId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "netPrice",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "ppn",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "ppbkb",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "pph",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "grossPrice",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.PajakPembelian[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getPajakPembelianLibById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "pajakPembelianLibId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "ppn",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "ppbkb",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "pph",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "aktif",
-            "type": "bool"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.PajakPembelianLib",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getRencanaPembelianById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "rencanaPembelianId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "spbuId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "statusPurchaseId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "walletMember",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "tanggalPembelian",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "kodePembelian",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "deskripsi",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "grandTotal",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "konfirmasi",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "konfirmasiBy",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "konfirmasiAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "keteranganKonfirmasi",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.RencanaPembelian",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_spbuId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getRencanaPembelianBySpbu",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "rencanaPembelianId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "spbuId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "statusPurchaseId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "walletMember",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "tanggalPembelian",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "kodePembelian",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "deskripsi",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "grandTotal",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "konfirmasi",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "konfirmasiBy",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "konfirmasiAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "keteranganKonfirmasi",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.RencanaPembelian[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getStatusPurchaseById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "statusPurchaseId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "spbuId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "namaStatus",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "deskripsi",
-            "type": "string"
-          },
-          {
-            "internalType": "bool",
-            "name": "aktif",
-            "type": "bool"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.StatusPurchase",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_keterangan",
-        "type": "string"
-      }
-    ],
-    "name": "konfirmasiRencanaPembelian",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_ppn",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_ppbkb",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_pph",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "_aktif",
-        "type": "bool"
-      }
-    ],
-    "name": "updatePajakPembelianLib",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -19021,246 +16813,6 @@
     "inputs": [
       {
         "indexed": true,
-        "internalType": "bytes32",
-        "name": "role",
-        "type": "bytes32"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "account",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "sender",
-        "type": "address"
-      }
-    ],
-    "name": "RoleGranted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "bytes32",
-        "name": "role",
-        "type": "bytes32"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "account",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "sender",
-        "type": "address"
-      }
-    ],
-    "name": "RoleRevoked",
-    "type": "event"
-  },
-  {
-    "inputs": [],
-    "name": "ADMIN_ROLE",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "DEFAULT_ADMIN_ROLE",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "DIREKTUR_ROLE",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "OPERATOR_ROLE",
-    "outputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_role",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "address",
-        "name": "_account",
-        "type": "address"
-      }
-    ],
-    "name": "grantRole",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_role",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "address",
-        "name": "_account",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_jabatanId",
-        "type": "uint256"
-      }
-    ],
-    "name": "grantRoleWithJabatan",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_role",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "address",
-        "name": "_account",
-        "type": "address"
-      }
-    ],
-    "name": "hasRole",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_account",
-        "type": "address"
-      }
-    ],
-    "name": "isAdmin",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_role",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "address",
-        "name": "_account",
-        "type": "address"
-      }
-    ],
-    "name": "revokeRole",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "_role",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "address",
-        "name": "_account",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_jabatanId",
-        "type": "uint256"
-      }
-    ],
-    "name": "revokeRoleWithJabatan",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_admin",
-        "type": "address"
-      }
-    ],
-    "name": "setupDefaultAdmin",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
         "internalType": "uint256",
         "name": "id",
         "type": "uint256"
@@ -23288,6 +20840,3190 @@
     "name": "updateTag",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_rencanaPembelianId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_produkId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_jumlah",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_satuanJumlah",
+        "type": "string"
+      }
+    ],
+    "name": "createDetailRencanaPembelian",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteDetailRencanaPembelian",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDetailRencanaPembelianById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "detailRencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "harga",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jumlah",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "subTotal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "satuanJumlah",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasi",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "ms2",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "ms2By",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ms2At",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "delivery",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "deliveryBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "deliveryAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.DetailRencanaPembelian",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_rencanaPembelianId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDetailRencanaPembelianByRencana",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "detailRencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "harga",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jumlah",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "subTotal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "satuanJumlah",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasi",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "ms2",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "ms2By",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ms2At",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "delivery",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "deliveryBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "deliveryAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.DetailRencanaPembelian[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_rencanaPembelianId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_pajakPembelianLibId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_netPrice",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_ppn",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_ppbkb",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_pph",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_grossPrice",
+        "type": "uint256"
+      }
+    ],
+    "name": "createPajakPembelian",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deletePajakPembelian",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPajakPembelianById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pajakPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pajakPembelianLibId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "netPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppbkb",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pph",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "grossPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.PajakPembelian",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_rencanaPembelianId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPajakPembelianByRencanaPembelian",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pajakPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pajakPembelianLibId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "netPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppbkb",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pph",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "grossPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.PajakPembelian[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllDetailRencanaPembelian",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "detailRencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "harga",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jumlah",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "subTotal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "satuanJumlah",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasi",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "ms2",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "ms2By",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ms2At",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "delivery",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "deliveryBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "deliveryAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.DetailRencanaPembelian[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllPajakPembelian",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pajakPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pajakPembelianLibId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "netPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppbkb",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pph",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "grossPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.PajakPembelian[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllRencanaPembelian",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "statusPurchaseId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalPembelian",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "kodePembelian",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "grandTotal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasi",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "keteranganKonfirmasi",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.RencanaPembelian[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllStatusPurchase",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "statusPurchaseId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaStatus",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "aktif",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.StatusPurchase[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "rencanaPembelianId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "produkId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DetailRencanaPembelianCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DetailRencanaPembelianDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DetailRencanaPembelianUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "rencanaPembelianId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PajakPembelianCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PajakPembelianDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "ppn",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "ppbkb",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "pph",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PajakPembelianLibCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PajakPembelianLibDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PajakPembelianLibUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "spbuId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "kodePembelian",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "RencanaPembelianCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "RencanaPembelianDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "konfirmasiBy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "konfirmasiAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "RencanaPembelianKonfirmasi",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "spbuId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "namaStatus",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "StatusPurchaseCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "StatusPurchaseDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "namaStatus",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "StatusPurchaseUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_ppn",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_ppbkb",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_pph",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_aktif",
+        "type": "bool"
+      }
+    ],
+    "name": "createPajakPembelianLib",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_spbuId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_statusPurchaseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tanggalPembelian",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_deskripsi",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_produkId",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_jumlah",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "string[]",
+        "name": "_satuanJumlah",
+        "type": "string[]"
+      }
+    ],
+    "name": "createRencanaPembelian",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_spbuId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaStatus",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_deskripsi",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "_aktif",
+        "type": "bool"
+      }
+    ],
+    "name": "createStatusPurchase",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deletePajakPembelianLib",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteRencanaPembelian",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteStatusPurchase",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllPajakPembelianLib",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pajakPembelianLibId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppbkb",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pph",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "aktif",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.PajakPembelianLib[]",
+        "name": "",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "rencanaPembelianId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllPembayaran",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pembayaranId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "noCekBg",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noRekening",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaRekening",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaBank",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalBayar",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasiAdmin",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasiDirektur",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiByAdmin",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiByDirektur",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAtAdmin",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAtDirektur",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Pembayaran[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "statusPurchaseId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "filterStatus",
+        "type": "uint8"
+      }
+    ],
+    "name": "getAllRencanaPembelianKonfirmasi",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "nama",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalPembelian",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "status",
+            "type": "bool"
+          },
+          {
+            "components": [
+              {
+                "internalType": "string",
+                "name": "namaProduk",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "quantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "satuan",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct ProdukDetail[]",
+            "name": "produk",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct RencanaPembelianView[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "rencanaPembelianId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCountAllPembayaran",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "filterStatus",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint256",
+        "name": "statusPurchaseId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCountAllRencanaPembelianKonfirmasi",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getCountStatusPurchase",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPajakPembelianLibById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pajakPembelianLibId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppbkb",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pph",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "aktif",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.PajakPembelianLib",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getRencanaPembelianById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "statusPurchaseId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalPembelian",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "kodePembelian",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "grandTotal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasi",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "keteranganKonfirmasi",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.RencanaPembelian",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_spbuId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getRencanaPembelianBySpbu",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "statusPurchaseId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalPembelian",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "kodePembelian",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "grandTotal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasi",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "keteranganKonfirmasi",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.RencanaPembelian[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_rencanaPembelianId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getRincianPembelianDetails",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "kodePembelian",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalPembelian",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jumlahTotal",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "detailRencanaPembelianId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "namaProduk",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "quantity",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "satuan",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "harga",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "total",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct ProdukDetailWithHarga[]",
+            "name": "produk",
+            "type": "tuple[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pajakPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppbkb",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pph",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "gross",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "net",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct DetailRencanaPembelianView[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getStatusPurchaseById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "statusPurchaseId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaStatus",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "aktif",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.StatusPurchase",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_rencanaPembelianId",
+        "type": "uint256"
+      }
+    ],
+    "name": "konfirmasiPembelianToPembayaran",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "konfirmasi",
+        "type": "bool"
+      },
+      {
+        "internalType": "string",
+        "name": "_keterangan",
+        "type": "string"
+      }
+    ],
+    "name": "konfirmasiRencanaPembelian",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_ppn",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_ppbkb",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_pph",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "_aktif",
+        "type": "bool"
+      }
+    ],
+    "name": "updatePajakPembelianLib",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pembayaranId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_noCekBg",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_noRekening",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaRekening",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaBank",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_totalBayar",
+        "type": "uint256"
+      }
+    ],
+    "name": "updatePembayaran",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_rencanaPembelianId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_deskripsi",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_deleteDetailIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_produkId",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_jumlah",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "string[]",
+        "name": "_satuanJumlah",
+        "type": "string[]"
+      }
+    ],
+    "name": "updateRencanaPembelian",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_rencanaPembelianId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "detailRencanaPembelianId",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "harga",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "pajakPembelianId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "ppn",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "ppbkb",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "pph",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateRincianPembelianDetails",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaStatus",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_deskripsi",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "_aktif",
+        "type": "bool"
+      }
+    ],
+    "name": "updatedStatusPurchase",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PembayaranUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "RencanaPembelianUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pembayaranId",
+        "type": "uint256"
+      }
+    ],
+    "name": "konfirmasiPembayaranByAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pembayaranId",
+        "type": "uint256"
+      }
+    ],
+    "name": "konfirmasiPembayaranByDirektur",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_rencanaPembelianId",
+        "type": "uint256"
+      }
+    ],
+    "name": "konfirmasiStatusPurchasePembayaranToMs2",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleGranted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "role",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      }
+    ],
+    "name": "RoleRevoked",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "ADMIN_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "DEFAULT_ADMIN_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "DIREKTUR_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "OPERATOR_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "_role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "_account",
+        "type": "address"
+      }
+    ],
+    "name": "grantRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "_role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "_account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_jabatanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "grantRoleWithJabatan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "_role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "_account",
+        "type": "address"
+      }
+    ],
+    "name": "hasRole",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_account",
+        "type": "address"
+      }
+    ],
+    "name": "isAdmin",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "_role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "_account",
+        "type": "address"
+      }
+    ],
+    "name": "revokeRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "_role",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "_account",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_jabatanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "revokeRoleWithJabatan",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_admin",
+        "type": "address"
+      }
+    ],
+    "name": "setupDefaultAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_rencanaPembelianId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_noCekBg",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_noRekening",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaRekening",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaBank",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_totalBayar",
+        "type": "uint256"
+      }
+    ],
+    "name": "createPembayaran",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deletePembayaran",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPembayaranById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pembayaranId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "noCekBg",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noRekening",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaRekening",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaBank",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalBayar",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasiAdmin",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasiDirektur",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiByAdmin",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiByDirektur",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAtAdmin",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAtDirektur",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Pembayaran",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_rencanaPembelianId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPembayaranByRencanaPembelian",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pembayaranId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "noCekBg",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noRekening",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaRekening",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaBank",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalBayar",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasiAdmin",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasiDirektur",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiByAdmin",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiByDirektur",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAtAdmin",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAtDirektur",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Pembayaran[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "konfirmasiAdminPembayaran",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "konfirmasiDirekturPembayaran",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "pembayaranId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "FilePembayaranCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "FilePembayaranDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "rencanaPembelianId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PembayaranCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PembayaranDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "konfirmasiBy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "konfirmasiAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PembayaranKonfirmasiAdmin",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "konfirmasiBy",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "konfirmasiAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PembayaranKonfirmasiDirektur",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pembayaranId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_ipfsHash",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaFile",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaDokumen",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_mimeType",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_fileSize",
+        "type": "uint256"
+      }
+    ],
+    "name": "createFilePembayaran",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteFilePembayaran",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllMs2ByProduk",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaProduk",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalJumlah",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalPembelian",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct ProdukMenuMs2View[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_pembayaranId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getFilePembayaranByPembayaran",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "filePembayaranId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pembayaranId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "ipfsHash",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaFile",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaDokumen",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "mimeType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fileSize",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.FilePembayaran[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   }
 ]

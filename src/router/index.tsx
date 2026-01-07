@@ -59,35 +59,19 @@ import NozzleShow from '@/pages/Master/Nozzle/NozzleShow'
 import NozzleCreate from '@/pages/Master/Nozzle/NozzleCreate'
 import NozzleIndex from '@/pages/Master/Nozzle/NozzleIndex'
 import ProcurementMenu from '@/pages/Procurement/ProcurementMenu'
-import PerencanaanKonfirmasi from '@/pages/Procurement/Perencanaan/PerencanaanKonfirmasi'
 import PerencanaanDitolakShow from '@/pages/Procurement/Perencanaan/PerencanaanDitolakShow'
 import PerencanaanEdit from '@/pages/Procurement/Perencanaan/PerencanaanEdit'
 import PerencanaanShow from '@/pages/Procurement/Perencanaan/PerencanaanShow'
 import PerencanaanDitolakIndex from '@/pages/Procurement/Perencanaan/PerencanaanDitolakIndex'
 import PerencanaanCreate from '@/pages/Procurement/Perencanaan/PerencanaanCreate'
 import PerencanaanIndex from '@/pages/Procurement/Perencanaan/PerencanaanIndex'
-import DetailRencanaEdit from '@/pages/Procurement/Perencanaan/DetailRencanaEdit'
-import DetailRencanaShow from '@/pages/Procurement/Perencanaan/DetailRencanaShow'
-import DetailRencanaCreate from '@/pages/Procurement/Perencanaan/DetailRencanaCreate'
-import DetailRencanaIndex from '@/pages/Procurement/Perencanaan/DetailRencanaIndex'
 import PembelianIndex from '@/pages/Procurement/Pembelian/PembelianIndex'
 import PembelianShow from '@/pages/Procurement/Pembelian/PembelianShow'
-import PembelianKonfirmasiUlang from '@/pages/Procurement/Pembelian/PembelianKonfirmasiUlang'
-import PembelianKonfirmasiHarga from '@/pages/Procurement/Pembelian/PembelianKonfirmasiHarga'
-import PembayaranEdit from '@/pages/Procurement/Pembayaran/PembayaranEdit'
-import PembayaranDetail from '@/pages/Procurement/Pembayaran/PembayaranDetail'
-import PembayaranCreate from '@/pages/Procurement/Pembayaran/PembayaranCreate'
-import PembayaranPajak from '@/pages/Procurement/Pembayaran/PembayaranPajak'
 import PembayaranShow from '@/pages/Procurement/Pembayaran/PembayaranShow'
 import PembayaranIndex from '@/pages/Procurement/Pembayaran/PembayaranIndex'
 import FilePembayaranIndex from '@/pages/Procurement/Pembayaran/FilePembayaran/FilePembayaranIndex'
 import FilePembayaranCreate from '@/pages/Procurement/Pembayaran/FilePembayaran/FilePembayaranCreate'
 import FilePembayaranShow from '@/pages/Procurement/Pembayaran/FilePembayaran/FilePembayaranShow'
-import FilePembayaranEdit from '@/pages/Procurement/Pembayaran/FilePembayaran/FilePembayaranEdit'
-import DetailPembelianEdit from '@/pages/Procurement/Pembelian/DetailPembelian/DetailPembelianEdit'
-import DetailPembelianShow from '@/pages/Procurement/Pembelian/DetailPembelian/DetailPembelianShow'
-import DetailPembelianPajak from '@/pages/Procurement/Pembelian/DetailPembelian/DetailPembelianPajak'
-import DetailPembelianIndex from '@/pages/Procurement/Pembelian/DetailPembelian/DetailPembelianIndex'
 import Ms2ProdukIndex from '@/pages/Procurement/Ms2/Produk/Ms2ProdukIndex'
 import Ms2DetailShow from '@/pages/Procurement/Ms2/Produk/Ms2DetailShow'
 import Ms2ProdukShow from '@/pages/Procurement/Ms2/Produk/Ms2ProdukShow'
@@ -267,6 +251,15 @@ import SatuanUkurVolumeEdit from '@/pages/Konfigurasi/SatuanUkurVolume/SatuanUku
 import SatuanUkurVolumeShow from '@/pages/Konfigurasi/SatuanUkurVolume/SatuanUkurVolumeShow'
 import SatuanUkurVolumeCreate from '@/pages/Konfigurasi/SatuanUkurVolume/SatuanUkurVolumeCreate'
 import SatuanUkurVolumeIndex from '@/pages/Konfigurasi/SatuanUkurVolume/SatuanUkurVolumeIndex'
+import StatusPurchaseIndex from '@/pages/Konfigurasi/StatusPurchase/StatusPurchaseIndex'
+import StatusPurchaseCreate from '@/pages/Konfigurasi/StatusPurchase/StatusPurchaseCreate'
+import StatusPurchaseShow from '@/pages/Konfigurasi/StatusPurchase/StatusPurchaseShow'
+import StatusPurchaseEdit from '@/pages/Konfigurasi/StatusPurchase/StatusPurchaseEdit'
+import PembelianEdit from '@/pages/Procurement/Pembelian/PembelianEdit'
+import PembayaranBayarIndex from '@/pages/Procurement/Pembayaran/PembayaranBayar/PembayaranBayarIndex'
+import PembayaranBayarCreate from '@/pages/Procurement/Pembayaran/PembayaranBayar/PembayaranBayarCreate'
+import PembayaranBayarDetail from '@/pages/Procurement/Pembayaran/PembayaranBayar/PembayaranBayarDetail'
+import PembayaranBayarEdit from '@/pages/Procurement/Pembayaran/PembayaranBayar/PembayaranBayarEdit'
 
 
 export default function index() {
@@ -372,39 +365,24 @@ export default function index() {
                         <Route path="perencanaan/:rencanaId" element={<PerencanaanShow />} />
                         <Route path="perencanaan/:rencanaId/edit" element={<PerencanaanEdit />} />
                         <Route path="perencanaan/:rencanaId/ditolak" element={<PerencanaanDitolakShow />} />
-                        <Route path="perencanaan/:rencanaId/konfirmasi" element={<PerencanaanKonfirmasi />} />
-
-                        {/* Detail Produk Perencanaan */}
-                        <Route path="perencanaan/:rencanaId/produk" element={<DetailRencanaIndex />} />
-                        <Route path="perencanaan/:rencanaId/produk/create" element={<DetailRencanaCreate />} />
-                        <Route path="perencanaan/:rencanaId/produk/:detailId" element={<DetailRencanaShow />} />
-                        <Route path="perencanaan/:rencanaId/produk/:detailId/edit" element={<DetailRencanaEdit />} />
 
                         {/* Pembelian */}
                         <Route path="pembelian" element={<PembelianIndex />} />
-                        <Route path="pembelian/:pembelianId/harga" element={<PembelianKonfirmasiHarga />} />
-                        <Route path="pembelian/:pembelianId/ulang" element={<PembelianKonfirmasiUlang />} />
-                        <Route path="pembelian/:pembelianId/detail" element={<PembelianShow />} />
-
-                        {/* Detail Pembelian */}
-                        <Route path="pembelian/:pembelianId/produk" element={<DetailPembelianIndex />} />
-                        <Route path="pembelian/:pembelianId/produk/pajak" element={<DetailPembelianPajak />} />
-                        <Route path="pembelian/:pembelianId/produk/:detailId" element={<DetailPembelianShow />} />
-                        <Route path="pembelian/:pembelianId/produk/:detailId/edit" element={<DetailPembelianEdit />} />
+                        <Route path="pembelian/:pembelianId/edit" element={<PembelianEdit />} />
+                        <Route path="pembelian/:pembelianId" element={<PembelianShow />} />
 
                         {/* Pembayaran */}
                         <Route path="pembayaran" element={<PembayaranIndex />} />
                         <Route path="pembayaran/:rencanaId" element={<PembayaranShow />} />
-                        <Route path="pembayaran/:rencanaId/pajak" element={<PembayaranPajak />} />
-                        <Route path="pembayaran/:rencanaId/tambah" element={<PembayaranCreate />} />
-                        <Route path="pembayaran/:rencanaId/:pembayaranId" element={<PembayaranDetail />} />
-                        <Route path="pembayaran/:rencanaId/:pembayaranId/edit" element={<PembayaranEdit />} />
+                        <Route path="pembayaran/:rencanaId/bayar" element={<PembayaranBayarIndex />} />
+                        <Route path="pembayaran/:rencanaId/bayar/create" element={<PembayaranBayarCreate />} />
+                        <Route path="pembayaran/:rencanaId/bayar/:pembayaranId" element={<PembayaranBayarDetail />} />
+                        <Route path="pembayaran/:rencanaId/bayar/:pembayaranId/edit" element={<PembayaranBayarEdit />} />
 
                         {/* File Pembayaran */}
-                        <Route path="pembayaran/:rencanaId/:pembayaranId/file" element={<FilePembayaranIndex />} />
-                        <Route path="pembayaran/:rencanaId/:pembayaranId/file/tambah" element={<FilePembayaranCreate />} />
-                        <Route path="pembayaran/:rencanaId/:pembayaranId/file/:fileId" element={<FilePembayaranShow />} />
-                        <Route path="pembayaran/:rencanaId/:pembayaranId/file/:fileId/edit" element={<FilePembayaranEdit />} />
+                        <Route path="pembayaran/:rencanaId/bayar/:pembayaranId/file" element={<FilePembayaranIndex />} />
+                        <Route path="pembayaran/:rencanaId/bayar/:pembayaranId/file/create" element={<FilePembayaranCreate />} />
+                        <Route path="pembayaran/:rencanaId/bayar/:pembayaranId/file/:filePembayaranId" element={<FilePembayaranShow />} />
 
                         {/* MS2 & Pengiriman */}
                         <Route path="ms2" element={<Ms2ProdukIndex />} />
@@ -666,6 +644,11 @@ export default function index() {
                         <Route path="satuan-ukur-volume/create" element={<SatuanUkurVolumeCreate />} />
                         <Route path="satuan-ukur-volume/:id" element={<SatuanUkurVolumeShow />} />
                         <Route path="satuan-ukur-volume/:id/edit" element={<SatuanUkurVolumeEdit />} />
+
+                        <Route path="status-purchase" element={<StatusPurchaseIndex />} />
+                        <Route path="status-purchase/create" element={<StatusPurchaseCreate />} />
+                        <Route path="status-purchase/:id" element={<StatusPurchaseShow />} />
+                        <Route path="status-purchase/:id/edit" element={<StatusPurchaseEdit />} />
 
                         {/* <Route path="import" element={<ImportIndex />} /> */}
                     </Route>

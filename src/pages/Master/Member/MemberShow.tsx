@@ -142,6 +142,93 @@ interface BlockchainJabatanRole {
     roleHash: string; // Now from blockchain
 }
 
+// Component to display jabatan that wallet actually has (based on hasRole)
+interface JabatanWithRoleCheckProps {
+    walletAddress: string;
+}
+
+function JabatanWithRoleCheck({ walletAddress }: JabatanWithRoleCheckProps) {
+    const EMPTY_HASH = '0x0000000000000000000000000000000000000000000000000000000000000000';
+
+    // Fetch all Jabatan from blockchain
+    const { data: jabatanResponse, isLoading } = useReadContract({
+        address: DIAMOND_ADDRESS as `0x${string}`,
+        abi: DIAMOND_ABI,
+        functionName: 'getAllJabatan',
+        args: [BigInt(0), BigInt(100)],
+    });
+
+    const jabatanList = useMemo(() => {
+        if (!jabatanResponse) return [];
+        const [rawJabatan] = jabatanResponse as [BlockchainJabatanRole[], bigint];
+        return rawJabatan
+            .filter(j => !j.deleted && j.roleHash && j.roleHash !== EMPTY_HASH)
+            .map(j => ({
+                jabatanId: Number(j.jabatanId),
+                namaJabatan: j.namaJabatan,
+                keterangan: j.keterangan || '-',
+                roleHash: j.roleHash as `0x${string}`,
+            }));
+    }, [jabatanResponse]);
+
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center py-8">
+                <Loader2 className="w-6 h-6 text-yellow-500 animate-spin" />
+            </div>
+        );
+    }
+
+    return (
+        <div className="space-y-3">
+            {jabatanList.map((jabatan) => (
+                <JabatanItemWithCheck
+                    key={jabatan.jabatanId}
+                    jabatan={jabatan}
+                    walletAddress={walletAddress}
+                />
+            ))}
+        </div>
+    );
+}
+
+// Individual jabatan item that checks if wallet has the role
+interface JabatanItemWithCheckProps {
+    jabatan: {
+        jabatanId: number;
+        namaJabatan: string;
+        keterangan: string;
+        roleHash: `0x${string}`;
+    };
+    walletAddress: string;
+}
+
+function JabatanItemWithCheck({ jabatan, walletAddress }: JabatanItemWithCheckProps) {
+    const { data: hasRoleData } = useReadContract({
+        address: DIAMOND_ADDRESS as `0x${string}`,
+        abi: DIAMOND_ABI,
+        functionName: 'hasRole',
+        args: [jabatan.roleHash, walletAddress as `0x${string}`],
+    });
+
+    const hasRole = hasRoleData as boolean ?? false;
+
+    // Only show if wallet has this role
+    if (!hasRole) return null;
+
+    return (
+        <div className="flex items-center justify-between p-4 bg-white/50 dark:bg-slate-700/30 rounded-xl border border-slate-100 dark:border-slate-700/50">
+            <div className="flex items-center gap-3">
+                <Briefcase className="w-5 h-5 text-yellow-500" />
+                <div>
+                    <p className="font-semibold text-slate-700 dark:text-slate-200">{jabatan.namaJabatan}</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">{jabatan.keterangan}</p>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 // Role Management Modal Component
 interface RoleManagementModalProps {
     walletAddress: string;
@@ -1260,30 +1347,11 @@ export default function MemberShow() {
                                 </motion.button>
                             </div>
                         </div>
-                        {isLoadingJabatan ? (
-                            <div className="flex items-center justify-center py-8">
-                                <Loader2 className="w-6 h-6 text-yellow-500 animate-spin" />
-                            </div>
-                        ) : jabatanList.length === 0 ? (
+                        {walletAddress ? (
+                            <JabatanWithRoleCheck walletAddress={walletAddress} />
+                        ) : (
                             <div className="text-center py-8 text-slate-500 dark:text-slate-400">
                                 Belum ada jabatan di-assign ke member ini
-                            </div>
-                        ) : (
-                            <div className="space-y-3">
-                                {jabatanList.map((jabatan) => (
-                                    <div
-                                        key={jabatan.jabatanId}
-                                        className="flex items-center justify-between p-4 bg-white/50 dark:bg-slate-700/30 rounded-xl border border-slate-100 dark:border-slate-700/50"
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <Briefcase className="w-5 h-5 text-yellow-500" />
-                                            <div>
-                                                <p className="font-semibold text-slate-700 dark:text-slate-200">{jabatan.namaJabatan}</p>
-                                                <p className="text-sm text-slate-500 dark:text-slate-400">{jabatan.keterangan}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
                             </div>
                         )}
                     </div>

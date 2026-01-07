@@ -185,50 +185,6 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_rencanaPembelianId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_noCekBg",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_noRekening",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_namaRekening",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_namaBank",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_totalBayar",
-        "type": "uint256"
-      }
-    ],
-    "name": "createPembayaran",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
         "name": "_id",
         "type": "uint256"
       }
@@ -239,16 +195,38 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs": [],
+    "name": "getAllMs2ByProduk",
+    "outputs": [
       {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaProduk",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalJumlah",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalPembelian",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct ProdukMenuMs2View[]",
+        "name": "",
+        "type": "tuple[]"
       }
     ],
-    "name": "deletePembayaran",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -320,244 +298,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getPembayaranById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "pembayaranId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "rencanaPembelianId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "walletMember",
-            "type": "address"
-          },
-          {
-            "internalType": "string",
-            "name": "noCekBg",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "noRekening",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaRekening",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaBank",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "totalBayar",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "konfirmasiAdmin",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
-            "name": "konfirmasiDirektur",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "konfirmasiByAdmin",
-            "type": "address"
-          },
-          {
-            "internalType": "address",
-            "name": "konfirmasiByDirektur",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "konfirmasiAtAdmin",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "konfirmasiAtDirektur",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.Pembayaran",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_rencanaPembelianId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getPembayaranByRencanaPembelian",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "pembayaranId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "rencanaPembelianId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "walletMember",
-            "type": "address"
-          },
-          {
-            "internalType": "string",
-            "name": "noCekBg",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "noRekening",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaRekening",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaBank",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "totalBayar",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "konfirmasiAdmin",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
-            "name": "konfirmasiDirektur",
-            "type": "bool"
-          },
-          {
-            "internalType": "address",
-            "name": "konfirmasiByAdmin",
-            "type": "address"
-          },
-          {
-            "internalType": "address",
-            "name": "konfirmasiByDirektur",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "konfirmasiAtAdmin",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "konfirmasiAtDirektur",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.Pembayaran[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "konfirmasiAdminPembayaran",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "konfirmasiDirekturPembayaran",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]

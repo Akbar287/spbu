@@ -67,24 +67,6 @@ contract AccessControlFacet {
     // ==================== Write Functions ====================
 
     /**
-     * @notice Memberikan role kepada account (tanpa tracking jabatan)
-     * @dev Hanya bisa dipanggil oleh ADMIN_ROLE
-     * @param _role Role hash (bytes32) to grant
-     * @param _account Address to receive the role
-     */
-    function grantRole(bytes32 _role, address _account) external {
-        _checkRole(ADMIN_ROLE);
-
-        AppStorage.AccessControlStorage storage s = AppStorage
-            .accessControlStorage();
-
-        if (!s.roles[_role][_account]) {
-            s.roles[_role][_account] = true;
-            emit RoleGranted(_role, _account, msg.sender);
-        }
-    }
-
-    /**
      * @notice Memberikan role kepada account DAN track ke jabatan mapping
      * @dev Hanya bisa dipanggil oleh ADMIN_ROLE
      * @param _role Role hash (bytes32) to grant
@@ -110,24 +92,6 @@ contract AccessControlFacet {
         AppStorage.OrganisasiStorage storage org = AppStorage.orgStorage();
         org.jabatanToWalletIds[_jabatanId].push(_account);
         org.walletToJabatanIds[_account].push(_jabatanId);
-    }
-
-    /**
-     * @notice Mencabut role dari account (tanpa tracking jabatan)
-     * @dev Hanya bisa dipanggil oleh ADMIN_ROLE
-     * @param _role Role hash (bytes32) to revoke
-     * @param _account Address to remove the role from
-     */
-    function revokeRole(bytes32 _role, address _account) external {
-        _checkRole(ADMIN_ROLE);
-
-        AppStorage.AccessControlStorage storage s = AppStorage
-            .accessControlStorage();
-
-        if (s.roles[_role][_account]) {
-            s.roles[_role][_account] = false;
-            emit RoleRevoked(_role, _account, msg.sender);
-        }
     }
 
     /**

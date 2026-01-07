@@ -2,6 +2,7 @@
 pragma solidity ^0.8.33;
 
 import "../storage/AppStorage.sol";
+import "../structs/ViewStructs.sol";
 
 /**
  * @title PengadaanPaymentFacet
@@ -67,113 +68,6 @@ contract PengadaanPaymentFacet {
         }
     }
 
-    function createPembayaran(
-        uint256 _rencanaPembelianId,
-        string calldata _noCekBg,
-        string calldata _noRekening,
-        string calldata _namaRekening,
-        string calldata _namaBank,
-        uint256 _totalBayar
-    ) external returns (uint256) {
-        _onlyAdminOrOperator();
-        AppStorage.PengadaanStorage storage s = AppStorage.pengadaanStorage();
-        require(
-            s.rencanaPembelianList[_rencanaPembelianId].rencanaPembelianId != 0,
-            "RencanaPembelian not found"
-        );
-
-        s.pembayaranCounter++;
-        uint256 newId = s.pembayaranCounter;
-        s.pembayaranList[newId] = AppStorage.Pembayaran({
-            pembayaranId: newId,
-            rencanaPembelianId: _rencanaPembelianId,
-            walletMember: msg.sender,
-            noCekBg: _noCekBg,
-            noRekening: _noRekening,
-            namaRekening: _namaRekening,
-            namaBank: _namaBank,
-            totalBayar: _totalBayar,
-            konfirmasiAdmin: false,
-            konfirmasiDirektur: false,
-            konfirmasiByAdmin: address(0),
-            konfirmasiByDirektur: address(0),
-            konfirmasiAtAdmin: 0,
-            konfirmasiAtDirektur: 0,
-            createdAt: block.timestamp,
-            updatedAt: block.timestamp,
-            deleted: false
-        });
-        s.rencanaPembelianToPembayaranIds[_rencanaPembelianId].push(newId);
-        s.walletToPembayaranIds[msg.sender].push(newId);
-        emit PembayaranCreated(newId, _rencanaPembelianId, block.timestamp);
-        return newId;
-    }
-
-    function konfirmasiAdminPembayaran(uint256 _id) external {
-        _onlyAdmin();
-        AppStorage.PengadaanStorage storage s = AppStorage.pengadaanStorage();
-        AppStorage.Pembayaran storage data = s.pembayaranList[_id];
-        require(
-            data.pembayaranId != 0 && !data.deleted && !data.konfirmasiAdmin,
-            "Invalid"
-        );
-        data.konfirmasiAdmin = true;
-        data.konfirmasiByAdmin = msg.sender;
-        data.konfirmasiAtAdmin = block.timestamp;
-        emit PembayaranKonfirmasiAdmin(_id, msg.sender, block.timestamp);
-    }
-
-    function konfirmasiDirekturPembayaran(uint256 _id) external {
-        _onlyDirektur();
-        AppStorage.PengadaanStorage storage s = AppStorage.pengadaanStorage();
-        AppStorage.Pembayaran storage data = s.pembayaranList[_id];
-        require(
-            data.pembayaranId != 0 &&
-                !data.deleted &&
-                data.konfirmasiAdmin &&
-                !data.konfirmasiDirektur,
-            "Invalid"
-        );
-        data.konfirmasiDirektur = true;
-        data.konfirmasiByDirektur = msg.sender;
-        data.konfirmasiAtDirektur = block.timestamp;
-        emit PembayaranKonfirmasiDirektur(_id, msg.sender, block.timestamp);
-    }
-
-    function deletePembayaran(uint256 _id) external {
-        _onlyAdmin();
-        AppStorage.PengadaanStorage storage s = AppStorage.pengadaanStorage();
-        AppStorage.Pembayaran storage data = s.pembayaranList[_id];
-        require(data.pembayaranId != 0 && !data.deleted, "Not found");
-        data.deleted = true;
-        _removeFromArray(
-            s.rencanaPembelianToPembayaranIds[data.rencanaPembelianId],
-            _id
-        );
-        emit PembayaranDeleted(_id, block.timestamp);
-    }
-
-    function getPembayaranById(
-        uint256 _id
-    ) external view returns (AppStorage.Pembayaran memory) {
-        return AppStorage.pengadaanStorage().pembayaranList[_id];
-    }
-
-    function getPembayaranByRencanaPembelian(
-        uint256 _rencanaPembelianId
-    ) external view returns (AppStorage.Pembayaran[] memory) {
-        AppStorage.PengadaanStorage storage s = AppStorage.pengadaanStorage();
-        uint256[] memory ids = s.rencanaPembelianToPembayaranIds[
-            _rencanaPembelianId
-        ];
-        AppStorage.Pembayaran[] memory result = new AppStorage.Pembayaran[](
-            ids.length
-        );
-        for (uint256 i = 0; i < ids.length; i++)
-            result[i] = s.pembayaranList[ids[i]];
-        return result;
-    }
-
     function createFilePembayaran(
         uint256 _pembayaranId,
         string calldata _ipfsHash,
@@ -230,6 +124,95 @@ contract PengadaanPaymentFacet {
             memory result = new AppStorage.FilePembayaran[](ids.length);
         for (uint256 i = 0; i < ids.length; i++)
             result[i] = s.filePembayaranList[ids[i]];
+        return result;
+    }
+
+    /**
+     * @notice Get all products with pending MS2 (ms2By == address(0))
+     * @dev Returns list of products with aggregated jumlah and count from DetailRencanaPembelian
+     *      Only includes items from RencanaPembelian with statusPurchase.namaStatus = 'MS2'
+     */
+    function getAllMs2ByProduk()
+        external
+        view
+        returns (ProdukMenuMs2View[] memory)
+    {
+        AppStorage.InventoryStorage storage inv = AppStorage.inventoryStorage();
+        AppStorage.PengadaanStorage storage s = AppStorage.pengadaanStorage();
+
+        // First, find the statusPurchaseId for 'MS2'
+        uint256 ms2StatusId = 0;
+        for (uint256 i = 1; i <= s.statusPurchaseCounter; i++) {
+            if (
+                !s.statusPurchaseList[i].deleted &&
+                keccak256(bytes(s.statusPurchaseList[i].namaStatus)) ==
+                keccak256(bytes("MS2"))
+            ) {
+                ms2StatusId = s.statusPurchaseList[i].statusPurchaseId;
+                break;
+            }
+        }
+
+        // If no MS2 status found, return empty
+        if (ms2StatusId == 0) {
+            return new ProdukMenuMs2View[](0);
+        }
+
+        // Count products with pending MS2 first
+        uint256 count = 0;
+        for (uint256 i = 1; i <= inv.produkCounter; i++) {
+            if (inv.produkList[i].deleted) continue;
+            uint256[] memory detailIds = s.produkToDetailRencanaPembelianIds[i];
+            for (uint256 j = 0; j < detailIds.length; j++) {
+                AppStorage.DetailRencanaPembelian storage detail = s
+                    .detailRencanaPembelianList[detailIds[j]];
+                // Check: not deleted, ms2By not set, and related RencanaPembelian has MS2 status
+                if (!detail.deleted && detail.ms2By == address(0)) {
+                    AppStorage.RencanaPembelian storage rp = s
+                        .rencanaPembelianList[detail.rencanaPembelianId];
+                    if (!rp.deleted && rp.statusPurchaseId == ms2StatusId) {
+                        count++;
+                        break; // Only count product once
+                    }
+                }
+            }
+        }
+
+        ProdukMenuMs2View[] memory result = new ProdukMenuMs2View[](count);
+        uint256 idx = 0;
+
+        for (uint256 i = 1; i <= inv.produkCounter; i++) {
+            if (inv.produkList[i].deleted) continue;
+
+            uint256 totalJumlah = 0;
+            uint256 totalPembelian = 0;
+            uint256[] memory detailIds = s.produkToDetailRencanaPembelianIds[i];
+
+            for (uint256 j = 0; j < detailIds.length; j++) {
+                AppStorage.DetailRencanaPembelian storage detail = s
+                    .detailRencanaPembelianList[detailIds[j]];
+                // Check: not deleted, ms2By not set, and related RencanaPembelian has MS2 status
+                if (!detail.deleted && detail.ms2By == address(0)) {
+                    AppStorage.RencanaPembelian storage rp = s
+                        .rencanaPembelianList[detail.rencanaPembelianId];
+                    if (!rp.deleted && rp.statusPurchaseId == ms2StatusId) {
+                        totalJumlah++; // Count of DetailRencanaPembelian records
+                        totalPembelian += detail.jumlah; // Sum of stok (accumulated jumlah)
+                    }
+                }
+            }
+
+            if (totalPembelian > 0) {
+                result[idx] = ProdukMenuMs2View({
+                    produkId: i,
+                    namaProduk: inv.produkList[i].namaProduk,
+                    totalJumlah: totalJumlah,
+                    totalPembelian: totalPembelian
+                });
+                idx++;
+            }
+        }
+
         return result;
     }
 }

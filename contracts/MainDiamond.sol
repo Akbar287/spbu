@@ -24,6 +24,7 @@ import "./storage/AppStorage.sol";
  * - InventoryFacet: Produk, Dombak, StokInventory, DokumenStok, Konversi, Losses, etc.
  * - LogisticFacet: Ms2, Pengiriman, Supir, FileLo, Segel, Penerimaan
  * - PengadaanFacet: StatusPurchase, RencanaPembelian, DetailRencanaPembelian, Pembayaran
+ * - PengadaanConfirmationFacet: konfirmasiPembayaranByAdmin, konfirmasiPembayaranByDirektur, konfirmasiStatusPurchasePembayaranToMs2
  * - PointOfSalesFacet: StatusSetoran, Harga, Payung, Dispenser, Nozzle, Penjualan
  * - FinanceFacet: PettyCash, Penarikan, PenjualanPenarikan
  * - QualityControlFacet: Tera, DetailTera, TeraReturn
