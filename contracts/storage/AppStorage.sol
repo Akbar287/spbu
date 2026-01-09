@@ -952,12 +952,12 @@ library AppStorage {
         bool ms2;
         address ms2By;
         uint256 ms2At;
-        bool konfirmasiPengiriman;
-        bool konfirmasiSelesai;
-        address konfirmasiPengirimanBy;
-        uint256 konfirmasiPengirimanAt;
-        address konfirmasiSelesaiBy;
-        uint256 konfirmasiSelesaiAt;
+        bool konfirmasiAdmin;
+        bool konfirmasiDirektur;
+        address konfirmasiAdminBy;
+        uint256 konfirmasiAdminAt;
+        address konfirmasiDirekturBy;
+        uint256 konfirmasiDirekturAt;
         uint256 createdAt;
         uint256 updatedAt;
         bool deleted;
@@ -998,6 +998,7 @@ library AppStorage {
         uint256 createdAt;
         uint256 updatedAt;
         bool deleted;
+        string ipfsHash;
     }
 
     struct FileLampiranFileLo {
@@ -1058,10 +1059,12 @@ library AppStorage {
         mapping(uint256 => FilePenerimaan) filePenerimaanList;
         // Relation
         mapping(uint256 => uint256[]) pengirimanIdToMs2Ids;
-        mapping(uint256 => uint256[]) walletToMs2Ids;
-        mapping(uint256 => uint256[]) walletToPengirimanIds;
+        mapping(address => uint256[]) walletToMs2Ids;
+        mapping(address => uint256[]) walletToPengirimanIds;
         mapping(uint256 => uint256[]) ms2IdToPengirimanIds;
+        mapping(uint256 => uint256[]) ms2IdToDetailRencanaPembelianMs2Ids;
         mapping(uint256 => uint256[]) detailRencanaPembelianToDetailRencanaPembelianMs2Ids;
+        mapping(uint256 => uint256[]) jamKerjaToDetailRencanaPembelianMs2Ids;
         mapping(uint256 => uint256[]) pengirimanIdToSupirIds;
         mapping(uint256 => uint256[]) produkToFileLoIds;
         mapping(uint256 => uint256[]) pengirimanToFileLoIds;
@@ -1096,6 +1099,8 @@ library AppStorage {
         uint256 penerimaanCounter;
         uint256 filePenerimaanCounter;
         uint256 pengirimanMs2Counter;
+        // New mappings (added at end to preserve storage layout)
+        mapping(uint256 => uint256[]) pengirimanIdToRencanaPembelianIds;
     }
 
     // ==================== 9. Domain Point of Sales ====================

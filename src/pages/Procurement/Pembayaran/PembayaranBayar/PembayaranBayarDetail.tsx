@@ -167,7 +167,7 @@ export default function PembayaranBayarDetail() {
         writeContract({
             address: DIAMOND_ADDRESS as `0x${string}`,
             abi: DIAMOND_ABI,
-            functionName: 'konfirmasiAdminPembayaran',
+            functionName: 'konfirmasiPembayaranByAdmin',
             args: [BigInt(payId)]
         });
     };
@@ -178,7 +178,7 @@ export default function PembayaranBayarDetail() {
         writeContract({
             address: DIAMOND_ADDRESS as `0x${string}`,
             abi: DIAMOND_ABI,
-            functionName: 'konfirmasiDirekturPembayaran',
+            functionName: 'konfirmasiPembayaranByDirektur',
             args: [BigInt(payId)]
         });
     };

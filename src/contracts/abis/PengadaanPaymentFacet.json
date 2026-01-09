@@ -195,6 +195,94 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllMs2",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "ms2Id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiBy",
+            "type": "address"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "produkId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "namaProduk",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalJumlah",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalPembelian",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct ProdukMenuMs2View[]",
+            "name": "produk",
+            "type": "tuple[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalProduk",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct Ms2View[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "getAllMs2ByProduk",
     "outputs": [
@@ -224,6 +312,142 @@
         "internalType": "struct ProdukMenuMs2View[]",
         "name": "",
         "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_produkId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllMs2ByProdukId",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaProduk",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "totalJumlah",
+            "type": "string"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "rencanaPembelianId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "detailRencanaPembelianId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "tanggalPembelian",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "kodePembelian",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalStok",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct ProdukMenuMs2ViewByProdukIdPembelian[]",
+            "name": "produk",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct ProdukMenuMs2ViewByProdukId",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllProdukWithDetailRencanaPembelian",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "detailRencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaProduk",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jumlah",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalPembelian",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "kodePembelian",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct ProdukMenuMs2WithDetailRencanaPembelian[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getCounterMs2",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",

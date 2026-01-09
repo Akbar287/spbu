@@ -76,15 +76,11 @@ import Ms2ProdukIndex from '@/pages/Procurement/Ms2/Produk/Ms2ProdukIndex'
 import Ms2DetailShow from '@/pages/Procurement/Ms2/Produk/Ms2DetailShow'
 import Ms2ProdukShow from '@/pages/Procurement/Ms2/Produk/Ms2ProdukShow'
 import Ms2PengirimanIndex from '@/pages/Procurement/Ms2/Pengiriman/Ms2PengirimanIndex'
-import Ms2PengirimanKonfirm from '@/pages/Procurement/Ms2/Pengiriman/Ms2PengirimanKonfirm'
 import Ms2PengirimanShow from '@/pages/Procurement/Ms2/Pengiriman/Ms2PengirimanShow'
 import Ms2PengirimanCreate from '@/pages/Procurement/Ms2/Pengiriman/Ms2PengirimanCreate'
 import FileLoShow from '@/pages/Procurement/Delivery/FileLoShow'
-import FileLoCreate from '@/pages/Procurement/Delivery/FileLoCreate'
-import PengirimanCatatan from '@/pages/Procurement/Delivery/PengirimanCatatan'
 import PengirimanShow from '@/pages/Procurement/Delivery/PengirimanShow'
 import PengirimanIndex from '@/pages/Procurement/Delivery/PengirimanIndex'
-import LampiranEdit from '@/pages/Procurement/Delivery/FileLampiran/LampiranEdit'
 import LampiranShow from '@/pages/Procurement/Delivery/FileLampiran/LampiranShow'
 import LampiranCreate from '@/pages/Procurement/Delivery/FileLampiran/LampiranCreate'
 import LampiranIndex from '@/pages/Procurement/Delivery/FileLampiran/LampiranIndex'
@@ -387,25 +383,21 @@ export default function index() {
                         {/* MS2 & Pengiriman */}
                         <Route path="ms2" element={<Ms2ProdukIndex />} />
                         <Route path="ms2/:produkId" element={<Ms2ProdukShow />} />
-                        <Route path="ms2/:produkId/:detailId" element={<Ms2DetailShow />} />
+                        <Route path="ms2/:produkId/:rencanaId/:detailId" element={<Ms2DetailShow />} />
 
                         <Route path="ms2/pengiriman" element={<Ms2PengirimanIndex />} />
                         <Route path="ms2/pengiriman/tambah" element={<Ms2PengirimanCreate />} />
                         <Route path="ms2/pengiriman/:ms2Id" element={<Ms2PengirimanShow />} />
-                        <Route path="ms2/pengiriman/:ms2Id/konfirm" element={<Ms2PengirimanKonfirm />} />
 
                         {/* Delivery (Pengiriman) */}
-                        <Route path="delivery" element={<PengirimanIndex />} />
-                        <Route path="delivery/:pengirimanId" element={<PengirimanShow />} />
-                        <Route path="delivery/:pengirimanId/catatan" element={<PengirimanCatatan />} />
-                        <Route path="delivery/:pengirimanId/file_lo_create" element={<FileLoCreate />} />
-                        <Route path="delivery/:pengirimanId/file_lo_show/:fileLoId" element={<FileLoShow />} />
+                        <Route path="pengiriman" element={<PengirimanIndex />} />
+                        <Route path="pengiriman/:pengirimanId" element={<PengirimanShow />} />
+                        <Route path="pengiriman/:pengirimanId/file_lo/:fileLoId" element={<FileLoShow />} />
 
                         {/* File Lampiran LO */}
-                        <Route path="delivery/:pengirimanId/file_lo_show/:fileLoId/lampiran" element={<LampiranIndex />} />
-                        <Route path="delivery/:pengirimanId/file_lo_show/:fileLoId/lampiran/create" element={<LampiranCreate />} />
-                        <Route path="delivery/:pengirimanId/file_lo_show/:fileLoId/lampiran/:lampiranId" element={<LampiranShow />} />
-                        <Route path="delivery/:pengirimanId/file_lo_show/:fileLoId/lampiran/:lampiranId/edit" element={<LampiranEdit />} />
+                        <Route path="pengiriman/:pengirimanId/file_lo/:fileLoId/lampiran" element={<LampiranIndex />} />
+                        <Route path="pengiriman/:pengirimanId/file_lo/:fileLoId/lampiran/create" element={<LampiranCreate />} />
+                        <Route path="pengiriman/:pengirimanId/file_lo/:fileLoId/lampiran/:lampiranId" element={<LampiranShow />} />
                     </Route>
 
                     {/* --- STOK / MANAJEMEN PERSEDIAAN --- */}

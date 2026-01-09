@@ -26,6 +26,7 @@ contract LogisticFileFacet {
     );
     event FileLampiranFileLoDeleted(uint256 indexed id, uint256 deletedAt);
 
+    event PengirimanUpdated(uint256 indexed id, uint256 createdAt);
     event SegelCreated(
         uint256 indexed segelId,
         uint256 indexed fileLoId,
@@ -34,6 +35,10 @@ contract LogisticFileFacet {
     );
     event SegelUpdated(uint256 indexed segelId, uint256 updatedAt);
     event SegelDeleted(uint256 indexed segelId, uint256 deletedAt);
+    event DetailRencanaPembelianUpdated(
+        uint256 indexed pengirimanId,
+        uint256 deletedAt
+    );
 
     event PenerimaanCreated(
         uint256 indexed penerimaanId,
@@ -56,6 +61,16 @@ contract LogisticFileFacet {
         require(ac.roles[keccak256("ADMIN_ROLE")][msg.sender], "Admin only");
     }
 
+    function _onlyDirekturAndDirekturUtama() internal view {
+        AppStorage.AccessControlStorage storage ac = AppStorage
+            .accessControlStorage();
+        require(
+            ac.roles[keccak256("DIREKTUR_ROLE")][msg.sender] ||
+                ac.roles[keccak256("DIREKTUR_UTAMA_ROLE")][msg.sender],
+            "Direktur or Direktur Utama only"
+        );
+    }
+
     function _onlyAdminOrOperator() internal view {
         AppStorage.AccessControlStorage storage ac = AppStorage
             .accessControlStorage();
@@ -76,89 +91,73 @@ contract LogisticFileFacet {
         }
     }
 
-    // ==================== FileLo CRUD ====================
-    function createFileLo(
-        uint256 _pengirimanId,
-        uint256 _produkId,
-        uint256 _jumlah,
-        string calldata _satuanJumlah,
-        string calldata _noFaktur,
-        string calldata _noLo
-    ) external returns (uint256) {
-        _onlyAdminOrOperator();
-        AppStorage.LogistikStorage storage s = AppStorage.logistikStorage();
-        require(
-            s.pengirimanList[_pengirimanId].pengirimanId != 0,
-            "Pengiriman not found"
-        );
-
-        s.fileLoCounter++;
-        uint256 newId = s.fileLoCounter;
-        s.fileLoList[newId] = AppStorage.FileLo({
-            fileLoId: newId,
-            pengirimanId: _pengirimanId,
-            produkId: _produkId,
-            jumlah: _jumlah,
-            satuanJumlah: _satuanJumlah,
-            noFaktur: _noFaktur,
-            noLo: _noLo,
-            createdAt: block.timestamp,
-            updatedAt: block.timestamp,
-            deleted: false
-        });
-
-        s.fileLoIds.push(newId);
-        s.pengirimanToFileLoIds[_pengirimanId].push(newId);
-        s.produkToFileLoIds[_produkId].push(newId);
-        emit FileLoCreated(newId, _pengirimanId, _produkId, block.timestamp);
-        return newId;
+    function _uint2str(uint256 _i) internal pure returns (string memory) {
+        if (_i == 0) {
+            return "0";
+        }
+        uint256 j = _i;
+        uint256 len;
+        while (j != 0) {
+            len++;
+            j /= 10;
+        }
+        bytes memory bstr = new bytes(len);
+        uint256 k = len;
+        while (_i != 0) {
+            k = k - 1;
+            uint8 temp = (48 + uint8(_i - (_i / 10) * 10));
+            bytes1 b1 = bytes1(temp);
+            bstr[k] = b1;
+            _i /= 10;
+        }
+        return string(bstr);
     }
 
+    // ==================== FileLo CRUD ====================
     function updateFileLo(
-        uint256 _id,
-        uint256 _jumlah,
-        string calldata _satuanJumlah,
+        uint256 _fileLoId,
+        string calldata _ipfsHash,
         string calldata _noFaktur,
         string calldata _noLo
     ) external {
         _onlyAdmin();
         AppStorage.LogistikStorage storage s = AppStorage.logistikStorage();
-        AppStorage.FileLo storage data = s.fileLoList[_id];
-        require(data.fileLoId != 0 && !data.deleted, "Not found");
-        data.jumlah = _jumlah;
-        data.satuanJumlah = _satuanJumlah;
+        AppStorage.FileLo storage data = s.fileLoList[_fileLoId];
+        require(data.fileLoId != 0, "Not found");
+        data.ipfsHash = _ipfsHash;
         data.noFaktur = _noFaktur;
         data.noLo = _noLo;
         data.updatedAt = block.timestamp;
-        emit FileLoUpdated(_id, block.timestamp);
+
+        emit FileLoUpdated(_fileLoId, block.timestamp);
     }
 
-    function deleteFileLo(uint256 _id) external {
+    function konfirmasiPengirimanByAdmin(
+        uint256 _pengirimanId,
+        bool konfirmasiAdmin
+    ) external {
         _onlyAdmin();
         AppStorage.LogistikStorage storage s = AppStorage.logistikStorage();
-        AppStorage.FileLo storage data = s.fileLoList[_id];
-        require(data.fileLoId != 0 && !data.deleted, "Not found");
-        data.deleted = true;
-        _removeFromArray(s.fileLoIds, _id);
-        _removeFromArray(s.pengirimanToFileLoIds[data.pengirimanId], _id);
-        emit FileLoDeleted(_id, block.timestamp);
+        AppStorage.Pengiriman storage data = s.pengirimanList[_pengirimanId];
+        require(data.pengirimanId != 0, "Not found");
+        data.konfirmasiAdmin = konfirmasiAdmin;
+        data.konfirmasiAdminBy = msg.sender;
+        data.konfirmasiAdminAt = block.timestamp;
+        emit PengirimanUpdated(_pengirimanId, block.timestamp);
     }
 
-    function getFileLoById(
-        uint256 _id
-    ) external view returns (AppStorage.FileLo memory) {
-        return AppStorage.logistikStorage().fileLoList[_id];
-    }
-
-    function getFileLoByPengiriman(
-        uint256 _pengirimanId
-    ) external view returns (AppStorage.FileLo[] memory) {
+    function konfirmasiPengirimanByDirektur(
+        uint256 _pengirimanId,
+        bool konfirmasiDirektur
+    ) external {
+        _onlyDirekturAndDirekturUtama();
         AppStorage.LogistikStorage storage s = AppStorage.logistikStorage();
-        uint256[] memory ids = s.pengirimanToFileLoIds[_pengirimanId];
-        AppStorage.FileLo[] memory result = new AppStorage.FileLo[](ids.length);
-        for (uint256 i = 0; i < ids.length; i++)
-            result[i] = s.fileLoList[ids[i]];
-        return result;
+        AppStorage.Pengiriman storage data = s.pengirimanList[_pengirimanId];
+        require(data.pengirimanId != 0, "Not found");
+        data.konfirmasiDirektur = konfirmasiDirektur;
+        data.konfirmasiDirekturBy = msg.sender;
+        data.konfirmasiDirekturAt = block.timestamp;
+        emit PengirimanUpdated(_pengirimanId, block.timestamp);
     }
 
     // ==================== FileLampiranFileLo CRUD ====================
@@ -217,6 +216,12 @@ contract LogisticFileFacet {
         for (uint256 i = 0; i < ids.length; i++)
             result[i] = s.fileLampiranFileLoList[ids[i]];
         return result;
+    }
+
+    function getFileLampiranById(
+        uint256 _id
+    ) external view returns (AppStorage.FileLampiranFileLo memory) {
+        return AppStorage.logistikStorage().fileLampiranFileLoList[_id];
     }
 
     // ==================== Segel CRUD ====================

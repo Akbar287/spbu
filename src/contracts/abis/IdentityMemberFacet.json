@@ -437,6 +437,41 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "getAllKtpIdAndNama",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "ktpId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "nama",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "nik",
+            "type": "string"
+          },
+          {
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct KtpIdNama[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -553,6 +588,11 @@
             "internalType": "bool",
             "name": "deleted",
             "type": "bool"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "roleHash",
+            "type": "bytes32"
           }
         ],
         "internalType": "struct AppStorage.Jabatan[]",

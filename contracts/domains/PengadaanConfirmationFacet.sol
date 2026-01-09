@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.33;
 
 import {AppStorage} from "../storage/AppStorage.sol";

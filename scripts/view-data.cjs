@@ -30,6 +30,7 @@ const PointOfSalesCoreFacetABI = require('../src/contracts/abis/PointOfSalesCore
 const AssetCoreFacetABI = require('../src/contracts/abis/AssetCoreFacet.json');
 const AttendanceConfigFacetABI = require('../src/contracts/abis/AttendanceConfigFacet.json');
 const PengadaanCoreFacetABI = require('../src/contracts/abis/PengadaanCoreFacet.json');
+const ViewFacetABI = require('../src/contracts/abis/ViewFacet.json');
 
 const COMBINED_ABI = [
     ...AccessControlABI,
@@ -42,6 +43,7 @@ const COMBINED_ABI = [
     ...AssetCoreFacetABI,
     ...AttendanceConfigFacetABI,
     ...PengadaanCoreFacetABI,
+    ...ViewFacetABI,
 ];
 
 // Parse CLI arguments
@@ -54,6 +56,7 @@ const getDomain = () => {
     if (args.includes('--Asset') || args.includes('-a')) return 'Asset';
     if (args.includes('--Attendance') || args.includes('-att')) return 'Attendance';
     if (args.includes('--Pengadaan') || args.includes('-p')) return 'Pengadaan';
+    if (args.includes('--Logistic') || args.includes('-l')) return 'Logistic';
     if (args.includes('--MainDiamond') || args.includes('-m') || args.length === 0) return 'MainDiamond';
     return 'MainDiamond';
 };
@@ -98,6 +101,7 @@ Options:
   --Asset, -a            Show Asset domain tables (Fasilitas, Aset)
   --Attendance, -att     Show Attendance domain tables (StatusPresensi, Hari, JamKerja)
   --Pengadaan, -p        Show Pengadaan domain tables (StatusPurchase, RencanaPembelian, etc.)
+  --Logistic, -l         Show Logistic domain tables (Ms2, Pengiriman, Supir, etc.)
   --help, -h             Show this help message
 
 Examples:
@@ -699,6 +703,9 @@ async function main() {
                 'ID': Number(r.detailRencanaPembelianId),
                 'RP ID': Number(r.rencanaPembelianId),
                 'Produk ID': Number(r.produkId),
+                'Konfirmasi': r.konfirmasi ? '✅' : '❌',
+                'MS2': r.ms2 ? '✅' : '❌',
+                'Delivery': r.delivery ? '✅' : '❌',
                 'Jumlah': Number(r.jumlah),
                 'Harga': (Number(r.harga) / 100).toLocaleString('id-ID'),
                 'SubTotal': (Number(r.subTotal) / 100).toLocaleString('id-ID'),
@@ -815,6 +822,178 @@ async function main() {
                 console.log('No detail data found\n');
             }
             console.log(`Total: ${detailData.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+    }
+
+    // ==================== LOGISTIC DOMAIN ====================
+    if (domain === 'MainDiamond' || domain === 'Logistic') {
+        console.log('\n\n🚛 LOGISTIC DOMAIN');
+        console.log('='.repeat(80));
+
+        // Ms2
+        console.log('\n📋 TABLE: Ms2');
+        console.log('-'.repeat(80));
+        try {
+            const ms2List = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'viewAllMs2',
+            });
+            const tableData = ms2List.map((item, idx) => ({
+                'ID': Number(item.ms2Id),
+                'Wallet': formatAddr(item.walletMember),
+                'Tanggal': formatDate(item.tanggal),
+                'Kode SMS': truncate(item.kodeSms, 30),
+                'Konfirmasi': item.konfirmasiSelesai ? '✅' : '❌',
+                'Created': formatDate(item.createdAt),
+                'Deleted': item.deleted ? '🗑️' : '-',
+            }));
+            console.table(tableData);
+            console.log(`Total: ${ms2List.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // DetailRencanaPembelianMs2
+        console.log('\n📋 TABLE: DetailRencanaPembelianMs2');
+        console.log('-'.repeat(80));
+        try {
+            const detailMs2List = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'viewAllDetailRencanaPembelianMs2',
+            });
+            const tableData = detailMs2List.map((item, idx) => ({
+                'ID': Number(item.detailRencanaPembelianMs2Id),
+                'Ms2 ID': Number(item.ms2Id),
+                'Detail RP ID': Number(item.detailRencanaPembelianId),
+                'Jam Kerja ID': Number(item.jamKerjaId),
+                'Konfirmasi': item.konfirmasiPengiriman ? '✅' : '❌',
+                'Created': formatDate(item.createdAt),
+                'Deleted': item.deleted ? '🗑️' : '-',
+            }));
+            console.table(tableData);
+            console.log(`Total: ${detailMs2List.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // Pengiriman
+        console.log('\n📋 TABLE: Pengiriman');
+        console.log('-'.repeat(80));
+        try {
+            const pengirimanList = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'viewAllPengiriman',
+            });
+            const tableData = pengirimanList.map((item, idx) => ({
+                'ID': Number(item.pengirimanId),
+                'Wallet': formatAddr(item.walletMember),
+                'Tanggal': formatDate(item.tanggal),
+                'No DO': truncate(item.noDo, 15),
+                'No Polisi': item.noPolisi,
+                'MS2': item.ms2 ? '✅' : '❌',
+                'Konfirmasi': item.konfirmasiSelesai ? '✅' : '❌',
+                'Deleted': item.deleted ? '🗑️' : '-',
+            }));
+            console.table(tableData);
+            console.log(`Total: ${pengirimanList.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // Supir
+        console.log('\n📋 TABLE: Supir');
+        console.log('-'.repeat(80));
+        try {
+            const supirList = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'viewAllSupir',
+            });
+            const tableData = supirList.map((item, idx) => ({
+                'ID': Number(item.supirId),
+                'Pengiriman ID': Number(item.pengirimanId),
+                'Nama': item.namaSupir,
+                'No Telp': item.noTelp,
+                'No SIM': item.noSim,
+                'Created': formatDate(item.createdAt),
+                'Deleted': item.deleted ? '🗑️' : '-',
+            }));
+            console.table(tableData);
+            console.log(`Total: ${supirList.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // FileLo
+        console.log('\n📋 TABLE: FileLo');
+        console.log('-'.repeat(80));
+        try {
+            const fileLoList = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'viewAllFileLo',
+            });
+            const tableData = fileLoList.map((item, idx) => ({
+                'ID': Number(item.fileLoId),
+                'Pengiriman ID': Number(item.pengirimanId),
+                'Produk ID': Number(item.produkId),
+                'Jumlah': (Number(item.jumlah) / 100).toLocaleString('id-ID'),
+                'No Faktur': truncate(item.noFaktur, 15),
+                'No LO': truncate(item.noLo, 15),
+                'Deleted': item.deleted ? '🗑️' : '-',
+            }));
+            console.table(tableData);
+            console.log(`Total: ${fileLoList.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // Segel
+        console.log('\n📋 TABLE: Segel');
+        console.log('-'.repeat(80));
+        try {
+            const segelList = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'viewAllSegel',
+            });
+            const tableData = segelList.map((item, idx) => ({
+                'ID': Number(item.segelId),
+                'FileLo ID': Number(item.fileLoId),
+                'No Segel': item.noSegel,
+                'Created': formatDate(item.createdAt),
+                'Deleted': item.deleted ? '🗑️' : '-',
+            }));
+            console.table(tableData);
+            console.log(`Total: ${segelList.length} records\n`);
+        } catch (e) {
+            console.log(`Error: ${e.message.split('\n')[0]}\n`);
+        }
+
+        // Penerimaan
+        console.log('\n📋 TABLE: Penerimaan');
+        console.log('-'.repeat(80));
+        try {
+            const penerimaanList = await publicClient.readContract({
+                address: DIAMOND_ADDRESS,
+                abi: COMBINED_ABI,
+                functionName: 'viewAllPenerimaan',
+            });
+            const tableData = penerimaanList.map((item, idx) => ({
+                'ID': Number(item.penerimaanId),
+                'FileLo ID': Number(item.fileLoId),
+                'DokumenStok ID': Number(item.dokumenStokId),
+                'Tanggal': formatDate(item.tanggal),
+                'Created': formatDate(item.createdAt),
+                'Deleted': item.deleted ? '🗑️' : '-',
+            }));
+            console.table(tableData);
+            console.log(`Total: ${penerimaanList.length} records\n`);
         } catch (e) {
             console.log(`Error: ${e.message.split('\n')[0]}\n`);
         }

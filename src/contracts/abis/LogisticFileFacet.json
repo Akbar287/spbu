@@ -5,6 +5,25 @@
       {
         "indexed": true,
         "internalType": "uint256",
+        "name": "pengirimanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DetailRencanaPembelianUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
         "name": "id",
         "type": "uint256"
       },
@@ -206,6 +225,25 @@
       {
         "indexed": true,
         "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "PengirimanUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
         "name": "segelId",
         "type": "uint256"
       },
@@ -303,50 +341,6 @@
       }
     ],
     "name": "createFileLampiranFileLo",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_pengirimanId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_produkId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_jumlah",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_satuanJumlah",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_noFaktur",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_noLo",
-        "type": "string"
-      }
-    ],
-    "name": "createFileLo",
     "outputs": [
       {
         "internalType": "uint256",
@@ -475,19 +469,6 @@
         "type": "uint256"
       }
     ],
-    "name": "deleteFileLo",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
     "name": "deleteFilePenerimaan",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -598,44 +579,44 @@
         "type": "uint256"
       }
     ],
-    "name": "getFileLoById",
+    "name": "getFileLampiranById",
     "outputs": [
       {
         "components": [
+          {
+            "internalType": "uint256",
+            "name": "fileLampiranFileLoId",
+            "type": "uint256"
+          },
           {
             "internalType": "uint256",
             "name": "fileLoId",
             "type": "uint256"
           },
           {
-            "internalType": "uint256",
-            "name": "pengirimanId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "produkId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "jumlah",
-            "type": "uint256"
-          },
-          {
             "internalType": "string",
-            "name": "satuanJumlah",
+            "name": "ipfsHash",
             "type": "string"
           },
           {
             "internalType": "string",
-            "name": "noFaktur",
+            "name": "namaFile",
             "type": "string"
           },
           {
             "internalType": "string",
-            "name": "noLo",
+            "name": "namaDokumen",
             "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "mimeType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fileSize",
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
@@ -653,80 +634,9 @@
             "type": "bool"
           }
         ],
-        "internalType": "struct AppStorage.FileLo",
+        "internalType": "struct AppStorage.FileLampiranFileLo",
         "name": "",
         "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_pengirimanId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getFileLoByPengiriman",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "fileLoId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "pengirimanId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "produkId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "jumlah",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "satuanJumlah",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "noFaktur",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "noLo",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.FileLo[]",
-        "name": "",
-        "type": "tuple[]"
       }
     ],
     "stateMutability": "view",
@@ -1004,17 +914,48 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_id",
+        "name": "_pengirimanId",
         "type": "uint256"
       },
       {
+        "internalType": "bool",
+        "name": "konfirmasiAdmin",
+        "type": "bool"
+      }
+    ],
+    "name": "konfirmasiPengirimanByAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
-        "name": "_jumlah",
+        "name": "_pengirimanId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "konfirmasiDirektur",
+        "type": "bool"
+      }
+    ],
+    "name": "konfirmasiPengirimanByDirektur",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_fileLoId",
         "type": "uint256"
       },
       {
         "internalType": "string",
-        "name": "_satuanJumlah",
+        "name": "_ipfsHash",
         "type": "string"
       },
       {

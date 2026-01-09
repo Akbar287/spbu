@@ -164,15 +164,13 @@ export default function PembayaranBayarIndex() {
     const totalItems = countData ? Number(countData) : 0;
 
     // 3. Fetch Payments
-    const { data: pembayaranData, isLoading, refetch: refetchList } = useReadContract({
+    const { data: pembayaranData, isLoading, error: pembayaranError, refetch: refetchList } = useReadContract({
         address: DIAMOND_ADDRESS as `0x${string}`,
         abi: DIAMOND_ABI,
         functionName: 'getAllPembayaran',
         args: [BigInt(page * limit), BigInt(limit), BigInt(rencanaPembelianId)],
         query: { enabled: isValidId }
     });
-
-
     // 4. Delete Action
     const { writeContractAsync } = useWriteContract();
 

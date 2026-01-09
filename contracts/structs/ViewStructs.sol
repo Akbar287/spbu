@@ -60,3 +60,143 @@ struct ProdukMenuMs2View {
     uint256 totalJumlah; // Sum of jumlah from DetailRencanaPembelian where ms2By == address(0)
     uint256 totalPembelian; // Count of DetailRencanaPembelian where ms2By == address(0)
 }
+
+// Ms2 view all
+struct Ms2View {
+    uint256 ms2Id;
+    uint256 tanggal;
+    address konfirmasiBy;
+    ProdukMenuMs2View[] produk;
+    uint256 totalProduk;
+    uint256 createdAt;
+    uint256 updatedAt;
+    bool deleted;
+}
+
+// Ms2 create
+struct ProdukMenuMs2WithDetailRencanaPembelian {
+    uint256 produkId;
+    uint256 detailRencanaPembelianId;
+    string namaProduk;
+    uint256 jumlah;
+    uint256 tanggalPembelian;
+    string kodePembelian;
+}
+
+struct JamKerjaMs2ProdukMenu {
+    uint256 jamKerjaId;
+    string namaJamKerja;
+    int256 urutan;
+}
+
+struct ProdukMenuMs2ViewByProdukId {
+    uint256 produkId;
+    string namaProduk;
+    string totalJumlah;
+    ProdukMenuMs2ViewByProdukIdPembelian[] produk;
+}
+
+struct ProdukMenuMs2ViewByProdukIdPembelian {
+    uint256 rencanaPembelianId;
+    uint256 detailRencanaPembelianId;
+    uint256 tanggalPembelian;
+    string kodePembelian;
+    uint256 totalStok;
+}
+
+// Pengiriman
+struct PengirimanView {
+    uint256 pengirimanId;
+    uint256 tanggal;
+    string noDo;
+    string noPol;
+    ProdukMenuMs2View[] produk;
+    uint256 createdAt;
+    uint256 updatedAt;
+    bool deleted;
+}
+
+struct PengirimanById {
+    uint256 pengirimanId;
+    address walletMember;
+    uint256 tanggal;
+    string noDo;
+    string noPolisi;
+    string catatan;
+    bool ms2;
+    address ms2By;
+    uint256 ms2At;
+    bool konfirmasiAdmin;
+    bool konfirmasiDirektur;
+    address konfirmasiAdminBy;
+    uint256 konfirmasiAdminAt;
+    address konfirmasiDirekturBy;
+    uint256 konfirmasiDirekturAt;
+    uint256 createdAt;
+    uint256 updatedAt;
+    bool deleted;
+    PengirimanByIdForListFileLo[] fileLoList;
+}
+struct PengirimanByIdForListFileLo {
+    uint256 detailRencanaPembelianId;
+    uint256 produkId;
+    string namaProduk;
+    uint256 jumlah;
+    string satuanJumlah;
+    uint256 fileLoId;
+    string noFaktur;
+    string noLo;
+}
+
+// Semua Rencana Pembelian Sampai File Lo
+struct FileLoDetailId {
+    uint256 fileLoId;
+    uint256 detailRencanaPembelianId;
+    uint256 pengirimanId;
+    uint256 rencanaPembelianId;
+    string namaSpbu;
+    address walletMember;
+    uint256 tanggalPembelian;
+    string kodePembelian;
+    string deskripsi;
+    uint256 grandTotal; // scaled x100
+    uint256 ppn;
+    uint256 ppbkb;
+    uint256 pph;
+    uint256 jumlah; // scaled x100
+    string satuanJumlah;
+    string noFaktur;
+    string noLo;
+    uint256 createdAt;
+    uint256 updatedAt;
+    bool deleted;
+    string ipfsHash;
+    FileLoDetailProduk[] produkList;
+    FileLoDetailPembayaranId[] pembayaranList;
+}
+struct FileLoDetailProduk {
+    uint256 detailRencanaPembelianId;
+    uint256 produkId;
+    string namaProduk;
+    uint256 harga; // scaled x100
+    uint256 jumlah; // scaled x100
+    uint256 subTotal; // scaled x100
+    string satuanJumlah;
+}
+struct FileLoDetailPembayaranId {
+    uint256 pembayaranId;
+    uint256 rencanaPembelianId;
+    address walletMember;
+    string noCekBg;
+    string noRekening;
+    string namaRekening;
+    string namaBank;
+    uint256 totalBayar;
+}
+
+struct KtpIdNama {
+    uint256 ktpId;
+    string nama;
+    string nik;
+    address walletAddress;
+}

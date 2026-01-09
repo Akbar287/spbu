@@ -5,24 +5,26 @@
 
 // Import all facet ABIs
 import AccessControlFacetABI from './AccessControlFacet.json';
-import IdentityMemberFacetABI from './IdentityMemberFacet.json';
-import IdentityNotifFacetABI from './IdentityNotifFacet.json';
-import OrganizationFacetABI from './OrganizationFacet.json';
-import HumanCapitalFacetABI from './HumanCapitalFacet.json';
 import AssetCoreFacetABI from './AssetCoreFacet.json';
 import AssetFileFacetABI from './AssetFileFacet.json';
+import AttendanceConfigFacetABI from './AttendanceConfigFacet.json';
+import AttendanceRecordFacetABI from './AttendanceRecordFacet.json';
+import CmsFacetABI from './CmsFacet.json';
+import FinanceFacetABI from './FinanceFacet.json';
+import HumanCapitalFacetABI from './HumanCapitalFacet.json';
+import IdentityMemberFacetABI from './IdentityMemberFacet.json';
+import IdentityNotifFacetABI from './IdentityNotifFacet.json';
 import InventoryCoreFacetABI from './InventoryCoreFacet.json';
 import InventoryDocsFacetABI from './InventoryDocsFacet.json';
 import InventoryTransferFacetABI from './InventoryTransferFacet.json';
 import LogisticCoreFacetABI from './LogisticCoreFacet.json';
 import LogisticFileFacetABI from './LogisticFileFacet.json';
-import AttendanceConfigFacetABI from './AttendanceConfigFacet.json';
-import AttendanceRecordFacetABI from './AttendanceRecordFacet.json';
+import OrganizationFacetABI from './OrganizationFacet.json';
+import PengadaanConfirmationFacetABI from './PengadaanConfirmationFacet.json';
 import PengadaanCoreFacetABI from './PengadaanCoreFacet.json';
 import PengadaanPaymentFacetABI from './PengadaanPaymentFacet.json';
 import PointOfSalesCoreFacetABI from './PointOfSalesCoreFacet.json';
 import PointOfSalesSalesFacetABI from './PointOfSalesSalesFacet.json';
-import FinanceFacetABI from './FinanceFacet.json';
 import QualityControlFacetABI from './QualityControlFacet.json';
 
 // Import combined ABI
@@ -31,24 +33,26 @@ import DiamondCombinedABI from './DiamondCombined.json';
 // Export all facet ABIs
 export {
     AccessControlFacetABI,
-    IdentityMemberFacetABI,
-    IdentityNotifFacetABI,
-    OrganizationFacetABI,
-    HumanCapitalFacetABI,
     AssetCoreFacetABI,
     AssetFileFacetABI,
+    AttendanceConfigFacetABI,
+    AttendanceRecordFacetABI,
+    CmsFacetABI,
+    FinanceFacetABI,
+    HumanCapitalFacetABI,
+    IdentityMemberFacetABI,
+    IdentityNotifFacetABI,
     InventoryCoreFacetABI,
     InventoryDocsFacetABI,
     InventoryTransferFacetABI,
     LogisticCoreFacetABI,
     LogisticFileFacetABI,
-    AttendanceConfigFacetABI,
-    AttendanceRecordFacetABI,
+    OrganizationFacetABI,
+    PengadaanConfirmationFacetABI,
     PengadaanCoreFacetABI,
     PengadaanPaymentFacetABI,
     PointOfSalesCoreFacetABI,
     PointOfSalesSalesFacetABI,
-    FinanceFacetABI,
     QualityControlFacetABI,
     DiamondCombinedABI,
 };

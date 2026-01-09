@@ -2,6 +2,7 @@
 pragma solidity ^0.8.33;
 
 import "../storage/AppStorage.sol";
+import "../structs/ViewStructs.sol";
 
 /**
  * @title IdentityMemberFacet
@@ -386,5 +387,35 @@ contract IdentityMemberFacet {
         result = new AppStorage.Jabatan[](len);
         for (uint256 i = 0; i < len; i++)
             result[i] = os.jabatanList[ids[_offset + i]];
+    }
+
+    function getAllKtpIdAndNama() external view returns (KtpIdNama[] memory) {
+        AppStorage.IdentityStorage storage s = AppStorage.identityStorage();
+        uint256[] memory allIds = s.allKtpIds;
+
+        // Count non-deleted and verified
+        uint256 count = 0;
+        for (uint256 i = 0; i < allIds.length; i++) {
+            AppStorage.Ktp storage ktp = s.ktp[allIds[i]];
+            if (!ktp.deleted && ktp.verified) {
+                count++;
+            }
+        }
+
+        KtpIdNama[] memory result = new KtpIdNama[](count);
+        uint256 idx = 0;
+        for (uint256 i = 0; i < allIds.length; i++) {
+            AppStorage.Ktp storage ktp = s.ktp[allIds[i]];
+            if (!ktp.deleted && ktp.verified) {
+                result[idx] = KtpIdNama({
+                    ktpId: ktp.ktpId,
+                    nama: ktp.nama,
+                    nik: ktp.nik,
+                    walletAddress: ktp.walletAddress
+                });
+                idx++;
+            }
+        }
+        return result;
     }
 }

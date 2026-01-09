@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { useReadContract } from 'wagmi';
 import {
     Package, ArrowLeft, Grid3X3, List, Loader2,
-    ShoppingCart, Box, TrendingUp, Eye
+    ShoppingCart, Box, TrendingUp, Eye,
+    Truck
 } from 'lucide-react';
 import { DIAMOND_ADDRESS, DIAMOND_ABI } from '@/contracts/config';
 
@@ -148,6 +149,15 @@ export default function Ms2ProdukIndex() {
                                     <List className="w-4 h-4" />
                                 </button>
                             </div>
+                            <motion.button
+                                onClick={() => navigate('/procurement/ms2/pengiriman')}
+                                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-2xl shadow-lg shadow-blue-500/30 transition-all"
+                                whileHover={{ scale: 1.05, y: -2 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <Truck className="w-5 h-5" />
+                                Ajukan Pengiriman
+                            </motion.button>
                         </div>
                     </div>
 
@@ -183,7 +193,7 @@ export default function Ms2ProdukIndex() {
                                     <ShoppingCart className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
                                 </div>
                                 <div>
-                                    <p className="text-sm text-slate-500 dark:text-slate-400">Total Pembelian Menunggu</p>
+                                    <p className="text-sm text-slate-500 dark:text-slate-400">Total Stok</p>
                                     <p className="text-2xl font-bold text-slate-800 dark:text-white">
                                         {formatNumber(produkList.reduce((sum, p) => sum + p.totalPembelian, 0))}
                                     </p>
@@ -272,7 +282,7 @@ export default function Ms2ProdukIndex() {
 
                                     {/* Action Button */}
                                     <motion.button
-                                        onClick={() => navigate(`/procurement/ms2/produk/${produk.produkId}`)}
+                                        onClick={() => navigate(`/procurement/ms2/${produk.produkId}`)}
                                         className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-blue-500/30 transition-all"
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
