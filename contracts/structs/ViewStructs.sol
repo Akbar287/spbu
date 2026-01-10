@@ -200,3 +200,119 @@ struct KtpIdNama {
     string nik;
     address walletAddress;
 }
+
+struct PenerimaanView {
+    uint256 fileLoId;
+    uint256 penerimaanId;
+    string noFaktur;
+    string noLo;
+    uint256 tanggalPembelian;
+    string namaProduk;
+    uint256 jumlah;
+    string satuanJumlah;
+    uint256 createdAt;
+    uint256 updatedAt;
+    bool deleted;
+}
+
+struct PenerimaanDetailInfo {
+    uint256 fileLoId;
+    uint256 detailRencanaPembelianId;
+    uint256 pengirimanId;
+    uint256 tanggalPengiriman;
+    uint256 rencanaPembelianId;
+    string deskripsi;
+    string namaSpbu;
+    string pegawaiPengusul;
+    uint256 tanggalPembelian;
+    string kodePembelian;
+    uint256 grandTotal; // scaled x100
+    uint256 ppn;
+    uint256 ppbkb;
+    uint256 pph;
+    uint256 harga; // scaled x100
+    uint256 totalHarga; // scaled x100
+    uint256 jumlah;
+    string satuanJumlah;
+    string noFaktur;
+    string noLo;
+    string noDo;
+    string noPol;
+    uint256 createdAt;
+    uint256 updatedAt;
+    bool deleted;
+    string ipfsHash;
+    FileLoDetailPembayaranId[] pembayaranList;
+    AppStorage.Penerimaan[] penerimaanList;
+}
+
+struct PenerimaanCreateDetail {
+    uint256 fileLoId;
+    uint256 detailRencanaPembelianId;
+    uint256 pengirimanId;
+    uint256 tanggalPengiriman;
+    uint256 rencanaPembelianId;
+    string deskripsi;
+    string namaSpbu;
+    string pegawaiPengusul;
+    uint256 tanggalPembelian;
+    string kodePembelian;
+    uint256 harga; // scaled x100
+    uint256 totalHarga; // scaled x100
+    uint256 jumlah;
+    string satuanJumlah;
+    string noFaktur;
+    string noLo;
+    string noDo;
+    string noPol;
+    uint256 createdAt;
+    uint256 updatedAt;
+    bool deleted;
+    string ipfsHash;
+    DombakPenerimaanCreateDetail[] dombakList;
+    AppStorage.JamKerja[] jamKerjaList;
+}
+
+struct DombakPenerimaanCreateDetail {
+    uint256 dombakId;
+    string namaDombak;
+    uint256 stok;
+}
+
+// Monitoring Stok
+struct MonitoringStokCreateInfo {
+    AppStorage.Produk[] produkList;
+    AppStorage.Dombak[] dombakList;
+}
+
+struct MonitoringStokDetailInfo {
+    uint256 stokInventoryId;
+    uint256 produkId;
+    string namaProduk;
+    uint256 totalStok;
+    MonitoringStokDetailInfoOnStokInventoryDombak[] stokInventoryDombakList;
+    uint256 createdAt;
+    uint256 updatedAt;
+    bool deleted;
+}
+struct MonitoringStokDetailInfoOnStokInventoryDombak {
+    uint256 stokInventoryDombakId;
+    uint256 dombakId;
+    string namaDombak;
+    uint256 stok;
+    uint256 createdAt;
+    uint256 updatedAt;
+    bool deleted;
+}
+
+struct MonitoringStokEditInfo {
+    uint256 stokInventoryId;
+    uint256 produkId;
+    string namaProduk;
+    uint256 totalStok;
+    MonitoringStokDetailInfoOnStokInventoryDombak[] stokInventoryDombakList;
+    uint256 createdAt;
+    uint256 updatedAt;
+    bool deleted;
+    AppStorage.Dombak[] dombakList;
+}

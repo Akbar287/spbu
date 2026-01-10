@@ -308,6 +308,19 @@
     "type": "event"
   },
   {
+    "inputs": [],
+    "name": "countTotalPenerimaan",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -764,6 +777,542 @@
         "internalType": "struct AppStorage.Penerimaan",
         "name": "",
         "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_fileLoId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPenerimaanCreateDetailInfoDombak",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "fileLoId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "detailRencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pengirimanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalPengiriman",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaSpbu",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "pegawaiPengusul",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalPembelian",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "kodePembelian",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "harga",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalHarga",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jumlah",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "satuanJumlah",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noFaktur",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noLo",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noDo",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noPol",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          },
+          {
+            "internalType": "string",
+            "name": "ipfsHash",
+            "type": "string"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "dombakId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "namaDombak",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "stok",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct DombakPenerimaanCreateDetail[]",
+            "name": "dombakList",
+            "type": "tuple[]"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "jamKerjaId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "spbuId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "namaJamKerja",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "jamDatang",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "jamPulang",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "jamMulaiIstirahat",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "jamSelesaiIstirahat",
+                "type": "uint256"
+              },
+              {
+                "internalType": "int256",
+                "name": "urutan",
+                "type": "int256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "deleted",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct AppStorage.JamKerja[]",
+            "name": "jamKerjaList",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct PenerimaanCreateDetail",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_fileLoId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPenerimaanDetailInfo",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "fileLoId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "detailRencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pengirimanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalPengiriman",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaSpbu",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "pegawaiPengusul",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalPembelian",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "kodePembelian",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "grandTotal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppbkb",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pph",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "harga",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalHarga",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jumlah",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "satuanJumlah",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noFaktur",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noLo",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noDo",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noPol",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          },
+          {
+            "internalType": "string",
+            "name": "ipfsHash",
+            "type": "string"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "pembayaranId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "rencanaPembelianId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "address",
+                "name": "walletMember",
+                "type": "address"
+              },
+              {
+                "internalType": "string",
+                "name": "noCekBg",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "noRekening",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "namaRekening",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "namaBank",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "totalBayar",
+                "type": "uint256"
+              }
+            ],
+            "internalType": "struct FileLoDetailPembayaranId[]",
+            "name": "pembayaranList",
+            "type": "tuple[]"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "penerimaanId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "fileLoId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "dokumenStokId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "tanggal",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "deleted",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct AppStorage.Penerimaan[]",
+            "name": "penerimaanList",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct PenerimaanDetailInfo",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPenerimaanView",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "fileLoId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "penerimaanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "noFaktur",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noLo",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalPembelian",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaProduk",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jumlah",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "satuanJumlah",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct PenerimaanView[]",
+        "name": "",
+        "type": "tuple[]"
       }
     ],
     "stateMutability": "view",

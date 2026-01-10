@@ -432,6 +432,26 @@ contract InventoryDocsFacet {
         return tempResult;
     }
 
+    function getKonversiByTinggi(
+        uint256 dombakId,
+        uint256 tinggi
+    ) external view returns (uint256) {
+        AppStorage.InventoryStorage storage inventory = AppStorage
+            .inventoryStorage();
+
+        uint256 length = inventory.konversiIds.length;
+
+        for (uint256 i = 0; i < length; i++) {
+            AppStorage.Konversi storage data = inventory.konversiList[
+                inventory.konversiIds[i]
+            ];
+
+            if (data.dombakId == dombakId && data.tinggi == tinggi) {
+                return data.volume;
+            }
+        }
+        return 0;
+    }
     // ==================== SatuanUkurTinggi CRUD ====================
     function createSatuanUkurTinggi(
         string calldata _namaSatuan,

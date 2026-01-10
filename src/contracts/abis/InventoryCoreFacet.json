@@ -439,41 +439,17 @@
         "type": "uint256"
       },
       {
-        "internalType": "uint256",
-        "name": "_stok",
-        "type": "uint256"
+        "internalType": "uint256[]",
+        "name": "_dombakIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_stoks",
+        "type": "uint256[]"
       }
     ],
     "name": "createStokInventory",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_stokInventoryId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_dombakId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_stok",
-        "type": "uint256"
-      }
-    ],
-    "name": "createStokInventoryDombak",
     "outputs": [
       {
         "internalType": "uint256",
@@ -543,19 +519,6 @@
       }
     ],
     "name": "deleteStokInventory",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteStokInventoryDombak",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -711,6 +674,110 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "getDataToCreateStokInventory",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "produkId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "spbuId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "namaProduk",
+                "type": "string"
+              },
+              {
+                "internalType": "bool",
+                "name": "aktif",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint256",
+                "name": "oktan",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "deleted",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct AppStorage.Produk[]",
+            "name": "produkList",
+            "type": "tuple[]"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "dombakId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "spbuId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "namaDombak",
+                "type": "string"
+              },
+              {
+                "internalType": "bool",
+                "name": "aktif",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "deleted",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct AppStorage.Dombak[]",
+            "name": "dombakList",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct MonitoringStokCreateInfo",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -836,6 +903,146 @@
         "internalType": "uint256[]",
         "name": "",
         "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_stokInventoryId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getMonitoringStokEditInfo",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "stokInventoryId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaProduk",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalStok",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "stokInventoryDombakId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "dombakId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "namaDombak",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "stok",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "deleted",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct MonitoringStokDetailInfoOnStokInventoryDombak[]",
+            "name": "stokInventoryDombakList",
+            "type": "tuple[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "dombakId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "spbuId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "namaDombak",
+                "type": "string"
+              },
+              {
+                "internalType": "bool",
+                "name": "aktif",
+                "type": "bool"
+              },
+              {
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "deleted",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct AppStorage.Dombak[]",
+            "name": "dombakList",
+            "type": "tuple[]"
+          }
+        ],
+        "internalType": "struct MonitoringStokEditInfo",
+        "name": "",
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
@@ -986,11 +1193,114 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_id",
+        "name": "_stokInventoryId",
         "type": "uint256"
       }
     ],
-    "name": "getStokInventoryById",
+    "name": "getStokInventoryDetail",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "stokInventoryId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaProduk",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalStok",
+            "type": "uint256"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256",
+                "name": "stokInventoryDombakId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "dombakId",
+                "type": "uint256"
+              },
+              {
+                "internalType": "string",
+                "name": "namaDombak",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "stok",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "internalType": "bool",
+                "name": "deleted",
+                "type": "bool"
+              }
+            ],
+            "internalType": "struct MonitoringStokDetailInfoOnStokInventoryDombak[]",
+            "name": "stokInventoryDombakList",
+            "type": "tuple[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct MonitoringStokDetailInfo",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getStokInventoryPagination",
     "outputs": [
       {
         "components": [
@@ -1025,116 +1335,22 @@
             "type": "bool"
           }
         ],
-        "internalType": "struct AppStorage.StokInventory",
+        "internalType": "struct AppStorage.StokInventory[]",
         "name": "",
-        "type": "tuple"
+        "type": "tuple[]"
       }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_produkId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getStokInventoryByProduk",
+    "inputs": [],
+    "name": "getStokInventoryPaginationCount",
     "outputs": [
       {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "stokInventoryId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "produkId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "stok",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.StokInventory",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getStokInventoryDombakById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "stokInventoryDombakId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "dombakId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "stokInventoryId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "stok",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.StokInventoryDombak",
         "name": "",
-        "type": "tuple"
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -1304,31 +1520,24 @@
         "type": "uint256"
       },
       {
-        "internalType": "uint256",
-        "name": "_stok",
-        "type": "uint256"
+        "internalType": "uint256[]",
+        "name": "_newDombakIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "_newStoks",
+        "type": "uint256[]"
       }
     ],
     "name": "updateStokInventory",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
+    "outputs": [
       {
-        "internalType": "uint256",
-        "name": "_id",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_stok",
-        "type": "uint256"
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
-    "name": "updateStokInventoryDombak",
-    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },

@@ -95,7 +95,7 @@ import MonitoringDombakCreate from '@/pages/Stok/Monitoring/MonitoringDombakCrea
 import MonitoringDombakIndex from '@/pages/Stok/Monitoring/MonitoringDombakIndex'
 import FilePenerimaanIndex from '@/pages/Stok/Penerimaan/FilePenerimaan/FilePenerimaanIndex'
 import PenerimaanIndex from '@/pages/Stok/Penerimaan/PenerimaanIndex'
-import PenerimaanDetail from '@/pages/Stok/Penerimaan/PenerimaanDetail'
+import PenerimaanDetail from '@/pages/Stok/Penerimaan/PenerimaanCreate'
 import PenerimaanShow from '@/pages/Stok/Penerimaan/PenerimaanShow'
 import PenerimaanVerifikasiShow from '@/pages/Stok/Penerimaan/PenerimaanVerifikasiShow'
 import PenerimaanVerifikasi from '@/pages/Stok/Penerimaan/PenerimaanVerifikasi'
@@ -256,6 +256,7 @@ import PembayaranBayarIndex from '@/pages/Procurement/Pembayaran/PembayaranBayar
 import PembayaranBayarCreate from '@/pages/Procurement/Pembayaran/PembayaranBayar/PembayaranBayarCreate'
 import PembayaranBayarDetail from '@/pages/Procurement/Pembayaran/PembayaranBayar/PembayaranBayarDetail'
 import PembayaranBayarEdit from '@/pages/Procurement/Pembayaran/PembayaranBayar/PembayaranBayarEdit'
+import PenerimaanCreate from '@/pages/Stok/Penerimaan/PenerimaanCreate'
 
 
 export default function index() {
@@ -405,29 +406,29 @@ export default function index() {
                         <Route index element={<StokMenu />} />
 
                         {/* Monitoring */}
-                        <Route path="monitoring" element={<MonitoringIndex />} />
-                        <Route path="monitoring/create" element={<MonitoringCreate />} />
-                        <Route path="monitoring/:stokId" element={<MonitoringShow />} />
-                        <Route path="monitoring/:stokId/edit" element={<MonitoringEdit />} />
-                        <Route path="monitoring/:stokId/riwayat" element={<MonitoringRiwayat />} />
-                        <Route path="monitoring/:stokId/riwayat/:dokumenStokId" element={<MonitoringRiwayatDetail />} />
+                        <Route path="pemantauan-stok" element={<MonitoringIndex />} />
+                        <Route path="pemantauan-stok/create" element={<MonitoringCreate />} />
+                        <Route path="pemantauan-stok/:stokId" element={<MonitoringShow />} />
+                        <Route path="pemantauan-stok/:stokId/edit" element={<MonitoringEdit />} />
+                        <Route path="pemantauan-stok/:stokId/riwayat" element={<MonitoringRiwayat />} />
+                        <Route path="pemantauan-stok/:stokId/riwayat/:dokumenStokId" element={<MonitoringRiwayatDetail />} />
                         {/* Monitoring Dombak */}
-                        <Route path="monitoring/:stokId/dombak" element={<MonitoringDombakIndex />} />
-                        <Route path="monitoring/:stokId/dombak/create" element={<MonitoringDombakCreate />} />
+                        <Route path="pemantauan-stok/:stokId/dombak" element={<MonitoringDombakIndex />} />
+                        <Route path="pemantauan-stok/:stokId/dombak/create" element={<MonitoringDombakCreate />} />
 
                         {/* Penerimaan */}
-                        <Route path="penerimaan" element={<PenerimaanIndex />} />
-                        <Route path="penerimaan/riwayat" element={<PenerimaanRiwayat />} />
-                        <Route path="penerimaan/riwayat/:penerimaanId" element={<PenerimaanRiwayatShow />} />
-                        <Route path="penerimaan/verifikasi" element={<PenerimaanVerifikasi />} />
-                        <Route path="penerimaan/verifikasi/:penerimaanId" element={<PenerimaanVerifikasiShow />} />
-                        <Route path="penerimaan/:fileLoId" element={<PenerimaanShow />} />
-                        <Route path="penerimaan/:penerimaanId/show" element={<PenerimaanDetail />} />
+                        <Route path="penerimaan-minyak" element={<PenerimaanIndex />} />
+                        <Route path="penerimaan-minyak/riwayat" element={<PenerimaanRiwayat />} />
+                        <Route path="penerimaan-minyak/riwayat/:penerimaanId" element={<PenerimaanRiwayatShow />} />
+                        <Route path="penerimaan-minyak/verifikasi" element={<PenerimaanVerifikasi />} />
+                        <Route path="penerimaan-minyak/verifikasi/:penerimaanId" element={<PenerimaanVerifikasiShow />} />
+                        <Route path="penerimaan-minyak/:fileLoId" element={<PenerimaanShow />} />
+                        <Route path="penerimaan-minyak/:fileLoId/create" element={<PenerimaanCreate />} />
                         {/* File Penerimaan */}
-                        <Route path="penerimaan/verifikasi/:penerimaanId/file" element={<FilePenerimaanIndex />} />
-                        <Route path="penerimaan/verifikasi/:penerimaanId/file/create" element={<FilePenerimaanCreate />} />
-                        <Route path="penerimaan/verifikasi/:penerimaanId/file/:fileId" element={<FilePenerimaanShow />} />
-                        <Route path="penerimaan/verifikasi/:penerimaanId/file/:fileId/edit" element={<FilePenerimaanEdit />} />
+                        <Route path="penerimaan-minyak/verifikasi/:penerimaanId/file" element={<FilePenerimaanIndex />} />
+                        <Route path="penerimaan-minyak/verifikasi/:penerimaanId/file/create" element={<FilePenerimaanCreate />} />
+                        <Route path="penerimaan-minyak/verifikasi/:penerimaanId/file/:fileId" element={<FilePenerimaanShow />} />
+                        <Route path="penerimaan-minyak/verifikasi/:penerimaanId/file/:fileId/edit" element={<FilePenerimaanEdit />} />
 
                         {/* Stok Transfer */}
                         <Route path="stok-transfer" element={<StokTransferIndex />} />

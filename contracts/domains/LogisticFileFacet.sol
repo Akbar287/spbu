@@ -2,6 +2,7 @@
 pragma solidity ^0.8.33;
 
 import "../storage/AppStorage.sol";
+import "../structs/ViewStructs.sol";
 
 /**
  * @title LogisticFileFacet
@@ -396,5 +397,346 @@ contract LogisticFileFacet {
     }
     function getTotalPenerimaan() external view returns (uint256) {
         return AppStorage.logistikStorage().penerimaanIds.length;
+    }
+
+    // Penerimaan
+    function getPenerimaanView(
+        uint256 offset,
+        uint256 limit
+    ) external view returns (PenerimaanView[] memory) {
+        AppStorage.LogistikStorage storage s = AppStorage.logistikStorage();
+        AppStorage.PengadaanStorage storage pengadaan = AppStorage
+            .pengadaanStorage();
+        AppStorage.InventoryStorage storage inv = AppStorage.inventoryStorage();
+
+        // Inisialisasi array dengan ukuran limit (maksimal)
+        PenerimaanView[] memory tempResult = new PenerimaanView[](limit);
+        uint256 resultCount = 0;
+        uint256 processedCount = 0;
+
+        // Iterasi mundur (dari terbaru ke terlama) biasanya lebih baik untuk user
+        for (uint256 i = s.fileLoCounter; i >= 1 && resultCount < limit; i--) {
+            AppStorage.FileLo storage data = s.fileLoList[i];
+            AppStorage.Pengiriman storage pen = s.pengirimanList[
+                data.pengirimanId
+            ];
+
+            // Filter: Admin & Direktur sudah konfirmasi dan data tidak dihapus
+            if (
+                pen.konfirmasiAdmin && pen.konfirmasiDirektur && !data.deleted
+            ) {
+                // Lewati data sebanyak offset
+                if (processedCount < offset) {
+                    processedCount++;
+                    continue;
+                }
+
+                uint256[] storage detailRpIds = pengadaan
+                    .fileLoToDetailRencanaPembelianIds[data.fileLoId];
+                if (detailRpIds.length == 0) continue;
+
+                AppStorage.DetailRencanaPembelian storage detailRP = pengadaan
+                    .detailRencanaPembelianList[detailRpIds[0]];
+                AppStorage.RencanaPembelian storage rencPembelian = pengadaan
+                    .rencanaPembelianList[detailRP.rencanaPembelianId];
+                AppStorage.Produk storage produk = inv.produkList[
+                    data.produkId
+                ];
+                uint256[] storage penerimaanIds = s.fileLoIdToPenerimaanIds[
+                    data.fileLoId
+                ];
+
+                tempResult[resultCount] = PenerimaanView({
+                    fileLoId: data.fileLoId,
+                    penerimaanId: penerimaanIds.length > 0
+                        ? penerimaanIds[0]
+                        : 0,
+                    noFaktur: data.noFaktur,
+                    noLo: data.noLo,
+                    tanggalPembelian: rencPembelian.tanggalPembelian,
+                    namaProduk: produk.namaProduk,
+                    jumlah: data.jumlah,
+                    satuanJumlah: data.satuanJumlah,
+                    createdAt: data.createdAt,
+                    updatedAt: data.updatedAt,
+                    deleted: data.deleted
+                });
+                resultCount++;
+            }
+        }
+
+        // Resize array agar tidak ada slot kosong jika data < limit
+        if (resultCount == limit) {
+            return tempResult;
+        } else {
+            PenerimaanView[] memory finalResult = new PenerimaanView[](
+                resultCount
+            );
+            for (uint256 j = 0; j < resultCount; j++) {
+                finalResult[j] = tempResult[j];
+            }
+            return finalResult;
+        }
+    }
+
+    function countTotalPenerimaan() external view returns (uint256) {
+        AppStorage.LogistikStorage storage s = AppStorage.logistikStorage();
+        uint256 total = 0;
+
+        for (uint256 i = 1; i <= s.fileLoCounter; i++) {
+            AppStorage.FileLo storage data = s.fileLoList[i];
+            AppStorage.Pengiriman storage pen = s.pengirimanList[
+                data.pengirimanId
+            ];
+
+            // Sesuaikan filter dengan yang ada di fungsi view
+            if (
+                pen.konfirmasiAdmin && pen.konfirmasiDirektur && !data.deleted
+            ) {
+                total++;
+            }
+        }
+        return total;
+    }
+
+    function getPenerimaanDetailInfo(
+        uint256 _fileLoId
+    ) external view returns (PenerimaanDetailInfo memory) {
+        AppStorage.LogistikStorage storage s = AppStorage.logistikStorage();
+        AppStorage.PengadaanStorage storage pengadaan = AppStorage
+            .pengadaanStorage();
+        AppStorage.IdentityStorage storage identity = AppStorage
+            .identityStorage();
+        AppStorage.OrganisasiStorage storage org = AppStorage.orgStorage();
+
+        AppStorage.FileLo storage fileLo = s.fileLoList[_fileLoId];
+        require(fileLo.fileLoId != 0, "File LO not found");
+
+        AppStorage.Pengiriman storage pengiriman = s.pengirimanList[
+            fileLo.pengirimanId
+        ];
+
+        // --- PROSES PENERIMAAN ---
+        uint256[] storage penerimaanIds = s.fileLoIdToPenerimaanIds[
+            fileLo.fileLoId
+        ];
+
+        // Hitung yang tidak didelete untuk ukuran array yang akurat
+        uint256 activePenerimaanCount = 0;
+        for (uint256 i = 0; i < penerimaanIds.length; i++) {
+            if (!s.penerimaanList[penerimaanIds[i]].deleted) {
+                activePenerimaanCount++;
+            }
+        }
+
+        AppStorage.Penerimaan[]
+            memory penerimaanList = new AppStorage.Penerimaan[](
+                activePenerimaanCount
+            );
+        uint256 pIdx = 0;
+        for (uint256 i = 0; i < penerimaanIds.length; i++) {
+            AppStorage.Penerimaan storage pData = s.penerimaanList[
+                penerimaanIds[i]
+            ];
+            if (!pData.deleted) {
+                penerimaanList[pIdx] = pData; // Langsung salin dari storage ke memory
+                pIdx++;
+            }
+        }
+
+        // --- PROSES DATA PENDUKUNG ---
+        uint256[] storage drpIds = pengadaan.fileLoToDetailRencanaPembelianIds[
+            _fileLoId
+        ];
+        require(drpIds.length > 0, "Detail Rencana Pembelian not found");
+
+        AppStorage.DetailRencanaPembelian storage detailRP = pengadaan
+            .detailRencanaPembelianList[drpIds[0]];
+        AppStorage.RencanaPembelian storage rencPembelian = pengadaan
+            .rencanaPembelianList[detailRP.rencanaPembelianId];
+        AppStorage.Ktp storage ktp = identity.ktpMember[
+            rencPembelian.walletMember
+        ];
+        AppStorage.Spbu storage spbu = org.spbuList[rencPembelian.spbuId];
+
+        uint256[] storage pajakIds = pengadaan
+            .rencanaPembelianToPajakPembelianIds[
+                rencPembelian.rencanaPembelianId
+            ];
+        require(pajakIds.length > 0, "Pajak not found");
+        AppStorage.PajakPembelian storage pajak = pengadaan.pajakPembelianList[
+            pajakIds[0]
+        ];
+
+        // --- PROSES PEMBAYARAN ---
+        uint256[] storage pembayaranIds = pengadaan
+            .rencanaPembelianToPembayaranIds[rencPembelian.rencanaPembelianId];
+        FileLoDetailPembayaranId[]
+            memory pembayaranList = new FileLoDetailPembayaranId[](
+                pembayaranIds.length
+            );
+
+        for (uint256 i = 0; i < pembayaranIds.length; i++) {
+            AppStorage.Pembayaran storage pem = pengadaan.pembayaranList[
+                pembayaranIds[i]
+            ];
+            pembayaranList[i] = FileLoDetailPembayaranId({
+                pembayaranId: pem.pembayaranId,
+                rencanaPembelianId: pem.rencanaPembelianId,
+                walletMember: pem.walletMember,
+                noCekBg: pem.noCekBg,
+                noRekening: pem.noRekening,
+                namaRekening: pem.namaRekening,
+                namaBank: pem.namaBank,
+                totalBayar: pem.totalBayar
+            });
+        }
+
+        return
+            PenerimaanDetailInfo({
+                fileLoId: fileLo.fileLoId,
+                detailRencanaPembelianId: detailRP.detailRencanaPembelianId,
+                pengirimanId: pengiriman.pengirimanId,
+                tanggalPengiriman: pengiriman.tanggal,
+                rencanaPembelianId: rencPembelian.rencanaPembelianId,
+                deskripsi: rencPembelian.deskripsi,
+                namaSpbu: spbu.namaSpbu,
+                pegawaiPengusul: ktp.nama,
+                tanggalPembelian: rencPembelian.tanggalPembelian,
+                kodePembelian: rencPembelian.kodePembelian,
+                grandTotal: rencPembelian.grandTotal,
+                ppn: pajak.ppn,
+                ppbkb: pajak.ppbkb,
+                pph: pajak.pph,
+                harga: detailRP.harga,
+                totalHarga: detailRP.subTotal,
+                jumlah: detailRP.jumlah,
+                satuanJumlah: detailRP.satuanJumlah,
+                noFaktur: fileLo.noFaktur,
+                noLo: fileLo.noLo,
+                noDo: pengiriman.noDo,
+                noPol: pengiriman.noPolisi,
+                createdAt: fileLo.createdAt,
+                updatedAt: fileLo.updatedAt,
+                deleted: fileLo.deleted,
+                ipfsHash: fileLo.ipfsHash,
+                pembayaranList: pembayaranList,
+                penerimaanList: penerimaanList
+            });
+    }
+
+    function getPenerimaanCreateDetailInfoDombak(
+        uint256 _fileLoId
+    ) external view returns (PenerimaanCreateDetail memory) {
+        AppStorage.LogistikStorage storage s = AppStorage.logistikStorage();
+        AppStorage.InventoryStorage storage inventory = AppStorage
+            .inventoryStorage();
+
+        AppStorage.FileLo storage fileLo = s.fileLoList[_fileLoId];
+        require(fileLo.fileLoId != 0, "File LO not found");
+
+        // --- PROSES PENERIMAAN ---
+        AppStorage.Penerimaan[] memory penerimaanList;
+        {
+            uint256[] storage pIds = s.fileLoIdToPenerimaanIds[fileLo.fileLoId];
+            uint256 activeCount = 0;
+            for (uint256 i = 0; i < pIds.length; i++) {
+                if (!s.penerimaanList[pIds[i]].deleted) activeCount++;
+            }
+            penerimaanList = new AppStorage.Penerimaan[](activeCount);
+            uint256 pIdx = 0;
+            for (uint256 i = 0; i < pIds.length; i++) {
+                if (!s.penerimaanList[pIds[i]].deleted) {
+                    penerimaanList[pIdx] = s.penerimaanList[pIds[i]];
+                    pIdx++;
+                }
+            }
+        }
+
+        // --- PROSES DOMBAK ---
+        DombakPenerimaanCreateDetail[] memory dombakList;
+        uint256 drpIdHolder; // Untuk menyimpan ID agar stack tetap lega
+        {
+            AppStorage.PengadaanStorage storage pengadaan = AppStorage
+                .pengadaanStorage();
+            uint256[] storage drpIds = pengadaan
+                .fileLoToDetailRencanaPembelianIds[_fileLoId];
+            require(drpIds.length > 0, "Detail Rencana Pembelian not found");
+            drpIdHolder = drpIds[0];
+
+            uint256 stokInvId = inventory.produkToStokInventoryId[
+                pengadaan.detailRencanaPembelianList[drpIdHolder].produkId
+            ];
+            require(stokInvId > 0, "Stok Inventory not found");
+
+            uint256[] storage stokDombakIds = inventory
+                .stokInventoryToStokInventoryDombakIds[stokInvId];
+            dombakList = new DombakPenerimaanCreateDetail[](
+                stokDombakIds.length
+            );
+
+            for (uint256 i = 0; i < stokDombakIds.length; i++) {
+                AppStorage.StokInventoryDombak storage sid = inventory
+                    .stokInventoryDombakList[stokDombakIds[i]];
+                dombakList[i] = DombakPenerimaanCreateDetail({
+                    dombakId: sid.dombakId,
+                    namaDombak: inventory.dombakList[sid.dombakId].namaDombak,
+                    stok: sid.stok
+                });
+            }
+        }
+
+        // --- PROSES DATA FINAL ---
+        AppStorage.PengadaanStorage storage p = AppStorage.pengadaanStorage();
+        AppStorage.DetailRencanaPembelian storage drp = p
+            .detailRencanaPembelianList[drpIdHolder];
+        AppStorage.RencanaPembelian storage rp = p.rencanaPembelianList[
+            drp.rencanaPembelianId
+        ];
+        AppStorage.AttendaceStorage storage attendance = AppStorage
+            .attendanceStorage();
+
+        // Mapping Jam Kerja
+        AppStorage.JamKerja[] memory jamKerjaList = new AppStorage.JamKerja[](
+            attendance.jamKerjaIds.length
+        );
+        for (uint256 i = 0; i < attendance.jamKerjaIds.length; i++) {
+            jamKerjaList[i] = attendance.jamKerjaList[
+                attendance.jamKerjaIds[i]
+            ];
+        }
+
+        return
+            PenerimaanCreateDetail({
+                fileLoId: fileLo.fileLoId,
+                detailRencanaPembelianId: drp.detailRencanaPembelianId,
+                pengirimanId: fileLo.pengirimanId,
+                tanggalPengiriman: s
+                    .pengirimanList[fileLo.pengirimanId]
+                    .tanggal,
+                rencanaPembelianId: drp.rencanaPembelianId,
+                deskripsi: rp.deskripsi,
+                namaSpbu: AppStorage.orgStorage().spbuList[rp.spbuId].namaSpbu,
+                pegawaiPengusul: AppStorage
+                    .identityStorage()
+                    .ktpMember[rp.walletMember]
+                    .nama,
+                tanggalPembelian: rp.tanggalPembelian,
+                kodePembelian: rp.kodePembelian,
+                harga: drp.harga,
+                totalHarga: drp.subTotal,
+                jumlah: drp.jumlah,
+                satuanJumlah: drp.satuanJumlah,
+                noFaktur: fileLo.noFaktur,
+                noLo: fileLo.noLo,
+                noDo: s.pengirimanList[fileLo.pengirimanId].noDo,
+                noPol: s.pengirimanList[fileLo.pengirimanId].noPolisi,
+                createdAt: fileLo.createdAt,
+                updatedAt: fileLo.updatedAt,
+                deleted: fileLo.deleted,
+                ipfsHash: fileLo.ipfsHash,
+                dombakList: dombakList,
+                jamKerjaList: jamKerjaList
+            });
     }
 }

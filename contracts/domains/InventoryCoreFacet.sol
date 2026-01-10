@@ -2,6 +2,7 @@
 pragma solidity ^0.8.33;
 
 import "../storage/AppStorage.sol";
+import "../structs/ViewStructs.sol";
 
 /**
  * @title InventoryCoreFacet
@@ -276,33 +277,128 @@ contract InventoryCoreFacet {
     }
 
     // ==================== StokInventory CRUD ====================
+    function getDataToCreateStokInventory()
+        external
+        view
+        returns (MonitoringStokCreateInfo memory)
+    {
+        AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
+
+        // 1. Hitung Produk yang belum punya Stok
+        uint256 availableProdukCount = 0;
+        for (uint256 i = 0; i < s.produkIds.length; i++) {
+            if (s.produkToStokInventoryId[s.produkIds[i]] == 0) {
+                availableProdukCount++;
+            }
+        }
+
+        // 2. Hitung Dombak yang belum terpakai
+        uint256 availableDombakCount = 0;
+        for (uint256 i = 0; i < s.dombakIds.length; i++) {
+            if (s.dombakToStokInventoryIds[s.dombakIds[i]].length == 0) {
+                availableDombakCount++;
+            }
+        }
+
+        // 3. Alokasi Memory Array dengan ukuran yang presisi
+        AppStorage.Produk[] memory produkList = new AppStorage.Produk[](
+            availableProdukCount
+        );
+        AppStorage.Dombak[] memory dombakList = new AppStorage.Dombak[](
+            availableDombakCount
+        );
+
+        // 4. Isi ProdukList
+        uint256 pIdx = 0;
+        for (uint256 i = 0; i < s.produkIds.length; i++) {
+            uint256 pId = s.produkIds[i];
+            if (s.produkToStokInventoryId[pId] == 0) {
+                produkList[pIdx] = s.produkList[pId];
+                pIdx++;
+            }
+        }
+
+        // 5. Isi DombakList
+        uint256 dIdx = 0;
+        for (uint256 i = 0; i < s.dombakIds.length; i++) {
+            uint256 dId = s.dombakIds[i];
+            if (s.dombakToStokInventoryIds[dId].length == 0) {
+                dombakList[dIdx] = s.dombakList[dId];
+                dIdx++;
+            }
+        }
+
+        return
+            MonitoringStokCreateInfo({
+                produkList: produkList,
+                dombakList: dombakList
+            });
+    }
 
     function createStokInventory(
         uint256 _produkId,
-        uint256 _stok
+        uint256[] calldata _dombakIds,
+        uint256[] calldata _stoks
     ) external returns (uint256) {
         _onlyAdmin();
         AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
+
+        // Validasi Dasar
+        require(_dombakIds.length == _stoks.length, "Length not match");
         require(s.produkList[_produkId].produkId != 0, "Produk not found");
+        // MENCEGAH OVERWRITE: Pastikan produk belum punya stok
         require(
             s.produkToStokInventoryId[_produkId] == 0,
-            "StokInventory already exists"
+            "Stok for this product already exists"
         );
+
+        uint256 totalStok = 0;
+
+        // Loop 1: Validasi Dombak & Hitung Total Stok
+        for (uint256 i = 0; i < _dombakIds.length; i++) {
+            require(
+                s.dombakList[_dombakIds[i]].dombakId != 0,
+                "Dombak not found"
+            );
+            totalStok += _stoks[i];
+        }
 
         s.stokInventoryCounter++;
         uint256 newId = s.stokInventoryCounter;
 
+        // Simpan Header Stok Inventory
         s.stokInventoryList[newId] = AppStorage.StokInventory({
             stokInventoryId: newId,
             produkId: _produkId,
-            stok: _stok,
+            stok: totalStok,
             createdAt: block.timestamp,
             updatedAt: block.timestamp,
             deleted: false
         });
 
-        s.stokInventoryIds.push(newId);
         s.produkToStokInventoryId[_produkId] = newId;
+        s.stokInventoryIds.push(newId);
+
+        // Loop 2: Simpan Rincian Stok per Dombak
+        for (uint256 i = 0; i < _dombakIds.length; i++) {
+            s.stokInventoryDombakCounter++;
+            uint256 newSIDId = s.stokInventoryDombakCounter;
+
+            s.stokInventoryDombakList[newSIDId] = AppStorage
+                .StokInventoryDombak({
+                    stokInventoryDombakId: newSIDId,
+                    stokInventoryId: newId,
+                    dombakId: _dombakIds[i],
+                    stok: _stoks[i],
+                    createdAt: block.timestamp,
+                    updatedAt: block.timestamp,
+                    deleted: false
+                });
+
+            s.stokInventoryDombakIds.push(newSIDId);
+            s.stokInventoryToStokInventoryDombakIds[newId].push(newSIDId);
+            s.dombakToStokInventoryIds[_dombakIds[i]].push(newId);
+        }
 
         emit StokInventoryCreated(newId, _produkId, block.timestamp);
         return newId;
@@ -310,20 +406,124 @@ contract InventoryCoreFacet {
 
     function updateStokInventory(
         uint256 _stokInventoryId,
-        uint256 _stok
-    ) external {
+        uint256[] calldata _newDombakIds,
+        uint256[] calldata _newStoks
+    ) external returns (bool) {
         _onlyAdmin();
         AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
-        AppStorage.StokInventory storage data = s.stokInventoryList[
+
+        // 1. Validasi Dasar
+        require(_newDombakIds.length == _newStoks.length, "Length not match");
+        AppStorage.StokInventory storage si = s.stokInventoryList[
             _stokInventoryId
         ];
-        require(data.stokInventoryId != 0, "Not found");
-        require(!data.deleted, "Deleted");
+        require(
+            si.stokInventoryId != 0 && !si.deleted,
+            "Stok Inventory not found"
+        );
 
-        data.stok = _stok;
-        data.updatedAt = block.timestamp;
+        bool isChanged = false; // Flag untuk melacak segala bentuk perubahan data
+        uint256 totalStokBaru = 0;
 
-        emit StokInventoryUpdated(_stokInventoryId, _stok, block.timestamp);
+        // 2. Deteksi Duplikasi Input & Hitung Total Stok Baru
+        for (uint256 i = 0; i < _newDombakIds.length; i++) {
+            for (uint256 j = 0; j < i; j++) {
+                require(
+                    _newDombakIds[i] != _newDombakIds[j],
+                    "Duplicate dombakId in input"
+                );
+            }
+            totalStokBaru += _newStoks[i];
+        }
+
+        // 3. Sync Rincian Lama (Handle Deletion)
+        uint256[] storage currentSIDIds = s
+            .stokInventoryToStokInventoryDombakIds[_stokInventoryId];
+        for (uint256 i = 0; i < currentSIDIds.length; i++) {
+            AppStorage.StokInventoryDombak storage sid = s
+                .stokInventoryDombakList[currentSIDIds[i]];
+
+            bool isStillExists = false;
+            for (uint256 j = 0; j < _newDombakIds.length; j++) {
+                if (sid.dombakId == _newDombakIds[j]) {
+                    isStillExists = true;
+                    break;
+                }
+            }
+
+            // Jika dombak dihapus dari daftar input oleh user
+            if (!isStillExists && !sid.deleted) {
+                sid.deleted = true;
+                sid.stok = 0;
+                sid.updatedAt = block.timestamp;
+                isChanged = true; // Komposisi berubah (penghapusan)
+            }
+        }
+
+        // 4. Sync Input Baru (Handle Update & Creation)
+        for (uint256 i = 0; i < _newDombakIds.length; i++) {
+            uint256 targetDombakId = _newDombakIds[i];
+            uint256 targetStok = _newStoks[i];
+            bool foundInStorage = false;
+
+            for (uint256 k = 0; k < currentSIDIds.length; k++) {
+                AppStorage.StokInventoryDombak storage sid = s
+                    .stokInventoryDombakList[currentSIDIds[k]];
+                if (sid.dombakId == targetDombakId) {
+                    foundInStorage = true;
+                    // Hanya update jika nilai berubah atau status deleted berubah (re-aktivasi)
+                    if (sid.stok != targetStok || sid.deleted) {
+                        sid.stok = targetStok;
+                        sid.deleted = false;
+                        sid.updatedAt = block.timestamp;
+                        isChanged = true; // Komposisi berubah (update nilai/status)
+                    }
+                    break;
+                }
+            }
+
+            if (!foundInStorage) {
+                // CREATE: Inisialisasi Dombak baru untuk produk ini
+                require(
+                    s.dombakList[targetDombakId].dombakId != 0,
+                    "Dombak not found"
+                );
+
+                s.stokInventoryDombakCounter++;
+                uint256 newSIDId = s.stokInventoryDombakCounter;
+
+                s.stokInventoryDombakList[newSIDId] = AppStorage
+                    .StokInventoryDombak({
+                        stokInventoryDombakId: newSIDId,
+                        dombakId: targetDombakId,
+                        stokInventoryId: _stokInventoryId,
+                        stok: targetStok,
+                        createdAt: block.timestamp,
+                        updatedAt: block.timestamp,
+                        deleted: false
+                    });
+
+                s.stokInventoryDombakIds.push(newSIDId);
+                s.stokInventoryToStokInventoryDombakIds[_stokInventoryId].push(
+                    newSIDId
+                );
+                s.dombakToStokInventoryIds[targetDombakId].push(
+                    _stokInventoryId
+                );
+
+                isChanged = true; // Komposisi berubah (penambahan baru)
+            }
+        }
+
+        // 5. Finalize Header: Update jika ada rincian yang berubah
+        // Meskipun totalStokBaru == si.stok, updatedAt akan tetap menyala jika ada re-alokasi dombak
+        if (isChanged) {
+            si.stok = totalStokBaru;
+            si.updatedAt = block.timestamp;
+        }
+
+        emit StokInventoryUpdated(_stokInventoryId, si.produkId, totalStokBaru);
+        return true;
     }
 
     function deleteStokInventory(uint256 _id) external {
@@ -341,103 +541,171 @@ contract InventoryCoreFacet {
         emit StokInventoryDeleted(_id, block.timestamp);
     }
 
-    function getStokInventoryById(
-        uint256 _id
-    ) external view returns (AppStorage.StokInventory memory) {
+    function getMonitoringStokEditInfo(
+        uint256 _stokInventoryId
+    ) external view returns (MonitoringStokEditInfo memory) {
         AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
-        require(s.stokInventoryList[_id].stokInventoryId != 0, "Not found");
-        return s.stokInventoryList[_id];
+
+        // 1. Ambil Header Stok
+        AppStorage.StokInventory storage si = s.stokInventoryList[
+            _stokInventoryId
+        ];
+        require(si.stokInventoryId != 0, "Stok Inventory not found");
+
+        // 2. Ambil List Dombak yang Tersedia (Kosong ATAU milik stok ini)
+        uint256 availableDombakCount = 0;
+        for (uint256 i = 0; i < s.dombakIds.length; i++) {
+            uint256 dId = s.dombakIds[i];
+            // Dombak dianggap tersedia jika belum punya stok, atau sudah terikat ke stok ini
+            if (
+                s.dombakToStokInventoryIds[dId].length == 0 ||
+                _isDombakInStok(s, dId, _stokInventoryId)
+            ) {
+                availableDombakCount++;
+            }
+        }
+
+        AppStorage.Dombak[] memory dombakList = new AppStorage.Dombak[](
+            availableDombakCount
+        );
+        uint256 dIdx = 0;
+        for (uint256 i = 0; i < s.dombakIds.length; i++) {
+            uint256 dId = s.dombakIds[i];
+            if (
+                s.dombakToStokInventoryIds[dId].length == 0 ||
+                _isDombakInStok(s, dId, _stokInventoryId)
+            ) {
+                dombakList[dIdx] = s.dombakList[dId];
+                dIdx++;
+            }
+        }
+
+        // 3. Ambil Rincian Dombak yang saat ini terpasang (Current Details)
+        uint256[] storage sidIds = s.stokInventoryToStokInventoryDombakIds[
+            _stokInventoryId
+        ];
+        MonitoringStokDetailInfoOnStokInventoryDombak[]
+            memory currentDetails = new MonitoringStokDetailInfoOnStokInventoryDombak[](
+                sidIds.length
+            );
+
+        for (uint256 i = 0; i < sidIds.length; i++) {
+            AppStorage.StokInventoryDombak storage sid = s
+                .stokInventoryDombakList[sidIds[i]];
+            currentDetails[i] = MonitoringStokDetailInfoOnStokInventoryDombak({
+                stokInventoryDombakId: sid.stokInventoryDombakId,
+                dombakId: sid.dombakId,
+                namaDombak: s.dombakList[sid.dombakId].namaDombak,
+                stok: sid.stok,
+                createdAt: sid.createdAt,
+                updatedAt: sid.updatedAt,
+                deleted: sid.deleted
+            });
+        }
+
+        return
+            MonitoringStokEditInfo({
+                stokInventoryId: si.stokInventoryId,
+                produkId: si.produkId,
+                namaProduk: s.produkList[si.produkId].namaProduk,
+                totalStok: si.stok,
+                stokInventoryDombakList: currentDetails,
+                dombakList: dombakList,
+                createdAt: si.createdAt,
+                updatedAt: si.updatedAt,
+                deleted: si.deleted
+            });
     }
 
-    function getStokInventoryByProduk(
-        uint256 _produkId
-    ) external view returns (AppStorage.StokInventory memory) {
-        AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
-        uint256 id = s.produkToStokInventoryId[_produkId];
-        require(id != 0, "Not found");
-        return s.stokInventoryList[id];
-    }
-
-    // ==================== StokInventoryDombak CRUD ====================
-
-    function createStokInventoryDombak(
-        uint256 _stokInventoryId,
+    // Helper internal untuk mengecek apakah dombak bagian dari stok ini
+    function _isDombakInStok(
+        AppStorage.InventoryStorage storage s,
         uint256 _dombakId,
-        uint256 _stok
-    ) external returns (uint256) {
-        _onlyAdmin();
-        AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
-        require(
-            s.stokInventoryList[_stokInventoryId].stokInventoryId != 0,
-            "StokInventory not found"
-        );
-        require(s.dombakList[_dombakId].dombakId != 0, "Dombak not found");
-
-        s.stokInventoryDombakCounter++;
-        uint256 newId = s.stokInventoryDombakCounter;
-
-        s.stokInventoryDombakList[newId] = AppStorage.StokInventoryDombak({
-            stokInventoryDombakId: newId,
-            stokInventoryId: _stokInventoryId,
-            dombakId: _dombakId,
-            stok: _stok,
-            createdAt: block.timestamp,
-            updatedAt: block.timestamp,
-            deleted: false
-        });
-
-        s.stokInventoryDombakIds.push(newId);
-        s.stokInventoryToStokInventoryDombakIds[_stokInventoryId].push(newId);
-        s.dombakToStokInventoryIds[_dombakId].push(_stokInventoryId);
-
-        emit StokInventoryDombakCreated(newId, _dombakId, block.timestamp);
-        return newId;
+        uint256 _targetStokId
+    ) private view returns (bool) {
+        uint256[] storage ids = s.dombakToStokInventoryIds[_dombakId];
+        for (uint256 i = 0; i < ids.length; i++) {
+            if (ids[i] == _targetStokId) return true;
+        }
+        return false;
     }
 
-    function updateStokInventoryDombak(uint256 _id, uint256 _stok) external {
-        _onlyAdmin();
+    function getStokInventoryDetail(
+        uint256 _stokInventoryId
+    ) external view returns (MonitoringStokDetailInfo memory) {
         AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
-        AppStorage.StokInventoryDombak storage data = s.stokInventoryDombakList[
-            _id
+
+        // 1. Ambil referensi header Stok Inventory
+        AppStorage.StokInventory storage si = s.stokInventoryList[
+            _stokInventoryId
         ];
-        require(data.stokInventoryDombakId != 0, "Not found");
-        require(!data.deleted, "Deleted");
+        require(si.stokInventoryId != 0, "Not found");
 
-        data.stok = _stok;
-        data.updatedAt = block.timestamp;
-
-        emit StokInventoryDombakUpdated(_id, block.timestamp);
-    }
-
-    function deleteStokInventoryDombak(uint256 _id) external {
-        _onlyAdmin();
-        AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
-        AppStorage.StokInventoryDombak storage data = s.stokInventoryDombakList[
-            _id
+        // 2. Ambil ID rincian dombak terkait
+        uint256[] storage sidIds = s.stokInventoryToStokInventoryDombakIds[
+            _stokInventoryId
         ];
-        require(data.stokInventoryDombakId != 0, "Not found");
-        require(!data.deleted, "Already deleted");
 
-        data.deleted = true;
-        data.updatedAt = block.timestamp;
-        _removeFromArray(s.stokInventoryDombakIds, _id);
-        _removeFromArray(
-            s.stokInventoryToStokInventoryDombakIds[data.stokInventoryId],
-            _id
-        );
+        // 3. INISIALISASI ARRAY MEMORY (Wajib dilakukan)
+        MonitoringStokDetailInfoOnStokInventoryDombak[]
+            memory result = new MonitoringStokDetailInfoOnStokInventoryDombak[](
+                sidIds.length
+            );
 
-        emit StokInventoryDombakDeleted(_id, block.timestamp);
+        // 4. Loop untuk mengisi rincian
+        for (uint256 i = 0; i < sidIds.length; i++) {
+            uint256 sidId = sidIds[i]; // Cache ID untuk hemat gas
+            AppStorage.StokInventoryDombak storage sid = s
+                .stokInventoryDombakList[sidId];
+            AppStorage.Dombak storage dombak = s.dombakList[sid.dombakId];
+
+            result[i] = MonitoringStokDetailInfoOnStokInventoryDombak({
+                stokInventoryDombakId: sidId,
+                dombakId: dombak.dombakId,
+                namaDombak: dombak.namaDombak,
+                stok: sid.stok,
+                createdAt: sid.createdAt,
+                updatedAt: sid.updatedAt,
+                deleted: sid.deleted
+            });
+        }
+
+        // 5. Kembalikan struct utama
+        return
+            MonitoringStokDetailInfo({
+                stokInventoryId: si.stokInventoryId,
+                produkId: si.produkId,
+                namaProduk: s.produkList[si.produkId].namaProduk,
+                totalStok: si.stok,
+                stokInventoryDombakList: result,
+                createdAt: si.createdAt,
+                updatedAt: si.updatedAt,
+                deleted: si.deleted
+            });
     }
 
-    function getStokInventoryDombakById(
-        uint256 _id
-    ) external view returns (AppStorage.StokInventoryDombak memory) {
+    function getStokInventoryPagination(
+        uint256 offset,
+        uint256 limit
+    ) external view returns (AppStorage.StokInventory[] memory) {
         AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
-        require(
-            s.stokInventoryDombakList[_id].stokInventoryDombakId != 0,
-            "Not found"
-        );
-        return s.stokInventoryDombakList[_id];
+        uint256 total = s.stokInventoryIds.length;
+        uint256 start = offset * limit;
+        uint256 end = start + limit;
+        if (end > total) {
+            end = total;
+        }
+        AppStorage.StokInventory[]
+            memory result = new AppStorage.StokInventory[](end - start);
+        for (uint256 i = start; i < end; i++) {
+            result[i - start] = s.stokInventoryList[s.stokInventoryIds[i]];
+        }
+        return result;
+    }
+
+    function getStokInventoryPaginationCount() external view returns (uint256) {
+        AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
+        return s.stokInventoryIds.length;
     }
 
     // ==================== TypeDokumenStok CRUD ====================
