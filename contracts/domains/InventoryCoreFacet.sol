@@ -412,7 +412,6 @@ contract InventoryCoreFacet {
         _onlyAdmin();
         AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
 
-        // 1. Validasi Dasar
         require(_newDombakIds.length == _newStoks.length, "Length not match");
         AppStorage.StokInventory storage si = s.stokInventoryList[
             _stokInventoryId
@@ -422,27 +421,26 @@ contract InventoryCoreFacet {
             "Stok Inventory not found"
         );
 
-        bool isChanged = false; // Flag untuk melacak segala bentuk perubahan data
+        bool isChanged = false;
         uint256 totalStokBaru = 0;
 
-        // 2. Deteksi Duplikasi Input & Hitung Total Stok Baru
+        // 1. Validasi Duplikasi & Hitung Total
         for (uint256 i = 0; i < _newDombakIds.length; i++) {
             for (uint256 j = 0; j < i; j++) {
                 require(
                     _newDombakIds[i] != _newDombakIds[j],
-                    "Duplicate dombakId in input"
+                    "Duplicate dombakId"
                 );
             }
             totalStokBaru += _newStoks[i];
         }
 
-        // 3. Sync Rincian Lama (Handle Deletion)
+        // 2. Sync Rincian Lama (Deletion)
         uint256[] storage currentSIDIds = s
             .stokInventoryToStokInventoryDombakIds[_stokInventoryId];
         for (uint256 i = 0; i < currentSIDIds.length; i++) {
             AppStorage.StokInventoryDombak storage sid = s
                 .stokInventoryDombakList[currentSIDIds[i]];
-
             bool isStillExists = false;
             for (uint256 j = 0; j < _newDombakIds.length; j++) {
                 if (sid.dombakId == _newDombakIds[j]) {
@@ -450,17 +448,15 @@ contract InventoryCoreFacet {
                     break;
                 }
             }
-
-            // Jika dombak dihapus dari daftar input oleh user
             if (!isStillExists && !sid.deleted) {
                 sid.deleted = true;
                 sid.stok = 0;
                 sid.updatedAt = block.timestamp;
-                isChanged = true; // Komposisi berubah (penghapusan)
+                isChanged = true;
             }
         }
 
-        // 4. Sync Input Baru (Handle Update & Creation)
+        // 3. Sync Input Baru (Update & Creation)
         for (uint256 i = 0; i < _newDombakIds.length; i++) {
             uint256 targetDombakId = _newDombakIds[i];
             uint256 targetStok = _newStoks[i];
@@ -471,52 +467,36 @@ contract InventoryCoreFacet {
                     .stokInventoryDombakList[currentSIDIds[k]];
                 if (sid.dombakId == targetDombakId) {
                     foundInStorage = true;
-                    // Hanya update jika nilai berubah atau status deleted berubah (re-aktivasi)
                     if (sid.stok != targetStok || sid.deleted) {
+                        // --- LOGIKA AUDIT DOKUMEN STOK ---
+                        _createAuditMovement(
+                            s,
+                            _stokInventoryId,
+                            targetDombakId,
+                            int256(sid.stok),
+                            int256(targetStok)
+                        );
+
                         sid.stok = targetStok;
                         sid.deleted = false;
                         sid.updatedAt = block.timestamp;
-                        isChanged = true; // Komposisi berubah (update nilai/status)
+                        isChanged = true;
                     }
                     break;
                 }
             }
 
             if (!foundInStorage) {
-                // CREATE: Inisialisasi Dombak baru untuk produk ini
-                require(
-                    s.dombakList[targetDombakId].dombakId != 0,
-                    "Dombak not found"
+                _createNewDombakRelation(
+                    s,
+                    _stokInventoryId,
+                    targetDombakId,
+                    targetStok
                 );
-
-                s.stokInventoryDombakCounter++;
-                uint256 newSIDId = s.stokInventoryDombakCounter;
-
-                s.stokInventoryDombakList[newSIDId] = AppStorage
-                    .StokInventoryDombak({
-                        stokInventoryDombakId: newSIDId,
-                        dombakId: targetDombakId,
-                        stokInventoryId: _stokInventoryId,
-                        stok: targetStok,
-                        createdAt: block.timestamp,
-                        updatedAt: block.timestamp,
-                        deleted: false
-                    });
-
-                s.stokInventoryDombakIds.push(newSIDId);
-                s.stokInventoryToStokInventoryDombakIds[_stokInventoryId].push(
-                    newSIDId
-                );
-                s.dombakToStokInventoryIds[targetDombakId].push(
-                    _stokInventoryId
-                );
-
-                isChanged = true; // Komposisi berubah (penambahan baru)
+                isChanged = true;
             }
         }
 
-        // 5. Finalize Header: Update jika ada rincian yang berubah
-        // Meskipun totalStokBaru == si.stok, updatedAt akan tetap menyala jika ada re-alokasi dombak
         if (isChanged) {
             si.stok = totalStokBaru;
             si.updatedAt = block.timestamp;
@@ -524,6 +504,104 @@ contract InventoryCoreFacet {
 
         emit StokInventoryUpdated(_stokInventoryId, si.produkId, totalStokBaru);
         return true;
+    }
+
+    function _createAuditMovement(
+        AppStorage.InventoryStorage storage s,
+        uint256 _stokInventoryId,
+        uint256 _dombakId,
+        int256 _stokLama,
+        int256 _stokBaru
+    ) internal {
+        // 1. Cari TypeDokumenStokId untuk 'Commit Change From User'
+        uint256 typeId = 0;
+        for (uint256 i = 0; i < s.typeDokumenStokIds.length; i++) {
+            if (
+                keccak256(
+                    bytes(
+                        s
+                            .typeDokumenStokList[s.typeDokumenStokIds[i]]
+                            .typeMovement
+                    )
+                ) == keccak256(bytes("Commit Change From User"))
+            ) {
+                typeId = s.typeDokumenStokIds[i];
+                break;
+            }
+        }
+
+        // 2. Cari Stok Akhir Terakhir dari DokumenStok sebelumnya (Iterasi Mundur)
+        int256 saldoTerakhir = _stokLama;
+        uint256[] storage dsIds = s.stokInventoryToDokumenStokIds[
+            _stokInventoryId
+        ];
+
+        if (dsIds.length > 0) {
+            for (uint256 i = dsIds.length; i > 0; i--) {
+                AppStorage.DokumenStok storage lastDs = s.dokumenStokList[
+                    dsIds[i - 1]
+                ];
+                if (lastDs.dombakId == _dombakId && !lastDs.deleted) {
+                    saldoTerakhir = lastDs.stokAkhir;
+                    break;
+                }
+            }
+        }
+
+        // 3. Buat Record Baru
+        s.dokumenStokCounter++;
+        uint256 newId = s.dokumenStokCounter;
+
+        s.dokumenStokList[newId] = AppStorage.DokumenStok({
+            dokumenStokId: newId,
+            stokInventoryId: _stokInventoryId,
+            typeDokumenStokId: typeId,
+            jamKerjaId: 0,
+            dombakId: _dombakId,
+            wallet: msg.sender,
+            tanggal: block.timestamp,
+            stokAwal: saldoTerakhir,
+            stokAkhir: _stokBaru,
+            confirmation: true,
+            confirmedBy: msg.sender,
+            confirmedAt: block.timestamp,
+            createdAt: block.timestamp,
+            updatedAt: block.timestamp,
+            deleted: false
+        });
+
+        s.dokumenStokIds.push(newId);
+        s.stokInventoryToDokumenStokIds[_stokInventoryId].push(newId);
+        s.dombakToDokumenStokIds[_dombakId].push(newId);
+        s.typeDokumenStokToDokumenStokIds[typeId].push(newId);
+    }
+
+    function _createNewDombakRelation(
+        AppStorage.InventoryStorage storage s,
+        uint256 _stokInventoryId,
+        uint256 _dombakId,
+        uint256 _stok
+    ) internal {
+        require(s.dombakList[_dombakId].dombakId != 0, "Dombak not found");
+        s.stokInventoryDombakCounter++;
+        uint256 sidId = s.stokInventoryDombakCounter;
+
+        s.stokInventoryDombakList[sidId] = AppStorage.StokInventoryDombak({
+            stokInventoryDombakId: sidId,
+            dombakId: _dombakId,
+            stokInventoryId: _stokInventoryId,
+            stok: _stok,
+            createdAt: block.timestamp,
+            updatedAt: block.timestamp,
+            deleted: false
+        });
+
+        s.stokInventoryDombakIds.push(sidId);
+        s.stokInventoryToStokInventoryDombakIds[_stokInventoryId].push(sidId);
+        s.dombakToStokInventoryIds[_dombakId].push(_stokInventoryId);
+
+        // Audit awal untuk dombak baru
+        _createAuditMovement(s, _stokInventoryId, _dombakId, 0, int256(_stok));
     }
 
     function deleteStokInventory(uint256 _id) external {

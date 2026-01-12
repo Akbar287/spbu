@@ -2,6 +2,7 @@
 pragma solidity ^0.8.33;
 
 import "../storage/AppStorage.sol";
+import "../structs/ViewStructs.sol";
 
 /**
  * @title InventoryDocsFacet
@@ -623,5 +624,106 @@ contract InventoryDocsFacet {
         result = new AppStorage.DokumenStok[](len);
         for (uint256 i = 0; i < len; i++)
             result[i] = s.dokumenStokList[allIds[_offset + i]];
+    }
+
+    function getAllDokumenStokRiwayat(
+        uint256 _offset,
+        uint256 _limit,
+        uint256 _stokInventoryId
+    )
+        external
+        view
+        returns (MonitoringStokRiwayatIndexInfo[] memory result, uint256 total)
+    {
+        AppStorage.InventoryStorage storage s = AppStorage.inventoryStorage();
+        uint256[] storage allIds = s.stokInventoryToDokumenStokIds[
+            _stokInventoryId
+        ];
+        total = allIds.length;
+
+        if (_offset >= total)
+            return (new MonitoringStokRiwayatIndexInfo[](0), total);
+
+        uint256 count = total - _offset;
+        if (count > _limit) count = _limit;
+
+        result = new MonitoringStokRiwayatIndexInfo[](count);
+
+        for (uint256 i = 0; i < count; i++) {
+            uint256 currentId = allIds[total - 1 - _offset - i];
+            // Panggil helper internal untuk memproses baris riwayat
+            result[i] = _formatRiwayatInfo(s, _stokInventoryId, currentId);
+        }
+    }
+
+    // Fungsi Helper untuk memecah beban stack (Frame Stack Baru)
+    function _formatRiwayatInfo(
+        AppStorage.InventoryStorage storage s,
+        uint256 _stokInventoryId,
+        uint256 _dokumenStokId
+    ) internal view returns (MonitoringStokRiwayatIndexInfo memory info) {
+        AppStorage.DokumenStok storage ds = s.dokumenStokList[_dokumenStokId];
+
+        // Assign basic fields first
+        info.stokInventoryId = _stokInventoryId;
+        info.dokumenStokId = _dokumenStokId;
+        info.tanggal = ds.tanggal;
+        info.stokAwal = ds.stokAwal;
+        info.stokAkhir = ds.stokAkhir;
+        info.createdAt = ds.createdAt;
+        info.updatedAt = ds.updatedAt;
+        info.deleted = ds.deleted;
+
+        // Scope 1: Loss calculation
+        {
+            uint256[] storage lIds = s.dokumenStokToLossesIds[_dokumenStokId];
+            if (lIds.length > 0) {
+                AppStorage.Losses storage loss = s.lossesList[lIds[0]];
+                info.totalLoss = loss.stok;
+                if (loss.simbol == AppStorage.SimbolLosses.Lebih) {
+                    info.stokAkhirTeoritis = ds.stokAwal + loss.stok;
+                    info.tandaLoss = "+";
+                } else {
+                    info.stokAkhirTeoritis = ds.stokAwal - loss.stok;
+                    info.tandaLoss = "-";
+                }
+            } else {
+                info.stokAkhirTeoritis = ds.stokAkhir;
+            }
+        }
+
+        // Scope 2: Type movement
+        {
+            info.typeMovement = s
+                .typeDokumenStokList[ds.typeDokumenStokId]
+                .typeMovement;
+        }
+
+        // Scope 3: Pegawai name
+        {
+            info.namaPegawai = AppStorage
+                .identityStorage()
+                .ktpMember[ds.wallet]
+                .nama;
+        }
+
+        // Scope 4: Produk name
+        {
+            uint256 produkId = s.stokInventoryList[_stokInventoryId].produkId;
+            info.namaProduk = s.produkList[produkId].namaProduk;
+        }
+
+        // Scope 5: Jam kerja
+        {
+            info.jamKerja = AppStorage
+                .attendanceStorage()
+                .jamKerjaList[ds.jamKerjaId]
+                .namaJamKerja;
+        }
+
+        // Scope 6: Dombak name
+        {
+            info.namaDombak = s.dombakList[ds.dombakId].namaDombak;
+        }
     }
 }

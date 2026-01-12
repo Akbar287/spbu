@@ -316,3 +316,22 @@ struct MonitoringStokEditInfo {
     bool deleted;
     AppStorage.Dombak[] dombakList;
 }
+
+struct MonitoringStokRiwayatIndexInfo {
+    uint256 stokInventoryId;
+    uint256 dokumenStokId;
+    uint256 tanggal;
+    string typeMovement;
+    string namaPegawai;
+    string namaProduk;
+    string jamKerja;
+    string namaDombak;
+    int256 stokAwal;
+    int256 stokAkhir;
+    int256 stokAkhirTeoritis;
+    int256 totalLoss;
+    string tandaLoss;
+    uint256 createdAt;
+    uint256 updatedAt;
+    bool deleted;
+}

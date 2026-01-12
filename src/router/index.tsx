@@ -85,7 +85,6 @@ import LampiranShow from '@/pages/Procurement/Delivery/FileLampiran/LampiranShow
 import LampiranCreate from '@/pages/Procurement/Delivery/FileLampiran/LampiranCreate'
 import LampiranIndex from '@/pages/Procurement/Delivery/FileLampiran/LampiranIndex'
 import StokMenu from '@/pages/Stok/StokMenu'
-import MonitoringRiwayatDetail from '@/pages/Stok/Monitoring/MonitoringRiwayatDetail'
 import MonitoringRiwayat from '@/pages/Stok/Monitoring/MonitoringRiwayat'
 import MonitoringEdit from '@/pages/Stok/Monitoring/MonitoringEdit'
 import MonitoringShow from '@/pages/Stok/Monitoring/MonitoringShow'
@@ -95,7 +94,6 @@ import MonitoringDombakCreate from '@/pages/Stok/Monitoring/MonitoringDombakCrea
 import MonitoringDombakIndex from '@/pages/Stok/Monitoring/MonitoringDombakIndex'
 import FilePenerimaanIndex from '@/pages/Stok/Penerimaan/FilePenerimaan/FilePenerimaanIndex'
 import PenerimaanIndex from '@/pages/Stok/Penerimaan/PenerimaanIndex'
-import PenerimaanDetail from '@/pages/Stok/Penerimaan/PenerimaanCreate'
 import PenerimaanShow from '@/pages/Stok/Penerimaan/PenerimaanShow'
 import PenerimaanVerifikasiShow from '@/pages/Stok/Penerimaan/PenerimaanVerifikasiShow'
 import PenerimaanVerifikasi from '@/pages/Stok/Penerimaan/PenerimaanVerifikasi'
@@ -411,7 +409,6 @@ export default function index() {
                         <Route path="pemantauan-stok/:stokId" element={<MonitoringShow />} />
                         <Route path="pemantauan-stok/:stokId/edit" element={<MonitoringEdit />} />
                         <Route path="pemantauan-stok/:stokId/riwayat" element={<MonitoringRiwayat />} />
-                        <Route path="pemantauan-stok/:stokId/riwayat/:dokumenStokId" element={<MonitoringRiwayatDetail />} />
                         {/* Monitoring Dombak */}
                         <Route path="pemantauan-stok/:stokId/dombak" element={<MonitoringDombakIndex />} />
                         <Route path="pemantauan-stok/:stokId/dombak/create" element={<MonitoringDombakCreate />} />
