@@ -38,3 +38,4 @@ deployments/localhost
 # Temporary files
 *.log
 .catatan.txt
+.konversi.json

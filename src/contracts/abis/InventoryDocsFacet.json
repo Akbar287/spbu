@@ -681,122 +681,6 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_offset",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_limit",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_stokInventoryId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getAllDokumenStokRiwayat",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "stokInventoryId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "dokumenStokId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "tanggal",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "typeMovement",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaPegawai",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaProduk",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "jamKerja",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "namaDombak",
-            "type": "string"
-          },
-          {
-            "internalType": "int256",
-            "name": "stokAwal",
-            "type": "int256"
-          },
-          {
-            "internalType": "int256",
-            "name": "stokAkhir",
-            "type": "int256"
-          },
-          {
-            "internalType": "int256",
-            "name": "stokAkhirTeoritis",
-            "type": "int256"
-          },
-          {
-            "internalType": "int256",
-            "name": "totalLoss",
-            "type": "int256"
-          },
-          {
-            "internalType": "string",
-            "name": "tandaLoss",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct MonitoringStokRiwayatIndexInfo[]",
-        "name": "result",
-        "type": "tuple[]"
-      },
-      {
-        "internalType": "uint256",
-        "name": "total",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
         "name": "offset",
         "type": "uint256"
       },
@@ -1278,6 +1162,132 @@
     "inputs": [
       {
         "internalType": "uint256",
+        "name": "_stokInventoryId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_startDate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_finishDate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getRiwayatStokByRange",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "stokInventoryId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dokumenStokId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "typeMovement",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaPegawai",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaProduk",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "jamKerja",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaDombak",
+            "type": "string"
+          },
+          {
+            "internalType": "int256",
+            "name": "stokAwal",
+            "type": "int256"
+          },
+          {
+            "internalType": "int256",
+            "name": "stokAkhir",
+            "type": "int256"
+          },
+          {
+            "internalType": "int256",
+            "name": "stokAkhirTeoritis",
+            "type": "int256"
+          },
+          {
+            "internalType": "int256",
+            "name": "totalLoss",
+            "type": "int256"
+          },
+          {
+            "internalType": "string",
+            "name": "tandaLoss",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct MonitoringStokRiwayatIndexInfo[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
         "name": "_id",
         "type": "uint256"
       }
@@ -1371,6 +1381,122 @@
         "internalType": "struct AppStorage.SatuanUkurVolume",
         "name": "",
         "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "limit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startDate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "finishDate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "produkId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "jamKerjaId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getStandMeter",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "dokumenStokId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "typeMovement",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaProduk",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaNozzle",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaDombak",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaJamKerja",
+            "type": "string"
+          },
+          {
+            "internalType": "int256",
+            "name": "stokAwal",
+            "type": "int256"
+          },
+          {
+            "internalType": "int256",
+            "name": "stokAkhir",
+            "type": "int256"
+          },
+          {
+            "internalType": "enum AppStorage.SimbolLosses",
+            "name": "simbol",
+            "type": "uint8"
+          },
+          {
+            "internalType": "int256",
+            "name": "stokLosses",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct StandMeterView[]",
+        "name": "",
+        "type": "tuple[]"
       }
     ],
     "stateMutability": "view",

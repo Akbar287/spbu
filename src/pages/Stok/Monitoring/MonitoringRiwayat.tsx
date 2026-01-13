@@ -104,15 +104,32 @@ export default function MonitoringRiwayat() {
     const [pageSize, setPageSize] = useState(10);
     const [selectedItem, setSelectedItem] = useState<RiwayatStokDisplay | null>(null);
 
+    // Date filter states - default to current month
+    const today = new Date();
+    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    const firstDayOfNextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+    const [startDate, setStartDate] = useState<string>(firstDayOfMonth.toISOString().split('T')[0]);
+    const [finishDate, setFinishDate] = useState<string>(firstDayOfNextMonth.toISOString().split('T')[0]);
+
     const stokInventoryId = stokId ? Number(stokId) : 0;
 
-    // Fetch riwayat data
+    // Convert date strings to timestamps
+    const startTimestamp = startDate ? Math.floor(new Date(startDate).getTime() / 1000) : 0;
+    const finishTimestamp = finishDate ? Math.floor(new Date(finishDate + 'T23:59:59').getTime() / 1000) : Math.floor(Date.now() / 1000);
+
+    // Fetch riwayat data with date range
     const { data: riwayatResponse, isLoading } = useReadContract({
         address: DIAMOND_ADDRESS as `0x${string}`,
         abi: DIAMOND_ABI,
-        functionName: 'getAllDokumenStokRiwayat',
-        args: [BigInt((currentPage - 1) * pageSize), BigInt(pageSize), BigInt(stokInventoryId)],
-        query: { enabled: stokInventoryId > 0 }
+        functionName: 'getRiwayatStokByRange',
+        args: [
+            BigInt(stokInventoryId),
+            BigInt(startTimestamp),
+            BigInt(finishTimestamp),
+            BigInt((currentPage - 1) * pageSize),
+            BigInt(pageSize)
+        ],
+        query: { enabled: stokInventoryId > 0 && startTimestamp > 0 && finishTimestamp > 0 }
     });
 
     // Convert riwayat data
@@ -233,13 +250,36 @@ export default function MonitoringRiwayat() {
                             </motion.p>
                         </div>
 
-                        {/* Action Buttons */}
+                        {/* Date Filters & Action Buttons */}
                         <motion.div
-                            className="flex items-center gap-3"
+                            className="flex flex-wrap items-center gap-3"
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.4 }}
                         >
+                            {/* Date Range Filter */}
+                            <div className="flex items-center gap-2 p-2 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+                                <Calendar className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+                                <input
+                                    type="date"
+                                    value={startDate}
+                                    onChange={(e) => {
+                                        setStartDate(e.target.value);
+                                        setCurrentPage(1);
+                                    }}
+                                    className="px-2 py-1 bg-transparent text-sm text-slate-700 dark:text-slate-300 outline-none cursor-pointer"
+                                />
+                                <span className="text-slate-400">-</span>
+                                <input
+                                    type="date"
+                                    value={finishDate}
+                                    onChange={(e) => {
+                                        setFinishDate(e.target.value);
+                                        setCurrentPage(1);
+                                    }}
+                                    className="px-2 py-1 bg-transparent text-sm text-slate-700 dark:text-slate-300 outline-none cursor-pointer"
+                                />
+                            </div>
                             {/* Page Size Select */}
                             <div className="flex items-center gap-2">
                                 <span className="text-sm text-slate-500 dark:text-slate-400 hidden sm:inline">Per halaman:</span>

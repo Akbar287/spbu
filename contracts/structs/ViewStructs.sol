@@ -335,3 +335,21 @@ struct MonitoringStokRiwayatIndexInfo {
     uint256 updatedAt;
     bool deleted;
 }
+
+// Stand Meter
+struct StandMeterView {
+    uint256 dokumenStokId;
+    uint256 tanggal;
+    string typeMovement;
+    string namaProduk;
+    string namaNozzle;
+    string namaDombak;
+    string namaJamKerja;
+    int256 stokAwal;
+    int256 stokAkhir;
+    AppStorage.SimbolLosses simbol;
+    int256 stokLosses;
+    uint256 createdAt;
+    uint256 updatedAt;
+    bool deleted;
+}

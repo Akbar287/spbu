@@ -14,9 +14,12 @@ export const formatDate = (date: Date) => {
     });
 };
 
-// Format number with thousand separator
+// Format number with thousand separator and 2 decimal places
 export const formatNumber = (num: number) => {
-    return num.toLocaleString('id-ID');
+    return num.toLocaleString('id-ID', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
 };
 
 // Calculate age of SPBU

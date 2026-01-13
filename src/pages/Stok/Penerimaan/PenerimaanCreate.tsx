@@ -144,8 +144,8 @@ export default function PenerimaanCreate() {
                 functionName: 'getKonversiByTinggi',
                 args: [BigInt(dombakId), BigInt(tinggi)],
             });
-            // Result is volume in bigint, convert to number
-            return Number(result || 0);
+            // Result is volume in bigint scaled x100, convert and unscale
+            return Number(result || 0) / 100;
         } catch (error) {
             console.error('Error fetching volume:', error);
             return 0;
@@ -158,6 +158,10 @@ export default function PenerimaanCreate() {
         field: 'tinggiSebelum' | 'tinggiSetelah',
         value: string
     ) => {
+        // Regex to allow only numbers and a single dot
+        const regex = /^\d*\.?\d*$/;
+        if (!regex.test(value)) return;
+
         const newForms = [...dombakForms];
         newForms[index][field] = value;
 
@@ -168,12 +172,14 @@ export default function PenerimaanCreate() {
         }
         setDombakForms(newForms);
 
-        // Debounce and fetch volume
-        const tinggiNum = parseInt(value, 10);
-        if (!isNaN(tinggiNum) && tinggiNum > 0) {
-            // Simulate API call - in real implementation, use useReadContract
+        // Scaling logic: e.g. "120.5" -> 12050
+        const floatVal = parseFloat(value);
+        if (!isNaN(floatVal) && floatVal > 0) {
+            const scaledTinggi = Math.round(floatVal * 100);
+
+            // Debounce and fetch volume
             setTimeout(async () => {
-                const volume = await fetchVolumeByTinggi(newForms[index].dombakId, tinggiNum);
+                const volume = await fetchVolumeByTinggi(newForms[index].dombakId, scaledTinggi);
                 const updatedForms = [...dombakForms];
                 if (field === 'tinggiSebelum') {
                     updatedForms[index].volumeSebelum = volume;
@@ -430,7 +436,7 @@ export default function PenerimaanCreate() {
                                                 Tinggi Sebelum (cm)
                                             </label>
                                             <input
-                                                type="number"
+                                                type="text"
                                                 value={dombak.tinggiSebelum}
                                                 onChange={(e) => handleTinggiChange(index, 'tinggiSebelum', e.target.value)}
                                                 placeholder="0"
@@ -451,7 +457,7 @@ export default function PenerimaanCreate() {
                                                 Tinggi Setelah (cm)
                                             </label>
                                             <input
-                                                type="number"
+                                                type="text"
                                                 value={dombak.tinggiSetelah}
                                                 onChange={(e) => handleTinggiChange(index, 'tinggiSetelah', e.target.value)}
                                                 placeholder="0"

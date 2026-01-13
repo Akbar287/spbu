@@ -626,10 +626,12 @@ contract InventoryDocsFacet {
             result[i] = s.dokumenStokList[allIds[_offset + i]];
     }
 
-    function getAllDokumenStokRiwayat(
+    function getRiwayatStokByRange(
+        uint256 _stokInventoryId,
+        uint256 _startDate, // Unix Timestamp (contoh: 1704067200)
+        uint256 _finishDate, // Unix Timestamp (contoh: 1706745600)
         uint256 _offset,
-        uint256 _limit,
-        uint256 _stokInventoryId
+        uint256 _limit
     )
         external
         view
@@ -639,24 +641,43 @@ contract InventoryDocsFacet {
         uint256[] storage allIds = s.stokInventoryToDokumenStokIds[
             _stokInventoryId
         ];
-        total = allIds.length;
 
+        // 1. Filter ID yang masuk dalam rentang waktu & belum dihapus
+        uint256[] memory filteredIds = new uint256[](allIds.length);
+        uint256 filteredCount = 0;
+
+        for (uint256 i = 0; i < allIds.length; i++) {
+            uint256 dsId = allIds[i];
+            AppStorage.DokumenStok storage ds = s.dokumenStokList[dsId];
+
+            if (
+                ds.tanggal >= _startDate &&
+                ds.tanggal <= _finishDate &&
+                !ds.deleted
+            ) {
+                filteredIds[filteredCount] = dsId;
+                filteredCount++;
+            }
+        }
+
+        total = filteredCount;
+
+        // 2. Handle Pagination & Result Allocation
         if (_offset >= total)
             return (new MonitoringStokRiwayatIndexInfo[](0), total);
-
         uint256 count = total - _offset;
         if (count > _limit) count = _limit;
 
         result = new MonitoringStokRiwayatIndexInfo[](count);
 
+        // 3. Isi data (Diurutkan dari yang terbaru/paling akhir di filteredIds)
         for (uint256 i = 0; i < count; i++) {
-            uint256 currentId = allIds[total - 1 - _offset - i];
-            // Panggil helper internal untuk memproses baris riwayat
+            uint256 currentId = filteredIds[total - 1 - _offset - i];
             result[i] = _formatRiwayatInfo(s, _stokInventoryId, currentId);
         }
     }
 
-    // Fungsi Helper untuk memecah beban stack (Frame Stack Baru)
+    // Helper Internal: Mengisi memori satu per satu untuk menghindari Stack Too Deep
     function _formatRiwayatInfo(
         AppStorage.InventoryStorage storage s,
         uint256 _stokInventoryId,
@@ -664,66 +685,173 @@ contract InventoryDocsFacet {
     ) internal view returns (MonitoringStokRiwayatIndexInfo memory info) {
         AppStorage.DokumenStok storage ds = s.dokumenStokList[_dokumenStokId];
 
-        // Assign basic fields first
+        // Penulisan ke memori (Bukan Stack)
         info.stokInventoryId = _stokInventoryId;
         info.dokumenStokId = _dokumenStokId;
         info.tanggal = ds.tanggal;
+        info.typeMovement = s
+            .typeDokumenStokList[ds.typeDokumenStokId]
+            .typeMovement;
+
+        // Direct access ke Facet lain
+        info.namaPegawai = AppStorage
+            .identityStorage()
+            .ktpMember[ds.wallet]
+            .nama;
+        info.namaProduk = s
+            .produkList[s.stokInventoryList[_stokInventoryId].produkId]
+            .namaProduk;
+        info.jamKerja = AppStorage
+            .attendanceStorage()
+            .jamKerjaList[ds.jamKerjaId]
+            .namaJamKerja;
+        info.namaDombak = s.dombakList[ds.dombakId].namaDombak;
+
         info.stokAwal = ds.stokAwal;
         info.stokAkhir = ds.stokAkhir;
+
+        // Logika perhitungan teoritis dan tanda loss
+        uint256[] storage lIds = s.dokumenStokToLossesIds[_dokumenStokId];
+        if (lIds.length > 0) {
+            AppStorage.Losses storage loss = s.lossesList[lIds[0]];
+            info.totalLoss = loss.stok;
+            info.tandaLoss = (loss.simbol == AppStorage.SimbolLosses.Lebih)
+                ? "+"
+                : "-";
+            info.stokAkhirTeoritis = (loss.simbol ==
+                AppStorage.SimbolLosses.Lebih)
+                ? ds.stokAwal + loss.stok
+                : ds.stokAwal - loss.stok;
+        } else {
+            info.stokAkhirTeoritis = ds.stokAkhir;
+            info.totalLoss = 0;
+            info.tandaLoss = "";
+        }
+
         info.createdAt = ds.createdAt;
         info.updatedAt = ds.updatedAt;
         info.deleted = ds.deleted;
+    }
 
-        // Scope 1: Loss calculation
-        {
-            uint256[] storage lIds = s.dokumenStokToLossesIds[_dokumenStokId];
-            if (lIds.length > 0) {
-                AppStorage.Losses storage loss = s.lossesList[lIds[0]];
-                info.totalLoss = loss.stok;
-                if (loss.simbol == AppStorage.SimbolLosses.Lebih) {
-                    info.stokAkhirTeoritis = ds.stokAwal + loss.stok;
-                    info.tandaLoss = "+";
-                } else {
-                    info.stokAkhirTeoritis = ds.stokAwal - loss.stok;
-                    info.tandaLoss = "-";
-                }
+    // Stand Meter
+    function getStandMeter(
+        uint256 offset,
+        uint256 limit,
+        uint256 startDate,
+        uint256 finishDate,
+        uint256 produkId,
+        uint256 jamKerjaId
+    ) external view returns (StandMeterView[] memory) {
+        AppStorage.PointOfSalesStorage storage pos = AppStorage.posStorage();
+        AppStorage.InventoryStorage storage inv = AppStorage.inventoryStorage();
+        AppStorage.AttendaceStorage storage att = AppStorage
+            .attendanceStorage();
+
+        uint256[] storage sourceIds = pos.standMeterIds;
+        uint256 totalSource = sourceIds.length;
+
+        StandMeterView[] memory tempResult = new StandMeterView[](limit);
+        uint256 count = 0;
+        uint256 skipped = 0;
+
+        // Iterate backward to show new items first? Or forward?
+        // Standard is forward 0..N, but for logs usually reverse.
+        // Let's assume forward for consistency unless specified.
+        // Actually for "history" usually reverse (newest first).
+        // But simple getAll usually forward. I'll stick to forward as seen in other functions.
+        for (uint256 i = 0; i < totalSource; i++) {
+            if (count == limit) break;
+
+            // In POS, usually IDs are sequential?
+            // If using array: sourceIds[i].
+            uint256 id = sourceIds[i];
+            AppStorage.StandMeter storage sm = pos.standMeterList[id];
+
+            if (sm.deleted) continue;
+
+            // 1. Filter JamKerja
+            if (jamKerjaId != 0 && sm.jamKerjaId != jamKerjaId) continue;
+
+            // 2. Filter Date Range
+            if (startDate != 0) {
+                // If startDate is set, finishDate is required (assumed handled or enforced)
+                // Logic: startDate <= sm.tanggal <= finishDate
+                if (sm.tanggal < startDate) continue;
+                if (finishDate != 0 && sm.tanggal > finishDate) continue;
+            }
+
+            // 3. Filter Produk
+            // StandMeter -> Nozzle -> Produk
+            AppStorage.Nozzle storage nozzle = pos.nozzleList[sm.nozzleId];
+            if (produkId != 0 && nozzle.produkId != produkId) continue;
+
+            // Pagination: Skip
+            if (skipped < offset) {
+                skipped++;
+                continue;
+            }
+
+            // Map Data
+            StandMeterView memory smView;
+            // Try to find linked DokumenStok (for losses info)
+            uint256[] storage dsIds = pos.standMeterToDokumenStokList[id];
+            uint256 dsId = 0;
+            if (dsIds.length > 0) {
+                dsId = dsIds[0]; // Take the first linked document
+            }
+
+            smView.dokumenStokId = dsId; // Or should we send sm.standMeterId?
+            // View struct asks for 'dokumenStokId'. I'll send the linked one.
+            // If 0, it means no document created yet or not linked.
+
+            smView.tanggal = sm.tanggal;
+            // typeMovement - usually "Stand Meter"
+            // If linked to DokumenStok, we can get type from there `inv.typeDokumenStokList[ds.typeDokumenStokId].typeMovement`
+            // If no DS, maybe empty or default?
+            if (dsId != 0) {
+                smView.typeMovement = inv
+                    .typeDokumenStokList[
+                        inv.dokumenStokList[dsId].typeDokumenStokId
+                    ]
+                    .typeMovement;
             } else {
-                info.stokAkhirTeoritis = ds.stokAkhir;
+                smView.typeMovement = "Stand Meter";
+            }
+
+            smView.namaProduk = inv.produkList[nozzle.produkId].namaProduk;
+            smView.namaNozzle = nozzle.namaNozzle;
+            smView.namaDombak = inv.dombakList[sm.dombakId].namaDombak;
+            smView.namaJamKerja = att.jamKerjaList[sm.jamKerjaId].namaJamKerja;
+            smView.stokAwal = int256(sm.standMeterAwal);
+            smView.stokAkhir = int256(sm.standMeterAkhir);
+
+            // Losses Logic
+            if (dsId != 0) {
+                uint256[] storage lossesIds = inv.dokumenStokToLossesIds[dsId];
+                if (lossesIds.length > 0) {
+                    AppStorage.Losses storage loss = inv.lossesList[
+                        lossesIds[0]
+                    ];
+                    smView.simbol = loss.simbol;
+                    smView.stokLosses = loss.stok;
+                }
+            }
+
+            smView.createdAt = sm.createdAt;
+            smView.updatedAt = sm.updatedAt;
+            smView.deleted = sm.deleted;
+
+            tempResult[count] = smView;
+            count++;
+        }
+
+        // Resize
+        if (count < limit) {
+            assembly {
+                mstore(tempResult, count)
             }
         }
 
-        // Scope 2: Type movement
-        {
-            info.typeMovement = s
-                .typeDokumenStokList[ds.typeDokumenStokId]
-                .typeMovement;
-        }
-
-        // Scope 3: Pegawai name
-        {
-            info.namaPegawai = AppStorage
-                .identityStorage()
-                .ktpMember[ds.wallet]
-                .nama;
-        }
-
-        // Scope 4: Produk name
-        {
-            uint256 produkId = s.stokInventoryList[_stokInventoryId].produkId;
-            info.namaProduk = s.produkList[produkId].namaProduk;
-        }
-
-        // Scope 5: Jam kerja
-        {
-            info.jamKerja = AppStorage
-                .attendanceStorage()
-                .jamKerjaList[ds.jamKerjaId]
-                .namaJamKerja;
-        }
-
-        // Scope 6: Dombak name
-        {
-            info.namaDombak = s.dombakList[ds.dombakId].namaDombak;
-        }
+        return tempResult;
     }
 }

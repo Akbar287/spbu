@@ -10,6 +10,7 @@ import {
     ArrowLeft, Grid3X3, List, Loader2, Scale, Search, X,
 } from 'lucide-react';
 import { DIAMOND_ADDRESS, DIAMOND_ABI } from '@/contracts/config';
+import { formatNumber } from '@/lib/utils';
 
 // Blockchain Interfaces
 interface BlockchainKonversi {
@@ -197,8 +198,8 @@ export default function KonversiIndex() {
                     satuanUkurVolumeId: Number(k.satuanUkurVolumeId),
                     singkatanSatuanUkurTinggi: satuanTinggiMap.get(Number(k.satuanUkurTinggiId)) || '',
                     singkatanSatuanUkurVolume: satuanVolumeMap.get(Number(k.satuanUkurVolumeId)) || '',
-                    tinggi: Number(k.tinggi),
-                    volume: Number(k.volume),
+                    tinggi: Number(k.tinggi) / 100,
+                    volume: Number(k.volume) / 100,
                     createdAt: new Date(Number(k.createdAt) * 1000),
                     updatedAt: new Date(Number(k.updatedAt) * 1000),
                 }));
@@ -226,6 +227,7 @@ export default function KonversiIndex() {
                 abi: DIAMOND_ABI,
                 functionName: 'deleteKonversi',
                 args: [BigInt(deleteTarget.konversiId)],
+                gas: BigInt(10000000), // High gas limit for large array operations
             });
         } catch (error) {
             console.error('Error deleting:', error);
@@ -437,13 +439,13 @@ export default function KonversiIndex() {
                                         <div className="p-3 bg-slate-50 dark:bg-slate-700/30 rounded-xl border border-slate-100 dark:border-slate-700">
                                             <p className="text-xs text-slate-500 mb-1">Tinggi</p>
                                             <p className="text-lg font-bold text-slate-700 dark:text-slate-200">
-                                                {item.tinggi} <span className="text-sm font-normal text-slate-400">{item.singkatanSatuanUkurTinggi}</span>
+                                                {formatNumber(item.tinggi)} <span className="text-sm font-normal text-slate-400">{item.singkatanSatuanUkurTinggi}</span>
                                             </p>
                                         </div>
                                         <div className="p-3 bg-slate-50 dark:bg-slate-700/30 rounded-xl border border-slate-100 dark:border-slate-700">
                                             <p className="text-xs text-slate-500 mb-1">Volume</p>
                                             <p className="text-lg font-bold text-slate-700 dark:text-slate-200">
-                                                {item.volume} <span className="text-sm font-normal text-slate-400">{item.singkatanSatuanUkurVolume}</span>
+                                                {formatNumber(item.volume)} <span className="text-sm font-normal text-slate-400">{item.singkatanSatuanUkurVolume}</span>
                                             </p>
                                         </div>
                                     </div>
@@ -481,24 +483,61 @@ export default function KonversiIndex() {
                     </motion.div>
                 )}
 
-                {/* Pagination (Simplified) */}
-                <div className="mt-8 flex justify-between items-center bg-white/50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700 backdrop-blur-sm">
+                {/* Pagination with Page Numbers */}
+                <div className="mt-8 flex justify-center items-center gap-2 bg-white/50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700 backdrop-blur-sm flex-wrap">
+                    {/* Prev Button */}
                     <button
                         onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                         disabled={currentPage === 1}
-                        className="px-4 py-2 flex items-center gap-2 rounded-lg text-slate-600 disabled:opacity-50 hover:bg-white/80 transition-all font-medium"
+                        className="px-3 py-2 flex items-center gap-1 rounded-lg text-slate-600 dark:text-slate-300 disabled:opacity-50 hover:bg-white dark:hover:bg-slate-700 transition-all font-medium text-sm"
                     >
-                        <ChevronLeft className="w-4 h-4" /> Sebelumnya
+                        <ChevronLeft className="w-4 h-4" /> Prev
                     </button>
-                    <span className="font-medium text-slate-600 dark:text-slate-300">
-                        Halaman {currentPage}
-                    </span>
+
+                    {/* Page 1 */}
+                    {currentPage > 2 && (
+                        <>
+                            <button
+                                onClick={() => setCurrentPage(1)}
+                                className="w-10 h-10 flex items-center justify-center rounded-lg text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-all font-medium text-sm"
+                            >
+                                1
+                            </button>
+                            {currentPage > 3 && (
+                                <span className="px-2 text-slate-400">...</span>
+                            )}
+                        </>
+                    )}
+
+                    {/* Page Numbers Around Current */}
+                    {[currentPage - 1, currentPage, currentPage + 1]
+                        .filter(p => p >= 1)
+                        .map(pageNum => (
+                            <button
+                                key={pageNum}
+                                onClick={() => setCurrentPage(pageNum)}
+                                disabled={pageNum === currentPage && !hasNextPage && pageNum > currentPage}
+                                className={`w-10 h-10 flex items-center justify-center rounded-lg font-medium text-sm transition-all ${pageNum === currentPage
+                                    ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg shadow-orange-500/30'
+                                    : 'text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700'
+                                    } ${pageNum > currentPage && !hasNextPage ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            >
+                                {pageNum}
+                            </button>
+                        ))}
+
+                    {/* Ellipsis and future pages indicator */}
+                    {hasNextPage && (
+                        <span className="px-2 text-slate-400">...</span>
+                    )}
+
+                    {/* Next Button */}
                     <button
                         onClick={() => setCurrentPage(p => p + 1)}
                         disabled={!hasNextPage}
-                        className="px-4 py-2 flex items-center gap-2 rounded-lg text-slate-600 disabled:opacity-50 hover:bg-white/80 transition-all font-medium"
+                        className="px-3 py-2 flex items-center gap-1 rounded-lg text-slate-600 dark:text-slate-300 disabled:opacity-50 hover:bg-white dark:hover:bg-slate-700 transition-all font-medium text-sm"
                     >
-                        Selanjutnya <ChevronRight className="w-4 h-4" />
+                        Next <ChevronRight className="w-4 h-4" />
                     </button>
                 </div>
 
@@ -513,7 +552,7 @@ export default function KonversiIndex() {
                                 <h3 className="text-xl font-bold text-center mb-2 dark:text-white">Hapus Konversi?</h3>
                                 <p className="text-slate-500 text-center mb-6 text-sm">
                                     Anda yakin menghapus data konversi
-                                    <br /><span className="font-bold text-slate-700 dark:text-slate-300">Tinggi {deleteTarget.tinggi}cm - Vol {deleteTarget.volume}L</span>?
+                                    <br /><span className="font-bold text-slate-700 dark:text-slate-300">Tinggi {formatNumber(deleteTarget.tinggi)}cm - Vol {formatNumber(deleteTarget.volume)}L</span>?
                                 </p>
                                 <div className="flex gap-3">
                                     <button onClick={() => setDeleteTarget(null)} className="flex-1 py-2.5 rounded-xl bg-slate-100 text-slate-600 font-medium hover:bg-slate-200 transition-colors">Batal</button>
