@@ -1017,32 +1017,32 @@
           },
           {
             "internalType": "bool",
-            "name": "konfirmasiPengiriman",
+            "name": "konfirmasiAdmin",
             "type": "bool"
           },
           {
             "internalType": "bool",
-            "name": "konfirmasiSelesai",
+            "name": "konfirmasiDirektur",
             "type": "bool"
           },
           {
             "internalType": "address",
-            "name": "konfirmasiPengirimanBy",
+            "name": "konfirmasiAdminBy",
             "type": "address"
           },
           {
             "internalType": "uint256",
-            "name": "konfirmasiPengirimanAt",
+            "name": "konfirmasiAdminAt",
             "type": "uint256"
           },
           {
             "internalType": "address",
-            "name": "konfirmasiSelesaiBy",
+            "name": "konfirmasiDirekturBy",
             "type": "address"
           },
           {
             "internalType": "uint256",
-            "name": "konfirmasiSelesaiAt",
+            "name": "konfirmasiDirekturAt",
             "type": "uint256"
           },
           {

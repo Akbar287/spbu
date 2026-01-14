@@ -45,15 +45,27 @@ function toScreamingSnakeCase(str) {
         .toUpperCase()
         .replace(/^_/, '') + '_FACET';
 }
-
 // Configuration
-const deploymentPath = path.join(__dirname, '../deployments/ganache.json');
+const NETWORK_NAME = args.network || 'besu';
+
+// RPC URLs by network
+const RPC_URLS = {
+    besu: process.env.BESU_RPC_URL || 'https://akbar-kece.duckdns.org/',
+    sepolia: process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org',
+    ganache: 'http://127.0.0.1:7545',
+};
+
+const deploymentPath = path.join(__dirname, `../deployments/${NETWORK_NAME}.json`);
 if (!fs.existsSync(deploymentPath)) {
-    throw new Error('Deployment file not found: ' + deploymentPath);
+    throw new Error('Deployment file not found: ' + deploymentPath + '. Run deploy.js first?');
 }
 const deploymentData = require(deploymentPath);
 const DIAMOND_ADDRESS = deploymentData.contracts.MAIN_DIAMOND;
-const RPC_URL = 'http://127.0.0.1:7545';
+const RPC_URL = RPC_URLS[NETWORK_NAME] || RPC_URLS.besu;
+
+console.log(`📡 Network: ${NETWORK_NAME}`);
+console.log(`🔗 RPC URL: ${RPC_URL}`);
+console.log(`💎 Diamond: ${DIAMOND_ADDRESS}\n`);
 
 // Get private key
 const PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY;
@@ -118,15 +130,66 @@ function getSelectors(abi) {
 async function deployContract(contractName, artifact) {
     console.log(`\n📦 Deploying ${contractName}...`);
 
-    const hash = await walletClient.deployContract({
-        abi: artifact.abi,
-        bytecode: artifact.bytecode,
-    });
+    try {
+        // Get latest block to determine gas limit
+        const latestBlock = await publicClient.getBlock({ blockTag: 'latest' });
+        const blockGasLimit = latestBlock.gasLimit;
 
-    const receipt = await publicClient.waitForTransactionReceipt({ hash });
-    console.log(`✅ ${contractName} deployed to: ${receipt.contractAddress}`);
-    return receipt.contractAddress;
+        // Calculate 90% of block gas limit
+        const gasLimit = (blockGasLimit * 90n) / 100n;
+
+        console.log(`   ⛽ Block gas limit: ${blockGasLimit.toString()}`);
+        console.log(`   ⛽ Using gas limit: ${gasLimit.toString()} (90%)`);
+
+        // Get current nonce to avoid nonce issues
+        const nonce = await publicClient.getTransactionCount({
+            address: account.address,
+            blockTag: 'pending'
+        });
+
+        const hash = await walletClient.deployContract({
+            abi: artifact.abi,
+            bytecode: artifact.bytecode,
+            account: account,
+            gas: gasLimit,              // Set gas limit to 90% of block
+            gasPrice: 0n,                // Explicit 0 for Besu private network
+            nonce: nonce,                // Explicit nonce
+        });
+
+        console.log(`   📝 Transaction hash: ${hash}`);
+        console.log(`   ⏳ Waiting for confirmation (may take 4-10 seconds)...`);
+
+        const receipt = await publicClient.waitForTransactionReceipt({
+            hash,
+            timeout: 60_000,             // 60 seconds timeout
+            pollingInterval: 2_000,      // Poll every 2s (match Besu block time)
+        });
+
+        if (!receipt.contractAddress) {
+            throw new Error('Deployment failed - no contract address in receipt');
+        }
+
+        console.log(`   ✅ ${contractName} deployed to: ${receipt.contractAddress}`);
+        console.log(`   ⛽ Gas used: ${receipt.gasUsed.toString()} (${(Number(receipt.gasUsed) / Number(blockGasLimit) * 100).toFixed(2)}% of block)`);
+
+        return receipt.contractAddress;
+
+    } catch (error) {
+        console.error(`   ❌ Deployment failed: ${error.message}`);
+
+        // Better error handling
+        if (error.message.includes('Out of gas')) {
+            console.error(`   💡 Contract requires more gas than available`);
+            console.error(`   💡 Consider splitting into smaller contracts or increasing genesis gasLimit`);
+        } else if (error.message.includes('Block could not be found')) {
+            console.error(`   💡 Transaction timeout - check if Besu is producing blocks`);
+            console.error(`   💡 Run: curl -X POST --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' http://43.163.104.18`);
+        }
+
+        throw error;
+    }
 }
+
 
 async function main() {
     console.log("\n========================================");

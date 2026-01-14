@@ -42,9 +42,9 @@ export {
 // ============================================================================
 
 export const NETWORK_CONFIG = {
-    chainId: 1337,  // Ganache default
-    rpcUrl: 'http://127.0.0.1:7545',
-    networkName: 'Ganache Local',
+    chainId: 287287,
+    rpcUrl: 'https://akbar-kece.duckdns.org/',
+    networkName: 'Besu IBFT Private',
 } as const;
 
 // ============================================================================
@@ -52,7 +52,7 @@ export const NETWORK_CONFIG = {
 // ============================================================================
 
 // Main Diamond Proxy - ALL CALLS GO THROUGH THIS ADDRESS
-export const DIAMOND_ADDRESS = '0x305afe61b4ad6af5ec1b67b28293e25a726088bf' as const;
+export const DIAMOND_ADDRESS = '0x5d0403fb1dafe2884a314966bda3ec7f142ef02b' as const;
 
 // Legacy aliases for backward compatibility
 export const CONTRACT_ADDRESSES = {
@@ -117,6 +117,7 @@ export const ABI_BY_DOMAIN = {
     ]),
     pengadaan: () => Promise.all([
         import('./abis/PengadaanCoreFacet.json'),
+        import('./abis/PengadaanConfirmationFacet.json'),
         import('./abis/PengadaanPaymentFacet.json'),
     ]),
     pointOfSales: () => Promise.all([

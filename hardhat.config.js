@@ -17,7 +17,23 @@ export default defineConfig({
     },
 
     networks: {
-        // Ganache GUI (Port 7545)
+        sepolia: {
+            type: "http",
+            url: process.env.SEPOLIA_RPC_URL || "https://rpc.sepolia.org",
+            chainId: 11155111,
+            accounts: DEPLOYER_PRIVATE_KEY ? [DEPLOYER_PRIVATE_KEY] : [],
+            gas: 6000000,
+            timeout: 120000,
+        },
+        besu: {
+            type: "http",
+            url: process.env.BESU_RPC_URL || "https://akbar-kece.duckdns.org/",
+            chainId: 287287,
+            accounts: DEPLOYER_PRIVATE_KEY ? [DEPLOYER_PRIVATE_KEY] : [],
+            gas: 6000000,
+            gasPrice: 0,
+            timeout: 120000
+        },
         ganache: {
             type: "http",
             url: "http://127.0.0.1:7545",
@@ -37,5 +53,5 @@ export default defineConfig({
         },
     },
 
-    defaultNetwork: "ganache",
+    defaultNetwork: "besu",
 });

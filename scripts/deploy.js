@@ -3,9 +3,9 @@
  * Hardhat 3.x Compatible with Viem
  * 
  * Usage:
- *   Ganache:  npx hardhat run scripts/deploy.js --network ganache
+ *   Besu:  npx hardhat run scripts/deploy.js --network besu
  * 
- * Set environment variable DEPLOYER_PRIVATE_KEY with Ganache account private key
+ * Set environment variable DEPLOYER_PRIVATE_KEY with Besu account private key
  */
 
 import hardhat from "hardhat";
@@ -24,13 +24,40 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Define Ganache chain (default Ganache CLI uses 1337)
+
+// Define Sepolia chain
+const sepoliaChain = defineChain({
+    id: 11155111,
+    name: 'Sepolia',
+    nativeCurrency: { decimals: 18, name: 'Ether', symbol: 'ETH' },
+    rpcUrls: {
+        default: { http: [process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org'] },
+    },
+});
+
+const besuPrivate = defineChain({
+    id: 287287,
+    name: 'Besu IBFT Private',
+    nativeCurrency: { decimals: 18, name: 'Ether', symbol: 'ETH' },
+    rpcUrls: {
+        default: { http: [process.env.BESU_RPC_URL || 'https://akbar-kece.duckdns.org/'] },
+    },
+});
+
+// Define Ganache chain
 const ganache = defineChain({
     id: 1337,
     name: 'Ganache',
     nativeCurrency: { decimals: 18, name: 'Ether', symbol: 'ETH' },
     rpcUrls: { default: { http: ['http://127.0.0.1:7545'] } },
 });
+
+// Network configurations map
+const NETWORKS = {
+    sepolia: sepoliaChain,
+    besu: besuPrivate,
+    ganache: ganache,
+};
 
 async function main() {
     console.log("🚀 Starting SPBU Diamond Contract Deployment...\n");
@@ -39,32 +66,33 @@ async function main() {
     const privateKey = process.env.DEPLOYER_PRIVATE_KEY;
     if (!privateKey) {
         console.error("❌ Error: DEPLOYER_PRIVATE_KEY not set in environment");
-        console.log("\n💡 To fix, set your Ganache account private key:");
-        console.log("   1. Open Ganache GUI");
-        console.log("   2. Click the key icon next to the first account");
-        console.log("   3. Copy the private key");
-        console.log("   4. Add to .env file: DEPLOYER_PRIVATE_KEY=0x...");
-        console.log("   5. Or run: DEPLOYER_PRIVATE_KEY=0x... npx hardhat run scripts/deploy.js --network ganache");
+        console.log("\n💡 Add to .env file: DEPLOYER_PRIVATE_KEY=0x...");
         process.exit(1);
     }
 
     // Ensure private key has 0x prefix
     const formattedKey = privateKey.startsWith('0x') ? privateKey : `0x${privateKey}`;
 
-    console.log(`📡 Network: ganache`);
-    console.log(`⛓️  Chain ID: 5777\n`);
+    // Detect network from hardhat runtime environment
+    const networkName = hardhat.network?.name || 'besu';
+    const activeChain = NETWORKS[networkName] || besuPrivate;
+    const rpcUrl = activeChain.rpcUrls.default.http[0];
+
+    console.log(`📡 Network: ${networkName}`);
+    console.log(`🔗 RPC URL: ${rpcUrl}`);
+    console.log(`⛓️  Chain ID: ${activeChain.id}\n`);
 
     // Create viem clients
-    const transport = http('http://127.0.0.1:7545');
+    const transport = http(rpcUrl);
     const publicClient = createPublicClient({
-        chain: ganache,
+        chain: activeChain,
         transport,
     });
 
     const account = privateKeyToAccount(formattedKey);
     const walletClient = createWalletClient({
         account,
-        chain: ganache,
+        chain: activeChain,
         transport,
     });
 
@@ -74,14 +102,18 @@ async function main() {
 
     if (balance === 0n) {
         console.error("❌ Error: Deployer account has no ETH");
-        console.log("   Make sure Ganache is running and the private key matches an account with ETH");
+        console.log(`   Make sure the account has ETH on ${networkName}`);
         process.exit(1);
     }
 
     // Object to store deployed addresses
     const deployedAddresses = {};
 
-    // Helper function to deploy contract
+    // Get initial nonce
+    let currentNonce = await publicClient.getTransactionCount({ address: account.address });
+    console.log(`🔢 Starting nonce: ${currentNonce}\n`);
+
+    // Helper function to deploy contract with explicit nonce
     async function deployContract(contractName) {
         const artifact = await hardhat.artifacts.readArtifact(contractName);
 
@@ -94,9 +126,17 @@ async function main() {
             abi: artifact.abi,
             bytecode: bytecode,
             account,
+            nonce: currentNonce,
         });
 
-        const receipt = await publicClient.waitForTransactionReceipt({ hash });
+        // Increment nonce for next transaction
+        currentNonce++;
+
+        const receipt = await publicClient.waitForTransactionReceipt({
+            hash,
+            timeout: 60_000, // 60 seconds - enough for ~30 blocks at 2s/block
+            pollingInterval: 2_000, // Poll every 2s (matches block time)
+        });
         return receipt.contractAddress;
     }
 
@@ -117,33 +157,29 @@ async function main() {
     // Deploy All Facets
     // ==========================================================================
     const facets = [
-        "AccessControlFacet",
-        // Split IdentityFacet into 2 smaller facets
-        "IdentityMemberFacet",
-        "IdentityNotifFacet",
-        "OrganizationFacet",
-        "HumanCapitalFacet",
-        // Split AssetFacet into 2 smaller facets
-        "AssetCoreFacet",
-        "AssetFileFacet",
-        // Split InventoryFacet into 3 smaller facets
-        "InventoryCoreFacet",
-        "InventoryDocsFacet",
-        "InventoryTransferFacet",
-        // Split LogisticFacet into 2 smaller facets
-        "LogisticCoreFacet",
-        "LogisticFileFacet",
-        // Split AttendanceFacet into 2 smaller facets
-        "AttendanceConfigFacet",
-        "AttendanceRecordFacet",
-        // Split PengadaanFacet into 2 smaller facets
-        "PengadaanCoreFacet",
-        "PengadaanPaymentFacet",
-        // Split PointOfSalesFacet into 2 smaller facets
-        "PointOfSalesCoreFacet",
-        "PointOfSalesSalesFacet",
-        "FinanceFacet",
-        "QualityControlFacet",
+        'AccessControlFacet',
+        'AssetCoreFacet',
+        'AssetFileFacet',
+        'AttendanceConfigFacet',
+        'AttendanceRecordFacet',
+        'CmsFacet',
+        'FinanceFacet',
+        'HumanCapitalFacet',
+        'IdentityMemberFacet',
+        'IdentityNotifFacet',
+        'InventoryCoreFacet',
+        'InventoryDocsFacet',
+        'InventoryTransferFacet',
+        'LogisticCoreFacet',
+        'LogisticFileFacet',
+        'OrganizationFacet',
+        'PengadaanConfirmationFacet',
+        'PengadaanCoreFacet',
+        'PengadaanPaymentFacet',
+        'PointOfSalesCoreFacet',
+        'PointOfSalesSalesFacet',
+        'QualityControlFacet',
+        'ViewFacet',
     ];
 
     let facetNum = 2;
@@ -170,10 +206,10 @@ async function main() {
         fs.mkdirSync(deploymentsDir, { recursive: true });
     }
 
-    const deploymentFile = path.join(deploymentsDir, "ganache.json");
+    const deploymentFile = path.join(deploymentsDir, "besu.json");
     const deploymentData = {
-        network: "ganache",
-        chainId: 5777,
+        network: "besu",
+        chainId: 287287,
         deployer: account.address,
         deployedAt: new Date().toISOString(),
         contracts: deployedAddresses,

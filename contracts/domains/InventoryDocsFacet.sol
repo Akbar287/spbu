@@ -769,6 +769,9 @@ contract InventoryDocsFacet {
 
             if (sm.deleted) continue;
 
+            // Filter Unverified only (Requested by user)
+            if (sm.konfirmasi) continue;
+
             // 1. Filter JamKerja
             if (jamKerjaId != 0 && sm.jamKerjaId != jamKerjaId) continue;
 

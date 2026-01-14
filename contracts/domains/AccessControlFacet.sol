@@ -13,6 +13,12 @@ contract AccessControlFacet {
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
     bytes32 public constant OPERATOR_ROLE = keccak256("OPERATOR_ROLE");
     bytes32 public constant DIREKTUR_ROLE = keccak256("DIREKTUR_ROLE");
+    bytes32 public constant DIREKTUR_UTAMA_ROLE =
+        keccak256("DIREKTUR_UTAMA_ROLE");
+    bytes32 public constant PARTNER_ROLE = keccak256("PARTNER_ROLE");
+    bytes32 public constant SECURITY_ROLE = keccak256("SECURITY_ROLE");
+    bytes32 public constant OFFICEBOY_ROLE = keccak256("OFFICEBOY_ROLE");
+    bytes32 public constant KOMISARIS_ROLE = keccak256("KOMISARIS_ROLE");
 
     // Events (Penting untuk tracking di Frontend)
     event RoleGranted(

@@ -15,9 +15,9 @@ require('dotenv').config();
 const { createPublicClient, http } = require('viem');
 
 // Configuration
-const DIAMOND_ADDRESS = '0x305afe61b4ad6af5ec1b67b28293e25a726088bf';
-const ADMIN_ADDRESS = '0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1';
-const RPC_URL = 'http://127.0.0.1:7545';
+const DIAMOND_ADDRESS = '0x7ef84473a4e772fb6adfa1b0c6728a3dbf268dd7';
+const ADMIN_ADDRESS = '0xFE3B557E8Fb62b89F4916B721be55cEb828dBd73';
+const RPC_URL = 'https://akbar-kece.duckdns.org/';
 
 // Load ABIs
 const AccessControlABI = require('../src/contracts/abis/AccessControlFacet.json');

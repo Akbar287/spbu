@@ -90,7 +90,72 @@
   },
   {
     "inputs": [],
+    "name": "DIREKTUR_UTAMA_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "KOMISARIS_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "OFFICEBOY_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "OPERATOR_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "PARTNER_ROLE",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "SECURITY_ROLE",
     "outputs": [
       {
         "internalType": "bytes32",
@@ -6499,1310 +6564,6 @@
       }
     ],
     "name": "updatePettyCash",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "bonusId",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "detailGajiId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "int256",
-        "name": "persentase",
-        "type": "int256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "BonusCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "bonusId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "BonusDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "bonusId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "updatedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "BonusUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "detailGajiId",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "gajiWalletId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "enum AppStorage.JenisGaji",
-        "name": "jenis",
-        "type": "uint8"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "DetailGajiCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "detailGajiId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "DetailGajiDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "detailGajiId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "updatedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "DetailGajiUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "gajiId",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "jabatanId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "int256",
-        "name": "jumlah",
-        "type": "int256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "GajiCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "gajiId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "GajiDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "gajiId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "updatedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "GajiUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "gajiWalletId",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "gajiId",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "wallet",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "createdAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "GajiWalletCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "gajiWalletId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "deletedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "GajiWalletDeleted",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "gajiWalletId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "updatedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "GajiWalletUpdated",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_detailGajiId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "int256",
-        "name": "_persentase",
-        "type": "int256"
-      },
-      {
-        "internalType": "int256",
-        "name": "_totalBonus",
-        "type": "int256"
-      },
-      {
-        "internalType": "string",
-        "name": "_deskripsi",
-        "type": "string"
-      }
-    ],
-    "name": "createBonus",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_gajiWalletId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_namaGaji",
-        "type": "string"
-      },
-      {
-        "internalType": "enum AppStorage.JenisGaji",
-        "name": "_jenis",
-        "type": "uint8"
-      },
-      {
-        "internalType": "int256",
-        "name": "_jumlahUang",
-        "type": "int256"
-      }
-    ],
-    "name": "createDetailGaji",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_jabatanId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_keterangan",
-        "type": "string"
-      },
-      {
-        "internalType": "int256",
-        "name": "_jumlah",
-        "type": "int256"
-      }
-    ],
-    "name": "createGaji",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_gajiId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "_wallet",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_tanggalGaji",
-        "type": "uint256"
-      },
-      {
-        "internalType": "int256",
-        "name": "_totalGajiBersih",
-        "type": "int256"
-      }
-    ],
-    "name": "createGajiWallet",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_bonusId",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteBonus",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_detailGajiId",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteDetailGaji",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_gajiId",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteGaji",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_gajiWalletId",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteGajiWallet",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_offset",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_limit",
-        "type": "uint256"
-      }
-    ],
-    "name": "getAllGaji",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "gajiId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "jabatanId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "keterangan",
-            "type": "string"
-          },
-          {
-            "internalType": "int256",
-            "name": "jumlah",
-            "type": "int256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.Gaji[]",
-        "name": "result",
-        "type": "tuple[]"
-      },
-      {
-        "internalType": "uint256",
-        "name": "total",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_offset",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_limit",
-        "type": "uint256"
-      }
-    ],
-    "name": "getAllGajiWallet",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "gajiWalletId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "gajiId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "wallet",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "tanggalGaji",
-            "type": "uint256"
-          },
-          {
-            "internalType": "int256",
-            "name": "totalGajiBersih",
-            "type": "int256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.GajiWallet[]",
-        "name": "result",
-        "type": "tuple[]"
-      },
-      {
-        "internalType": "uint256",
-        "name": "total",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_detailGajiId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getBonusByDetailGaji",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "bonusId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "detailGajiId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "int256",
-            "name": "persentase",
-            "type": "int256"
-          },
-          {
-            "internalType": "int256",
-            "name": "totalBonus",
-            "type": "int256"
-          },
-          {
-            "internalType": "string",
-            "name": "deskripsi",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.Bonus",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_bonusId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getBonusById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "bonusId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "detailGajiId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "int256",
-            "name": "persentase",
-            "type": "int256"
-          },
-          {
-            "internalType": "int256",
-            "name": "totalBonus",
-            "type": "int256"
-          },
-          {
-            "internalType": "string",
-            "name": "deskripsi",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.Bonus",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_gajiWalletId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getDetailGajiByGajiWallet",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "detailGajiId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "gajiWalletId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "namaGaji",
-            "type": "string"
-          },
-          {
-            "internalType": "enum AppStorage.JenisGaji",
-            "name": "jenis",
-            "type": "uint8"
-          },
-          {
-            "internalType": "int256",
-            "name": "jumlahUang",
-            "type": "int256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.DetailGaji[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_detailGajiId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getDetailGajiById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "detailGajiId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "gajiWalletId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "namaGaji",
-            "type": "string"
-          },
-          {
-            "internalType": "enum AppStorage.JenisGaji",
-            "name": "jenis",
-            "type": "uint8"
-          },
-          {
-            "internalType": "int256",
-            "name": "jumlahUang",
-            "type": "int256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.DetailGaji",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_gajiId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getGajiById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "gajiId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "jabatanId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "keterangan",
-            "type": "string"
-          },
-          {
-            "internalType": "int256",
-            "name": "jumlah",
-            "type": "int256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.Gaji",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_jabatanId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getGajiByJabatan",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "gajiId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "jabatanId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "keterangan",
-            "type": "string"
-          },
-          {
-            "internalType": "int256",
-            "name": "jumlah",
-            "type": "int256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.Gaji[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_gajiId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getGajiWalletByGaji",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "gajiWalletId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "gajiId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "wallet",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "tanggalGaji",
-            "type": "uint256"
-          },
-          {
-            "internalType": "int256",
-            "name": "totalGajiBersih",
-            "type": "int256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.GajiWallet[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_gajiWalletId",
-        "type": "uint256"
-      }
-    ],
-    "name": "getGajiWalletById",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "gajiWalletId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "gajiId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "wallet",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "tanggalGaji",
-            "type": "uint256"
-          },
-          {
-            "internalType": "int256",
-            "name": "totalGajiBersih",
-            "type": "int256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.GajiWallet",
-        "name": "",
-        "type": "tuple"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_wallet",
-        "type": "address"
-      }
-    ],
-    "name": "getGajiWalletByWallet",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "gajiWalletId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "gajiId",
-            "type": "uint256"
-          },
-          {
-            "internalType": "address",
-            "name": "wallet",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "tanggalGaji",
-            "type": "uint256"
-          },
-          {
-            "internalType": "int256",
-            "name": "totalGajiBersih",
-            "type": "int256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "createdAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "updatedAt",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "deleted",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct AppStorage.GajiWallet[]",
-        "name": "",
-        "type": "tuple[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getTotalBonus",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getTotalDetailGaji",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getTotalGaji",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getTotalGajiWallet",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_bonusId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "int256",
-        "name": "_persentase",
-        "type": "int256"
-      },
-      {
-        "internalType": "int256",
-        "name": "_totalBonus",
-        "type": "int256"
-      },
-      {
-        "internalType": "string",
-        "name": "_deskripsi",
-        "type": "string"
-      }
-    ],
-    "name": "updateBonus",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_detailGajiId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_namaGaji",
-        "type": "string"
-      },
-      {
-        "internalType": "enum AppStorage.JenisGaji",
-        "name": "_jenis",
-        "type": "uint8"
-      },
-      {
-        "internalType": "int256",
-        "name": "_jumlahUang",
-        "type": "int256"
-      }
-    ],
-    "name": "updateDetailGaji",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_gajiId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_jabatanId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_keterangan",
-        "type": "string"
-      },
-      {
-        "internalType": "int256",
-        "name": "_jumlah",
-        "type": "int256"
-      }
-    ],
-    "name": "updateGaji",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_gajiWalletId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_gajiId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "_wallet",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_tanggalGaji",
-        "type": "uint256"
-      },
-      {
-        "internalType": "int256",
-        "name": "_totalGajiBersih",
-        "type": "int256"
-      }
-    ],
-    "name": "updateGajiWallet",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -18332,25 +17093,6 @@
         "type": "uint256"
       },
       {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "updatedAt",
-        "type": "uint256"
-      }
-    ],
-    "name": "RencanaPembelianUpdated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
         "indexed": true,
         "internalType": "uint256",
         "name": "spbuId",
@@ -23722,6 +22464,2480 @@
       }
     ],
     "name": "updateTera",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllDetailRencanaPembelian",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "detailRencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "harga",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jumlah",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "subTotal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "satuanJumlah",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasi",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "ms2",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "ms2By",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ms2At",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "delivery",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "deliveryBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "deliveryAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.DetailRencanaPembelian[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllDetailRencanaPembelianFiloLo",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "detailRencanaPembelianFileLoId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "detailRencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fileLoId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.DetailRencanaPembelianFiloLo[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllFilePembayaran",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "filePembayaranId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pembayaranId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "ipfsHash",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaFile",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaDokumen",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "mimeType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fileSize",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.FilePembayaran[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllPajakPembelian",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pajakPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pajakPembelianLibId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "netPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppbkb",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pph",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "grossPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.PajakPembelian[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllPajakPembelianLib",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pajakPembelianLibId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppn",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ppbkb",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pph",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "aktif",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.PajakPembelianLib[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllRencanaPembelian",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "statusPurchaseId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalPembelian",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "kodePembelian",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "grandTotal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasi",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "keteranganKonfirmasi",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.RencanaPembelian[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllStatusPurchase",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "statusPurchaseId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "spbuId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaStatus",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "aktif",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.StatusPurchase[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "viewAllDetailRencanaPembelianMs2",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "detailRencanaPembelianMs2Id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ms2Id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "detailRencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jamKerjaId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasiPengiriman",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiPengirimanBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiPengirimanAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.DetailRencanaPembelianMs2[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "viewAllFileLampiranFileLo",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "fileLampiranFileLoId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fileLoId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "ipfsHash",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaFile",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaDokumen",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "mimeType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fileSize",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.FileLampiranFileLo[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "viewAllFileLo",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "fileLoId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pengirimanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "produkId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jumlah",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "satuanJumlah",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noFaktur",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noLo",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          },
+          {
+            "internalType": "string",
+            "name": "ipfsHash",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct AppStorage.FileLo[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "viewAllFilePenerimaan",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "filePenerimaanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "penerimaanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "ipfsHash",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaFile",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaDokumen",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "mimeType",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fileSize",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.FilePenerimaan[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "viewAllMs2",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "ms2Id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "kodeSms",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasiSelesai",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Ms2[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "viewAllPembayaran",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pembayaranId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rencanaPembelianId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "noCekBg",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noRekening",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaRekening",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "namaBank",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalBayar",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasiAdmin",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasiDirektur",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiByAdmin",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiByDirektur",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAtAdmin",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAtDirektur",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Pembayaran[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "viewAllPenerimaan",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "penerimaanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fileLoId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dokumenStokId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Penerimaan[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "viewAllPengiriman",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "pengirimanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletMember",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggal",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "noDo",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noPolisi",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "catatan",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "ms2",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "ms2By",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ms2At",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasiAdmin",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "konfirmasiDirektur",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiAdminBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiAdminAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "konfirmasiDirekturBy",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "konfirmasiDirekturAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Pengiriman[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "viewAllSegel",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "segelId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "fileLoId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "noSegel",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Segel[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "viewAllSupir",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "supirId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "pengirimanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaSupir",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noTelp",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "noSim",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Supir[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "bonusId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "detailGajiId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "int256",
+        "name": "persentase",
+        "type": "int256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "BonusCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "bonusId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "BonusDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "bonusId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "BonusUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "detailGajiId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "gajiWalletId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum AppStorage.JenisGaji",
+        "name": "jenis",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DetailGajiCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "detailGajiId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DetailGajiDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "detailGajiId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "DetailGajiUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "gajiId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "jabatanId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "int256",
+        "name": "jumlah",
+        "type": "int256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "GajiCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "gajiId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "GajiDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "gajiId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "GajiUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "gajiWalletId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "gajiId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "wallet",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "createdAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "GajiWalletCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "gajiWalletId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "deletedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "GajiWalletDeleted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "gajiWalletId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "updatedAt",
+        "type": "uint256"
+      }
+    ],
+    "name": "GajiWalletUpdated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_detailGajiId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_persentase",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_totalBonus",
+        "type": "int256"
+      },
+      {
+        "internalType": "string",
+        "name": "_deskripsi",
+        "type": "string"
+      }
+    ],
+    "name": "createBonus",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gajiWalletId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaGaji",
+        "type": "string"
+      },
+      {
+        "internalType": "enum AppStorage.JenisGaji",
+        "name": "_jenis",
+        "type": "uint8"
+      },
+      {
+        "internalType": "int256",
+        "name": "_jumlahUang",
+        "type": "int256"
+      }
+    ],
+    "name": "createDetailGaji",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_jabatanId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_keterangan",
+        "type": "string"
+      },
+      {
+        "internalType": "int256",
+        "name": "_jumlah",
+        "type": "int256"
+      }
+    ],
+    "name": "createGaji",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gajiId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tanggalGaji",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_totalGajiBersih",
+        "type": "int256"
+      }
+    ],
+    "name": "createGajiWallet",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_bonusId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteBonus",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_detailGajiId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteDetailGaji",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gajiId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteGaji",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gajiWalletId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteGajiWallet",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllGaji",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "gajiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jabatanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "keterangan",
+            "type": "string"
+          },
+          {
+            "internalType": "int256",
+            "name": "jumlah",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Gaji[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_offset",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_limit",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllGajiWallet",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "gajiWalletId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "gajiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "wallet",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalGaji",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int256",
+            "name": "totalGajiBersih",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.GajiWallet[]",
+        "name": "result",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "total",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_detailGajiId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getBonusByDetailGaji",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "bonusId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "detailGajiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int256",
+            "name": "persentase",
+            "type": "int256"
+          },
+          {
+            "internalType": "int256",
+            "name": "totalBonus",
+            "type": "int256"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Bonus",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_bonusId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getBonusById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "bonusId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "detailGajiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int256",
+            "name": "persentase",
+            "type": "int256"
+          },
+          {
+            "internalType": "int256",
+            "name": "totalBonus",
+            "type": "int256"
+          },
+          {
+            "internalType": "string",
+            "name": "deskripsi",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Bonus",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gajiWalletId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDetailGajiByGajiWallet",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "detailGajiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "gajiWalletId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaGaji",
+            "type": "string"
+          },
+          {
+            "internalType": "enum AppStorage.JenisGaji",
+            "name": "jenis",
+            "type": "uint8"
+          },
+          {
+            "internalType": "int256",
+            "name": "jumlahUang",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.DetailGaji[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_detailGajiId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDetailGajiById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "detailGajiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "gajiWalletId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "namaGaji",
+            "type": "string"
+          },
+          {
+            "internalType": "enum AppStorage.JenisGaji",
+            "name": "jenis",
+            "type": "uint8"
+          },
+          {
+            "internalType": "int256",
+            "name": "jumlahUang",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.DetailGaji",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gajiId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getGajiById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "gajiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jabatanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "keterangan",
+            "type": "string"
+          },
+          {
+            "internalType": "int256",
+            "name": "jumlah",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Gaji",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_jabatanId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getGajiByJabatan",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "gajiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jabatanId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "keterangan",
+            "type": "string"
+          },
+          {
+            "internalType": "int256",
+            "name": "jumlah",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.Gaji[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gajiId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getGajiWalletByGaji",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "gajiWalletId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "gajiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "wallet",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalGaji",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int256",
+            "name": "totalGajiBersih",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.GajiWallet[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gajiWalletId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getGajiWalletById",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "gajiWalletId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "gajiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "wallet",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalGaji",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int256",
+            "name": "totalGajiBersih",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.GajiWallet",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      }
+    ],
+    "name": "getGajiWalletByWallet",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "gajiWalletId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "gajiId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "wallet",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "tanggalGaji",
+            "type": "uint256"
+          },
+          {
+            "internalType": "int256",
+            "name": "totalGajiBersih",
+            "type": "int256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "deleted",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct AppStorage.GajiWallet[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTotalBonus",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTotalDetailGaji",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTotalGaji",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTotalGajiWallet",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_bonusId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_persentase",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_totalBonus",
+        "type": "int256"
+      },
+      {
+        "internalType": "string",
+        "name": "_deskripsi",
+        "type": "string"
+      }
+    ],
+    "name": "updateBonus",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_detailGajiId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_namaGaji",
+        "type": "string"
+      },
+      {
+        "internalType": "enum AppStorage.JenisGaji",
+        "name": "_jenis",
+        "type": "uint8"
+      },
+      {
+        "internalType": "int256",
+        "name": "_jumlahUang",
+        "type": "int256"
+      }
+    ],
+    "name": "updateDetailGaji",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gajiId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_jabatanId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_keterangan",
+        "type": "string"
+      },
+      {
+        "internalType": "int256",
+        "name": "_jumlah",
+        "type": "int256"
+      }
+    ],
+    "name": "updateGaji",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gajiWalletId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_gajiId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_tanggalGaji",
+        "type": "uint256"
+      },
+      {
+        "internalType": "int256",
+        "name": "_totalGajiBersih",
+        "type": "int256"
+      }
+    ],
+    "name": "updateGajiWallet",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

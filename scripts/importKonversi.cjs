@@ -5,12 +5,34 @@ require('dotenv').config();
 const { createWalletClient, createPublicClient, http, parseEther } = require('viem');
 const { privateKeyToAccount } = require('viem/accounts');
 
-// Configuration
-const DIAMOND_ADDRESS = '0x305afe61b4ad6af5ec1b67b28293e25a726088bf';
-const RPC_URL = 'http://127.0.0.1:7545';
-// Default Ganache private key for account[0] if DEPLOYER_PRIVATE_KEY is not set
-// (Usually we should rely on .env, but for local ganache defaults are common)
-// I will try to read from env or fallback to a known test key if needed, or better, just error if not found.
+// Parse command line arguments
+const args = process.argv.slice(2);
+const networkArg = args.find(arg => arg.startsWith('--network='));
+const NETWORK_NAME = networkArg ? networkArg.split('=')[1] : 'besu';
+
+// RPC URLs by network
+const RPC_URLS = {
+    besu: process.env.BESU_RPC_URL || 'https://akbar-kece.duckdns.org/',
+    sepolia: process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org',
+    ganache: 'http://127.0.0.1:7545',
+};
+
+const RPC_URL = RPC_URLS[NETWORK_NAME] || RPC_URLS.besu;
+
+// Load deployment file to get Diamond Address
+const deploymentPath = path.join(__dirname, `../deployments/${NETWORK_NAME}.json`);
+if (!fs.existsSync(deploymentPath)) {
+    console.error(`Deployment file not found: ${deploymentPath}`);
+    console.error(`Run 'npx hardhat run scripts/deploy.js --network ${NETWORK_NAME}' first.`);
+    process.exit(1);
+}
+const deploymentData = require(deploymentPath);
+const DIAMOND_ADDRESS = deploymentData.contracts.MAIN_DIAMOND;
+
+console.log(`📡 Network: ${NETWORK_NAME}`);
+console.log(`🔗 RPC URL: ${RPC_URL}`);
+console.log(`💎 Diamond: ${DIAMOND_ADDRESS}\n`);
+
 const PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY;
 
 if (!PRIVATE_KEY) {
@@ -22,9 +44,9 @@ if (!PRIVATE_KEY) {
 const InventoryDocsFacetABI = require('../src/contracts/abis/InventoryDocsFacet.json');
 
 // Chain Config
-const localGanache = {
-    id: 1337,
-    name: 'Ganache Local',
+const chainConfig = {
+    id: NETWORK_NAME === 'sepolia' ? 11155111 : NETWORK_NAME === 'besu' ? 287287 : 1337,
+    name: NETWORK_NAME,
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     rpcUrls: {
         default: { http: [RPC_URL] },
@@ -35,12 +57,12 @@ const account = privateKeyToAccount(PRIVATE_KEY.startsWith('0x') ? PRIVATE_KEY :
 
 const client = createWalletClient({
     account,
-    chain: localGanache,
+    chain: chainConfig,
     transport: http(RPC_URL)
 });
 
 const publicClient = createPublicClient({
-    chain: localGanache,
+    chain: chainConfig,
     transport: http(RPC_URL)
 });
 

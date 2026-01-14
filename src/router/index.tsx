@@ -459,19 +459,6 @@ export default function index() {
                         <Route path="stok-taking/:stokId/file/:fileId" element={<FileStokTakingShow />} />
                         <Route path="stok-taking/:stokId/file/:fileId/edit" element={<FileStokTakingEdit />} />
 
-                        {/* Totalisator / Stand Meter */}
-                        <Route path="totalisator" element={<TotalisatorIndex />} />
-                        <Route path="totalisator/create" element={<TotalisatorCreate />} />
-                        <Route path="totalisator/riwayat" element={<TotalisatorRiwayat />} />
-                        <Route path="totalisator/riwayat/:standMeterId" element={<TotalisatorRiwayatShow />} />
-                        <Route path="totalisator/:standMeterId" element={<TotalisatorShow />} />
-                        <Route path="totalisator/:standMeterId/edit" element={<TotalisatorEdit />} />
-                        <Route path="totalisator/:standMeterId/final" element={<TotalisatorFinal />} />
-                        {/* File Totalisator */}
-                        <Route path="totalisator/:standMeterId/file" element={<FileTotalisatorIndex />} />
-                        <Route path="totalisator/:standMeterId/file/create" element={<FileTotalisatorCreate />} />
-                        <Route path="totalisator/:standMeterId/file/:fileId" element={<FileTotalisatorShow />} />
-                        <Route path="totalisator/:standMeterId/file/:fileId/edit" element={<FileTotalisatorEdit />} />
                     </Route>
 
                     {/* --- TERA --- */}
@@ -518,6 +505,20 @@ export default function index() {
                         <Route path="setoran-bank/:penjualanId/bank/:penitipanId/file" element={<FileBankIndex />} />
                         <Route path="setoran-bank/:penjualanId/bank/:penitipanId/file/create" element={<FileBankCreate />} />
                     </Route>
+
+                    {/* Totalisator / Stand Meter */}
+                    <Route path="stand-meter" element={<TotalisatorIndex />} />
+                    <Route path="stand-meter/create" element={<TotalisatorCreate />} />
+                    <Route path="stand-meter/riwayat" element={<TotalisatorRiwayat />} />
+                    <Route path="stand-meter/riwayat/:standMeterId" element={<TotalisatorRiwayatShow />} />
+                    <Route path="stand-meter/:standMeterId" element={<TotalisatorShow />} />
+                    <Route path="stand-meter/:standMeterId/edit" element={<TotalisatorEdit />} />
+                    <Route path="stand-meter/:standMeterId/final" element={<TotalisatorFinal />} />
+                    {/* File Totalisator */}
+                    <Route path="stand-meter/:standMeterId/file" element={<FileTotalisatorIndex />} />
+                    <Route path="stand-meter/:standMeterId/file/create" element={<FileTotalisatorCreate />} />
+                    <Route path="stand-meter/:standMeterId/file/:fileId" element={<FileTotalisatorShow />} />
+                    <Route path="stand-meter/:standMeterId/file/:fileId/edit" element={<FileTotalisatorEdit />} />
 
                     {/* --- ARTIKEL --- */}
                     <Route path="/artikel">

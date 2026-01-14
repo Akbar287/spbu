@@ -150,7 +150,7 @@
             },
             {
                 "levelId": "Operasional",
-                "namaJabatan": "Office Boy",
+                "namaJabatan": "OfficeBoy",
                 "keterangan": ""
             }
         ],
@@ -185,7 +185,7 @@
             },
             {
                 "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
-                "namaJabatan": "Office Boy"
+                "namaJabatan": "OfficeBoy"
             }
         ],
         "jabatanToWalletIds": [
@@ -219,7 +219,7 @@
             },
             {
                 "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
-                "namaJabatan": "Office Boy"
+                "namaJabatan": "OfficeBoy"
             }
         ],
         "spbuToDivisiIds": [
@@ -281,7 +281,7 @@
             },
             {
                 "levelId": "Operasional",
-                "jabatanId": "Office Boy"
+                "jabatanId": "OfficeBoy"
             }
         ]
     }

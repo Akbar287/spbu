@@ -8,20 +8,45 @@ const fs = require('fs');
 const path = require('path');
 const { createPublicClient, createWalletClient, http } = require('viem');
 const { privateKeyToAccount } = require('viem/accounts');
-const { ganache } = require('viem/chains');
 
-// Configuration
-const DIAMOND_ADDRESS = '0x305afe61b4ad6af5ec1b67b28293e25a726088bf';
-const RPC_URL = 'http://127.0.0.1:7545';
+// Parse command line arguments
+const args = process.argv.slice(2);
+const networkArg = args.find(arg => arg.startsWith('--network='));
+const NETWORK_NAME = networkArg ? networkArg.split('=')[1] : 'besu';
+
+// RPC URLs by network
+const RPC_URLS = {
+    besu: process.env.BESU_RPC_URL || 'https://akbar-kece.duckdns.org/',
+    sepolia: process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org',
+    ganache: 'http://127.0.0.1:7545',
+};
+
+const RPC_URL = RPC_URLS[NETWORK_NAME] || RPC_URLS.besu;
+
+// Load deployment file to get Diamond Address
+const deploymentPath = path.join(__dirname, `../deployments/${NETWORK_NAME}.json`);
+if (!fs.existsSync(deploymentPath)) {
+    console.error(`Deployment file not found: ${deploymentPath}`);
+    console.error(`Run 'npx hardhat run scripts/deploy.js --network ${NETWORK_NAME}' first.`);
+    process.exit(1);
+}
+const deploymentData = require(deploymentPath);
+const DIAMOND_ADDRESS = deploymentData.contracts.MAIN_DIAMOND;
+
+console.log(`📡 Network: ${NETWORK_NAME}`);
+console.log(`🔗 RPC URL: ${RPC_URL}`);
+console.log(`💎 Diamond: ${DIAMOND_ADDRESS}\n`);
 
 // Load ABIs
 const AccessControlABI = require('../src/contracts/abis/AccessControlFacet.json');
 const IdentityMemberABI = require('../src/contracts/abis/IdentityMemberFacet.json');
 const IdentityNotifABI = require('../src/contracts/abis/IdentityNotifFacet.json');
 const OrganizationABI = require('../src/contracts/abis/OrganizationFacet.json');
+const InventoryCoreABI = require('../src/contracts/abis/InventoryCoreFacet.json');
+const InventoryDocsABI = require('../src/contracts/abis/InventoryDocsFacet.json');
 
 // Combine ABIs
-const COMBINED_ABI = [...AccessControlABI, ...IdentityMemberABI, ...IdentityNotifABI, ...OrganizationABI];
+const COMBINED_ABI = [...AccessControlABI, ...IdentityMemberABI, ...IdentityNotifABI, ...OrganizationABI, ...InventoryCoreABI, ...InventoryDocsABI];
 
 // Load dummy data
 const dummyData = require('../dummy-data.json')[0];
@@ -36,10 +61,10 @@ const genderToEnum = (gender) => {
     return gender === 'Pria' ? 0 : 1;
 };
 
-// Setup chain
-const localGanache = {
-    id: 1337,
-    name: 'Ganache Local',
+// Setup chain config
+const chainConfig = {
+    id: NETWORK_NAME === 'besu' ? 287287 : NETWORK_NAME === 'sepolia' ? 11155111 : 1337,
+    name: NETWORK_NAME,
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     rpcUrls: {
         default: { http: [RPC_URL] },
@@ -59,23 +84,36 @@ async function main() {
     const account = privateKeyToAccount(privateKey.startsWith('0x') ? privateKey : `0x${privateKey}`);
 
     const publicClient = createPublicClient({
-        chain: localGanache,
+        chain: chainConfig,
         transport: http(RPC_URL),
     });
 
     const walletClient = createWalletClient({
         account,
-        chain: localGanache,
+        chain: chainConfig,
         transport: http(RPC_URL),
     });
 
     console.log(`📍 Deployer: ${account.address}`);
-    console.log(`📍 Diamond: ${DIAMOND_ADDRESS}\n`);
+
+    // Get initial nonce for explicit nonce management
+    let currentNonce = await publicClient.getTransactionCount({ address: account.address });
+    console.log(`🔢 Starting nonce: ${currentNonce}\n`);
+
+    // Helper function to write contract with nonce tracking
+    async function writeContractWithNonce(params) {
+        const hash = await walletClient.writeContract({
+            ...params,
+            nonce: currentNonce,
+        });
+        currentNonce++;
+        return hash;
+    }
 
     // ==================== 0. Setup Admin Role ====================
     console.log('🔐 Setting up Admin Role...');
     try {
-        const hash = await walletClient.writeContract({
+        const hash = await writeContractWithNonce({
             address: DIAMOND_ADDRESS,
             abi: COMBINED_ABI,
             functionName: 'setupDefaultAdmin',
@@ -92,6 +130,8 @@ async function main() {
     }
 
     // Track IDs for relationships
+    const satuanUkurTinggiIds = {}; // namaSatuan -> id
+    const satuanUkurVolumeIds = {}; // namaSatuan -> id
     const statusMemberIds = {}; // namaStatus -> id
     const ktpIds = {}; // nama -> id
     const spbuIds = {}; // namaSpbu -> id
@@ -99,11 +139,98 @@ async function main() {
     const levelIds = {}; // namaLevel -> id
     const jabatanIds = {}; // namaJabatan -> id
 
-    // ==================== 1. Seed StatusMember ====================
-    console.log('📝 Seeding StatusMember...');
+    // ==================== 1. Seed SatuanUkurTinggi ====================
+    console.log('📝 Seeding SatuanUkurTinggi...');
+    // Check existing data first
+    let existingSatuanTinggi = [];
+    try {
+        const result = await publicClient.readContract({
+            address: DIAMOND_ADDRESS,
+            abi: COMBINED_ABI,
+            functionName: 'getAllSatuanUkurTinggi',
+            args: [0n, 100n],
+        });
+        // Handle both array and tuple returns
+        existingSatuanTinggi = Array.isArray(result) ? result : (Array.isArray(result[0]) ? result[0] : []);
+    } catch (e) { /* ignore if function not found */ }
+
+    if (dummyData.SatuanUkurTinggi) {
+        for (const satuan of dummyData.SatuanUkurTinggi) {
+            // Check if already exists
+            const existing = existingSatuanTinggi.find(s => s.namaSatuan === satuan.namaSatuan);
+            if (existing) {
+                satuanUkurTinggiIds[satuan.namaSatuan] = existing.satuanUkurTinggiId;
+                console.log(`   ⏭️  ${satuan.namaSatuan} (Already exists, ID: ${existing.satuanUkurTinggiId})`);
+                continue;
+            }
+
+            try {
+                const hash = await writeContractWithNonce({
+                    address: DIAMOND_ADDRESS,
+                    abi: COMBINED_ABI,
+                    functionName: 'createSatuanUkurTinggi',
+                    args: [satuan.namaSatuan, satuan.singkatan],
+                });
+
+                const receipt = await publicClient.waitForTransactionReceipt({ hash });
+
+                const logs = await publicClient.getContractEvents({
+                    address: DIAMOND_ADDRESS,
+                    abi: COMBINED_ABI,
+                    eventName: 'SatuanUkurTinggiCreated',
+                    fromBlock: receipt.blockNumber,
+                    toBlock: receipt.blockNumber,
+                });
+
+                if (logs.length > 0) {
+                    const id = logs[0].args.satuanUkurTinggiId;
+                    satuanUkurTinggiIds[satuan.namaSatuan] = id;
+                    console.log(`   ✅ ${satuan.namaSatuan} (ID: ${id})`);
+                }
+            } catch (error) {
+                console.log(`   ❌ ${satuan.namaSatuan}: ${error.message.split('\n')[0]}`);
+            }
+        }
+    }
+
+    // ==================== 2. Seed SatuanUkurVolume ====================
+    console.log('\n📝 Seeding SatuanUkurVolume...');
+    if (dummyData.SatuanUkurVolume) {
+        for (const satuan of dummyData.SatuanUkurVolume) {
+            try {
+                const hash = await writeContractWithNonce({
+                    address: DIAMOND_ADDRESS,
+                    abi: COMBINED_ABI,
+                    functionName: 'createSatuanUkurVolume',
+                    args: [satuan.namaSatuan, satuan.singkatan],
+                });
+
+                const receipt = await publicClient.waitForTransactionReceipt({ hash });
+
+                const logs = await publicClient.getContractEvents({
+                    address: DIAMOND_ADDRESS,
+                    abi: COMBINED_ABI,
+                    eventName: 'SatuanUkurVolumeCreated',
+                    fromBlock: receipt.blockNumber,
+                    toBlock: receipt.blockNumber,
+                });
+
+                if (logs.length > 0) {
+                    const id = logs[0].args.satuanUkurVolumeId;
+                    satuanUkurVolumeIds[satuan.namaSatuan] = id;
+                    console.log(`   ✅ ${satuan.namaSatuan} (ID: ${id})`);
+                }
+            } catch (error) {
+                console.log(`   ❌ ${satuan.namaSatuan}: ${error.message.split('\n')[0]}`);
+            }
+        }
+    }
+
+    // ==================== 3. Seed StatusMember ====================
+    console.log('\n📝 Seeding StatusMember...');
     for (const status of dummyData.StatusMember) {
         try {
-            const hash = await walletClient.writeContract({
+            const hash = await writeContractWithNonce({
                 address: DIAMOND_ADDRESS,
                 abi: COMBINED_ABI,
                 functionName: 'createStatusMember',
@@ -137,7 +264,7 @@ async function main() {
         try {
             const statusMemberId = statusMemberIds[ktp.statusMemberId] || 1n;
 
-            const hash = await walletClient.writeContract({
+            const hash = await writeContractWithNonce({
                 address: DIAMOND_ADDRESS,
                 abi: COMBINED_ABI,
                 functionName: 'createKtp',
@@ -181,9 +308,9 @@ async function main() {
         try {
             // Find wallet address from Ktp data
             const ktpData = dummyData.Ktp.find(k => k.nama === area.ktpId);
-            const walletAddress = ktpData ? ktpData.walletAddress : '0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1';
+            const walletAddress = ktpData ? ktpData.walletAddress : '0xFE3B557E8Fb62b89F4916B721be55cEb828dBd73';
 
-            const hash = await walletClient.writeContract({
+            const hash = await writeContractWithNonce({
                 address: DIAMOND_ADDRESS,
                 abi: COMBINED_ABI,
                 functionName: 'createAreaMember',
@@ -212,7 +339,7 @@ async function main() {
     console.log('\n📝 Seeding Spbu...');
     for (const spbu of dummyData.Spbu) {
         try {
-            const hash = await walletClient.writeContract({
+            const hash = await writeContractWithNonce({
                 address: DIAMOND_ADDRESS,
                 abi: COMBINED_ABI,
                 functionName: 'createSpbu',
@@ -252,7 +379,7 @@ async function main() {
         try {
             const spbuId = spbuIds[divisi.spbuId] || 1n;
 
-            const hash = await walletClient.writeContract({
+            const hash = await writeContractWithNonce({
                 address: DIAMOND_ADDRESS,
                 abi: COMBINED_ABI,
                 functionName: 'createDivisi',
@@ -285,7 +412,7 @@ async function main() {
         try {
             const divisiId = divisiIds[level.divisiId] || 1n;
 
-            const hash = await walletClient.writeContract({
+            const hash = await writeContractWithNonce({
                 address: DIAMOND_ADDRESS,
                 abi: COMBINED_ABI,
                 functionName: 'createLevel',
@@ -318,7 +445,7 @@ async function main() {
         try {
             const levelId = levelIds[jabatan.levelId] || 1n;
 
-            const hash = await walletClient.writeContract({
+            const hash = await writeContractWithNonce({
                 address: DIAMOND_ADDRESS,
                 abi: COMBINED_ABI,
                 functionName: 'createJabatan',
@@ -345,23 +472,45 @@ async function main() {
         }
     }
 
-    // ==================== 8. Assign Wallet to Jabatan ====================
-    console.log('\n📝 Assigning Wallet to Jabatan...');
+    // ==================== 10. Grant Roles with Jabatan ====================
+    console.log('\n📝 Granting Roles with Jabatan...');
+
+    // Map jabatan names to their role hashes (keccak256)
+    // These must match the constants in AccessControlFacet.sol
+    const { keccak256, toBytes } = require('viem');
+
+    const JABATAN_TO_ROLE = {
+        'Komisaris': keccak256(toBytes('KOMISARIS_ROLE')),
+        'Partner': keccak256(toBytes('PARTNER_ROLE')),
+        'Direktur Utama': keccak256(toBytes('DIREKTUR_UTAMA_ROLE')),
+        'Direktur': keccak256(toBytes('DIREKTUR_ROLE')),
+        'Admin': keccak256(toBytes('ADMIN_ROLE')),
+        'Operator': keccak256(toBytes('OPERATOR_ROLE')),
+        'Security': keccak256(toBytes('SECURITY_ROLE')),
+        'OfficeBoy': keccak256(toBytes('OFFICEBOY_ROLE')),
+    };
+
     for (const mapping of dummyData.walletToJabatanIds) {
         try {
             const jabatanId = jabatanIds[mapping.namaJabatan] || 1n;
+            const roleHash = JABATAN_TO_ROLE[mapping.namaJabatan];
 
-            const hash = await walletClient.writeContract({
+            if (!roleHash) {
+                console.log(`   ⚠️ ${mapping.namaJabatan}: No role mapping found, skipping`);
+                continue;
+            }
+
+            const hash = await writeContractWithNonce({
                 address: DIAMOND_ADDRESS,
                 abi: COMBINED_ABI,
-                functionName: 'assignJabatanToWallet',
-                args: [jabatanId, mapping.walletAddress],
+                functionName: 'grantRoleWithJabatan',
+                args: [roleHash, mapping.walletAddress, jabatanId],
             });
 
             await publicClient.waitForTransactionReceipt({ hash });
-            console.log(`   ✅ ${mapping.namaJabatan} -> ${mapping.walletAddress.slice(0, 10)}...`);
+            console.log(`   ✅ ${mapping.namaJabatan} -> ${mapping.walletAddress.slice(0, 10)}... (Role granted)`);
         } catch (error) {
-            console.log(`   ❌ ${mapping.namaJabatan}: ${error.message}`);
+            console.log(`   ❌ ${mapping.namaJabatan}: ${error.message.split('\n')[0]}`);
         }
     }
 
@@ -370,6 +519,8 @@ async function main() {
     console.log('✅ SEED COMPLETE!');
     console.log('='.repeat(60));
     console.log('\n📊 Summary:');
+    console.log(`   SatuanUkurTinggi: ${Object.keys(satuanUkurTinggiIds).length}`);
+    console.log(`   SatuanUkurVolume: ${Object.keys(satuanUkurVolumeIds).length}`);
     console.log(`   StatusMember: ${Object.keys(statusMemberIds).length}`);
     console.log(`   Ktp: ${Object.keys(ktpIds).length}`);
     console.log(`   Spbu: ${Object.keys(spbuIds).length}`);
@@ -379,6 +530,8 @@ async function main() {
     console.log(`   Wallet-Jabatan Mappings: ${dummyData.walletToJabatanIds.length}`);
 
     console.log('\n📝 ID Mappings:');
+    console.log('   SatuanUkurTinggi:', satuanUkurTinggiIds);
+    console.log('   SatuanUkurVolume:', satuanUkurVolumeIds);
     console.log('   StatusMember:', statusMemberIds);
     console.log('   Spbu:', spbuIds);
     console.log('   Divisi:', divisiIds);

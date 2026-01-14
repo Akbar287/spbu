@@ -1,7 +1,7 @@
 /**
  * Register Facet Selectors to Diamond
  * This script registers all function selectors from deployed facets to the MainDiamond
- * Run: node scripts/register-facets.cjs
+ * Run: node scripts/register-facets.cjs [--network=besu|ganache|sepolia]
  */
 
 require('dotenv').config();
@@ -10,38 +10,70 @@ const path = require('path');
 const { createPublicClient, createWalletClient, http, keccak256, toBytes } = require('viem');
 const { privateKeyToAccount } = require('viem/accounts');
 
+// Parse command line arguments
+const args = process.argv.slice(2);
+const networkArg = args.find(arg => arg.startsWith('--network='));
+const NETWORK_NAME = networkArg ? networkArg.split('=')[1] : 'besu';
+
+// RPC URLs by network
+const RPC_URLS = {
+    besu: process.env.BESU_RPC_URL || 'https://akbar-kece.duckdns.org/',
+    sepolia: process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org',
+    ganache: 'http://127.0.0.1:7545',
+};
+
+const RPC_URL = RPC_URLS[NETWORK_NAME] || RPC_URLS.besu;
+
 // Configuration
-const deploymentPath = path.join(__dirname, '../deployments/ganache.json');
+const deploymentPath = path.join(__dirname, `../deployments/${NETWORK_NAME}.json`);
 if (!fs.existsSync(deploymentPath)) {
-    throw new Error('Deployment file not found: ' + deploymentPath);
+    console.error(`Deployment file not found: ${deploymentPath}`);
+    console.error(`Run 'npx hardhat run scripts/deploy.js --network ${NETWORK_NAME}' first.`);
+    process.exit(1);
 }
 const deploymentData = require(deploymentPath);
 const DIAMOND_ADDRESS = deploymentData.contracts.MAIN_DIAMOND;
-const RPC_URL = 'http://127.0.0.1:7545';
 
-// Facet addresses (from deploy.js output)
-const FACET_ADDRESSES = {
-    AccessControlFacet: deploymentData.contracts.ACCESSCONTROL_FACET,
-    IdentityMemberFacet: deploymentData.contracts.IDENTITYMEMBER_FACET,
-    IdentityNotifFacet: deploymentData.contracts.IDENTITYNOTIF_FACET,
-    OrganizationFacet: deploymentData.contracts.ORGANIZATION_FACET,
-    HumanCapitalFacet: deploymentData.contracts.HUMANCAPITAL_FACET,
-    AssetCoreFacet: deploymentData.contracts.ASSETCORE_FACET,
-    AssetFileFacet: deploymentData.contracts.ASSETFILE_FACET,
-    InventoryCoreFacet: deploymentData.contracts.INVENTORYCORE_FACET,
-    InventoryDocsFacet: deploymentData.contracts.INVENTORYDOCS_FACET,
-    InventoryTransferFacet: deploymentData.contracts.INVENTORYTRANSFER_FACET,
-    LogisticCoreFacet: deploymentData.contracts.LOGISTICCORE_FACET,
-    LogisticFileFacet: deploymentData.contracts.LOGISTICFILE_FACET,
-    AttendanceConfigFacet: deploymentData.contracts.ATTENDANCECONFIG_FACET,
-    AttendanceRecordFacet: deploymentData.contracts.ATTENDANCERECORD_FACET,
-    PengadaanCoreFacet: deploymentData.contracts.PENGADAANCORE_FACET,
-    PengadaanPaymentFacet: deploymentData.contracts.PENGADAANPAYMENT_FACET,
-    PointOfSalesCoreFacet: deploymentData.contracts.POINTOFSALESCORE_FACET,
-    PointOfSalesSalesFacet: deploymentData.contracts.POINTOFSALESSALES_FACET,
-    FinanceFacet: deploymentData.contracts.FINANCE_FACET,
-    QualityControlFacet: deploymentData.contracts.QUALITYCONTROL_FACET,
-};
+console.log(`📡 Network: ${NETWORK_NAME}`);
+console.log(`🔗 RPC URL: ${RPC_URL}`);
+console.log(`💎 Diamond: ${DIAMOND_ADDRESS}\n`);
+
+// List of all facets to register
+const FACETS = [
+    'AccessControlFacet',
+    'AssetCoreFacet',
+    'AssetFileFacet',
+    'AttendanceConfigFacet',
+    'AttendanceRecordFacet',
+    'CmsFacet',
+    'FinanceFacet',
+    'HumanCapitalFacet',
+    'IdentityMemberFacet',
+    'IdentityNotifFacet',
+    'InventoryCoreFacet',
+    'InventoryDocsFacet',
+    'InventoryTransferFacet',
+    'LogisticCoreFacet',
+    'LogisticFileFacet',
+    'OrganizationFacet',
+    'PengadaanConfirmationFacet',
+    'PengadaanCoreFacet',
+    'PengadaanPaymentFacet',
+    'PointOfSalesCoreFacet',
+    'PointOfSalesSalesFacet',
+    'QualityControlFacet',
+    'ViewFacet',
+];
+
+// Helper to convert facet name to deployment key
+// Some facets use ASSETCORE_FACET, others use ASSET_CORE_FACET
+function getDeploymentKeys(facetName) {
+    const base = facetName.replace('Facet', '');
+    // Try both formats: ASSETCORE_FACET and ASSET_CORE_FACET
+    const noUnderscore = base.toUpperCase() + '_FACET';
+    const withUnderscore = base.replace(/([a-z])([A-Z])/g, '$1_$2').toUpperCase() + '_FACET';
+    return [noUnderscore, withUnderscore];
+}
 
 // Diamond ABI for addFacet
 const DIAMOND_ABI = [
@@ -64,10 +96,10 @@ const DIAMOND_ABI = [
     },
 ];
 
-// Setup chain
-const localGanache = {
-    id: 1337,
-    name: 'Ganache Local',
+// Setup chain config
+const chainConfig = {
+    id: NETWORK_NAME === 'besu' ? 287287 : NETWORK_NAME === 'sepolia' ? 11155111 : 1337,
+    name: NETWORK_NAME,
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     rpcUrls: {
         default: { http: [RPC_URL] },
@@ -108,24 +140,44 @@ async function main() {
     const account = privateKeyToAccount(privateKey.startsWith('0x') ? privateKey : `0x${privateKey}`);
 
     const publicClient = createPublicClient({
-        chain: localGanache,
+        chain: chainConfig,
         transport: http(RPC_URL),
     });
 
     const walletClient = createWalletClient({
         account,
-        chain: localGanache,
+        chain: chainConfig,
         transport: http(RPC_URL),
     });
 
-    console.log(`📍 Deployer: ${account.address}`);
-    console.log(`📍 Diamond: ${DIAMOND_ADDRESS}\n`);
+    console.log(`📍 Deployer: ${account.address}\n`);
+
+    // Get initial nonce
+    let currentNonce = await publicClient.getTransactionCount({ address: account.address });
+    console.log(`� Starting nonce: ${currentNonce}\n`);
 
     let totalSelectors = 0;
     let successCount = 0;
 
-    for (const [facetName, facetAddress] of Object.entries(FACET_ADDRESSES)) {
+    for (const facetName of FACETS) {
         try {
+            // Get facet address from deployment - try both key formats
+            const keys = getDeploymentKeys(facetName);
+            let facetAddress = null;
+            let usedKey = null;
+            for (const key of keys) {
+                if (deploymentData.contracts[key]) {
+                    facetAddress = deploymentData.contracts[key];
+                    usedKey = key;
+                    break;
+                }
+            }
+
+            if (!facetAddress) {
+                console.log(`   ⚠️  ${facetName}: No deployment address found (tried: ${keys.join(', ')})`);
+                continue;
+            }
+
             // Load ABI
             const abiPath = path.join(__dirname, '..', 'src', 'contracts', 'abis', `${facetName}.json`);
 
@@ -142,7 +194,7 @@ async function main() {
                 continue;
             }
 
-            // Check if first selector is already registered
+            // Check if first selector is already registered to THIS facet
             const existingFacet = await publicClient.readContract({
                 address: DIAMOND_ADDRESS,
                 abi: DIAMOND_ABI,
@@ -150,11 +202,14 @@ async function main() {
                 args: [selectors[0]],
             });
 
-            if (existingFacet !== '0x0000000000000000000000000000000000000000') {
+            // Compare with lowercase to ensure consistent comparison
+            if (existingFacet.toLowerCase() === facetAddress.toLowerCase()) {
                 console.log(`   ⏭️  ${facetName}: Already registered (${selectors.length} selectors)`);
                 totalSelectors += selectors.length;
                 successCount++;
                 continue;
+            } else if (existingFacet !== '0x0000000000000000000000000000000000000000') {
+                console.log(`   🔄 ${facetName}: Re-registering (old: ${existingFacet.slice(0, 10)}...)`);
             }
 
             // Register facet
@@ -165,9 +220,16 @@ async function main() {
                 abi: DIAMOND_ABI,
                 functionName: 'addFacet',
                 args: [facetAddress, selectors],
+                nonce: currentNonce,
             });
 
-            await publicClient.waitForTransactionReceipt({ hash });
+            currentNonce++;
+
+            await publicClient.waitForTransactionReceipt({
+                hash,
+                timeout: 60_000,
+                pollingInterval: 2_000,
+            });
 
             console.log(`   ✅ ${facetName}: ${selectors.length} selectors registered`);
             totalSelectors += selectors.length;
@@ -182,7 +244,7 @@ async function main() {
     console.log('✅ REGISTRATION COMPLETE!');
     console.log('='.repeat(60));
     console.log(`\n📊 Summary:`);
-    console.log(`   Facets registered: ${successCount}/${Object.keys(FACET_ADDRESSES).length}`);
+    console.log(`   Facets registered: ${successCount}/${FACETS.length}`);
     console.log(`   Total selectors: ${totalSelectors}`);
 }
 

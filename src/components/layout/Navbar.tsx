@@ -7,8 +7,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
 import React from 'react';
 import { useTheme } from '../../config/ThemeContext';
 import { formatAddress } from '../../lib/utils';
-import { config, ganache } from '@/config/wagmi';
-import { addGanacheToWallet } from '@/lib/addNetworkToWallet';
+import { config, besuPrivate } from '@/config/wagmi';
+import { addBesuToWallet } from '@/lib/addNetworkToWallet';
 
 
 export default function Navbar() {
@@ -20,16 +20,16 @@ export default function Navbar() {
     const [networkRejected, setNetworkRejected] = React.useState(false);
 
     // Check if connected to wrong network (Ganache for local dev)
-    const isWrongNetwork = isConnected && chainId !== ganache.id;
+    const isWrongNetwork = isConnected && chainId !== besuPrivate.id;
 
     // Handle switching to Ganache network (for local development)
-    const handleSwitchToGanache = async () => {
+    const handleSwitchToWallet = async () => {
         setNetworkRejected(false);
         try {
-            switchChain({ chainId: ganache.id });
+            switchChain({ chainId: besuPrivate.id });
         } catch (err) {
             // If switch fails, try to add the network
-            const added = await addGanacheToWallet();
+            const added = await addBesuToWallet();
             if (!added) {
                 setNetworkRejected(true);
             }
@@ -64,7 +64,7 @@ export default function Navbar() {
 
     // Reset network rejected state when chain changes
     React.useEffect(() => {
-        if (chainId === ganache.id) {
+        if (chainId === besuPrivate.id) {
             setNetworkRejected(false);
         }
     }, [chainId]);
@@ -327,15 +327,15 @@ export default function Navbar() {
                                         Jaringan tidak sesuai
                                     </h3>
                                     <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                                        Aplikasi ini memerlukan koneksi ke jaringan Ganache lokal (Chain ID: 1337). Silakan beralih ke jaringan Ganache untuk melanjutkan.
+                                        Aplikasi ini memerlukan koneksi ke jaringan wallet private (Chain ID: 287287). Silakan beralih ke jaringan wallet untuk melanjutkan.
                                     </p>
                                     <motion.button
-                                        onClick={handleSwitchToGanache}
+                                        onClick={handleSwitchToWallet}
                                         className="w-full px-4 py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold rounded-xl shadow-lg shadow-purple-500/30 transition-all"
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
                                     >
-                                        {networkRejected ? 'Coba Lagi' : 'Beralih ke Ganache'}
+                                        {networkRejected ? 'Coba Lagi' : 'Beralih ke Wallet'}
                                     </motion.button>
                                     {networkRejected && (
                                         <motion.p
