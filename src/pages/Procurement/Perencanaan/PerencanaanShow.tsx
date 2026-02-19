@@ -376,7 +376,7 @@ export default function PerencanaanShow() {
                     animate={{ opacity: 1, y: 0 }}
                 >
                     <div className="absolute inset-0 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500" />
-                    <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,...')]" />
+                    <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4yIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIi8+PC9nPjwvZz48L3N2Zz4=')]" />
 
                     <div className="relative z-10 p-6 md:p-8">
                         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">

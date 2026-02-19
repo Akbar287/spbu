@@ -595,7 +595,7 @@ function AreaMemberFormModal({ walletAddress, mode, initialData, onClose, onSucc
             >
                 {/* Header with gradient */}
                 <div className="relative p-6 bg-gradient-to-r from-green-500 to-emerald-600">
-                    <div className="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-10" />
+                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4yIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIi8+PC9nPjwvZz48L3N2Zz4=')] opacity-10" />
                     <div className="relative flex items-center gap-3">
                         <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
                             <MapPin className="w-6 h-6 text-white" />

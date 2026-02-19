@@ -389,7 +389,7 @@ export default function FileLoShow() {
                     animate={{ opacity: 1, y: 0 }}
                 >
                     <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-violet-600" />
-                    <div className="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-10" />
+                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4yIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyIi8+PC9nPjwvZz48L3N2Zz4=')] opacity-10" />
                     <div className="relative z-10 p-6 md:p-8">
                         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                             <div className="flex items-center gap-4">
