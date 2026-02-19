@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useReadContract } from 'wagmi';
 import { simulateContract, writeContract } from '@wagmi/core';
 import {
-    ClipboardList, ArrowLeft, Save, Package, Calendar, Tag,
-    AlertCircle, CheckCircle2, Loader2, Sparkles, Plus, Trash2,
-    FileText, Droplet, Info, Edit3
+    ArrowLeft, Save, Package, Calendar, Tag,
+    AlertCircle, CheckCircle2, Loader2, Plus, Trash2,
+    FileText, Droplet, Edit3
 } from 'lucide-react';
 import { DIAMOND_ADDRESS, DIAMOND_ABI } from '@/contracts/config';
 import { config } from '@/config/wagmi';

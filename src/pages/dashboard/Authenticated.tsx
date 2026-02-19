@@ -26,7 +26,7 @@ import { Ktp, Jabatan } from '../../types/contracts';
 
 export default function Authenticated() {
     const navigate = useNavigate();
-    const { address, isConnected, chain } = useAccount();
+    const { address, isConnected } = useAccount();
     const [hoveredCard, setHoveredCard] = useState<string | null>(null);
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [selectedJabatanIndex, setSelectedJabatanIndex] = useState<number>(0);
@@ -44,7 +44,7 @@ export default function Authenticated() {
     });
 
     // Fetch Jabatan data from Diamond (OrganizationFacet)
-    const { data: jabatanData, isLoading: isLoadingJabatan, error: jabatanError } = useReadContract({
+    const { data: jabatanData, isLoading: isLoadingJabatan } = useReadContract({
         address: DIAMOND_ADDRESS as `0x${string}`,
         abi: DIAMOND_ABI,
         functionName: 'getJabatansByWallet',
