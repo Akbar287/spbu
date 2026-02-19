@@ -7,7 +7,7 @@ export default defineConfig({
     solidity: {
         version: "0.8.33",
         settings: {
-            evmVersion: "paris", // Avoid PUSH0 opcode not supported by Ganache
+            evmVersion: "paris",
             viaIR: true,
             optimizer: {
                 enabled: true,
@@ -25,22 +25,6 @@ export default defineConfig({
             gas: 6000000,
             timeout: 120000,
         },
-        besu: {
-            type: "http",
-            url: process.env.BESU_RPC_URL || "https://akbar-kece.duckdns.org/",
-            chainId: 287287,
-            accounts: DEPLOYER_PRIVATE_KEY ? [DEPLOYER_PRIVATE_KEY] : [],
-            gas: 6000000,
-            gasPrice: 0,
-            timeout: 120000
-        },
-        ganache: {
-            type: "http",
-            url: "http://127.0.0.1:7545",
-            chainId: 1337,
-            accounts: DEPLOYER_PRIVATE_KEY ? [DEPLOYER_PRIVATE_KEY] : [],
-        },
-
         localhost: {
             type: "http",
             url: "http://127.0.0.1:8545",
@@ -53,5 +37,5 @@ export default defineConfig({
         },
     },
 
-    defaultNetwork: "besu",
+    defaultNetwork: "sepolia",
 });

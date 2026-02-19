@@ -7,8 +7,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
 import React from 'react';
 import { useTheme } from '../../config/ThemeContext';
 import { formatAddress } from '../../lib/utils';
-import { config, besuPrivate } from '@/config/wagmi';
-import { addBesuToWallet } from '@/lib/addNetworkToWallet';
+import { config, localChain } from '@/config/wagmi';
+import { addSepoliaToWallet } from '@/lib/addNetworkToWallet';
 
 
 export default function Navbar() {
@@ -19,17 +19,17 @@ export default function Navbar() {
     const { theme, toggleTheme } = useTheme();
     const [networkRejected, setNetworkRejected] = React.useState(false);
 
-    // Check if connected to wrong network (Ganache for local dev)
-    const isWrongNetwork = isConnected && chainId !== besuPrivate.id;
+    // Check if connected to wrong network (Sepolia required)
+    const isWrongNetwork = isConnected && chainId !== localChain.id;
 
-    // Handle switching to Ganache network (for local development)
+    // Handle switching to Ethereum Sepolia
     const handleSwitchToWallet = async () => {
         setNetworkRejected(false);
         try {
-            switchChain({ chainId: besuPrivate.id });
+            switchChain({ chainId: localChain.id });
         } catch (err) {
             // If switch fails, try to add the network
-            const added = await addBesuToWallet();
+            const added = await addSepoliaToWallet();
             if (!added) {
                 setNetworkRejected(true);
             }
@@ -64,7 +64,7 @@ export default function Navbar() {
 
     // Reset network rejected state when chain changes
     React.useEffect(() => {
-        if (chainId === besuPrivate.id) {
+        if (chainId === localChain.id) {
             setNetworkRejected(false);
         }
     }, [chainId]);
@@ -327,7 +327,7 @@ export default function Navbar() {
                                         Jaringan tidak sesuai
                                     </h3>
                                     <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                                        Aplikasi ini memerlukan koneksi ke jaringan wallet private (Chain ID: 287287). Silakan beralih ke jaringan wallet untuk melanjutkan.
+                                        Aplikasi ini memerlukan koneksi ke jaringan Ethereum Sepolia. Silakan beralih ke jaringan wallet tersebut untuk melanjutkan.
                                     </p>
                                     <motion.button
                                         onClick={handleSwitchToWallet}

@@ -42,9 +42,9 @@ export {
 // ============================================================================
 
 export const NETWORK_CONFIG = {
-    chainId: 287287,
-    rpcUrl: 'https://akbar-kece.duckdns.org/',
-    networkName: 'Besu IBFT Private',
+    chainId: 11155111,
+    rpcUrl: process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org',
+    networkName: 'Ethereum Sepolia',
 } as const;
 
 // ============================================================================
@@ -52,7 +52,7 @@ export const NETWORK_CONFIG = {
 // ============================================================================
 
 // Main Diamond Proxy - ALL CALLS GO THROUGH THIS ADDRESS
-export const DIAMOND_ADDRESS = '0x5d0403fb1dafe2884a314966bda3ec7f142ef02b' as const;
+export const DIAMOND_ADDRESS = (process.env.REACT_APP_DIAMOND_ADDRESS || '0xe38afd53d25c3caee150ad577b1f2284da2fcc6c') as `0x${string}`;
 
 // Legacy aliases for backward compatibility
 export const CONTRACT_ADDRESSES = {

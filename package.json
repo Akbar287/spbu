@@ -53,11 +53,10 @@
     "eject": "react-scripts eject",
     "node": "npx hardhat node",
     "compile": "npx hardhat compile",
-    "upgrade:ganache": "npx hardhat run scripts/upgrade-facet.js --network ganache",
-    "deploy:ganache": "npx hardhat run scripts/deploy.js --network ganache",
-    "deploy:local": "npx hardhat run scripts/deploy.js --network localhost",
     "deploy:sepolia": "npx hardhat run scripts/deploy.js --network sepolia",
-    "deploy:mainnet": "npx hardhat run scripts/deploy.js --network mainnet"
+    "upgrade:sepolia": "node scripts/upgrade-facet.cjs --network=sepolia",
+    "register:sepolia": "node scripts/register-facets.cjs --network=sepolia",
+    "seed:sepolia": "node scripts/seed-data.cjs --network=sepolia"
   },
   "eslintConfig": {
     "extends": [

@@ -1,31 +1,46 @@
-import hardhat from "hardhat";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { createPublicClient, http } from "viem";
 import { defineChain } from "viem";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const besuPrivate = defineChain({
-    id: 287287,
-    name: 'Besu IBFT Private Network',
+const args = process.argv.slice(2);
+const networkArg = args.find(arg => arg.startsWith('--network='));
+const NETWORK_NAME = networkArg ? networkArg.split('=')[1] : 'sepolia';
+if (NETWORK_NAME !== 'sepolia') {
+    console.error(`Unsupported network: ${NETWORK_NAME}. Use --network=sepolia`);
+    process.exit(1);
+}
+
+const RPC_URL = process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
+
+const sepoliaChain = defineChain({
+    id: 11155111,
+    name: 'Ethereum Sepolia',
     nativeCurrency: { decimals: 18, name: 'Ether', symbol: 'ETH' },
-    rpcUrls: { default: { http: ['http://43.163.104.18'] } },
+    rpcUrls: { default: { http: [RPC_URL] } },
 });
 
 async function main() {
-    console.log("🔍 Verifying deployed contracts on Besu...\n");
+    console.log("🔍 Verifying deployed contracts on Ethereum Sepolia...\n");
 
     // Read deployment file
-    const deploymentFile = path.join(__dirname, "../deployments/besu.json");
+    const deploymentFile = path.join(__dirname, `../deployments/${NETWORK_NAME}.json`);
+    if (!fs.existsSync(deploymentFile)) {
+        throw new Error(`Deployment file not found: ${deploymentFile}`);
+    }
     const deployment = JSON.parse(fs.readFileSync(deploymentFile, 'utf8'));
 
     // Create client
     const publicClient = createPublicClient({
-        chain: besuPrivate,
-        transport: http('http://43.163.104.18'),
+        chain: sepoliaChain,
+        transport: http(RPC_URL),
     });
 
     console.log(`Network: ${deployment.network}`);

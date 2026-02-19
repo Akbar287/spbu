@@ -1,7 +1,7 @@
 /**
  * Register Facet Selectors to Diamond
  * This script registers all function selectors from deployed facets to the MainDiamond
- * Run: node scripts/register-facets.cjs [--network=besu|ganache|sepolia]
+ * Run: node scripts/register-facets.cjs [--network=sepolia]
  */
 
 require('dotenv').config();
@@ -13,16 +13,18 @@ const { privateKeyToAccount } = require('viem/accounts');
 // Parse command line arguments
 const args = process.argv.slice(2);
 const networkArg = args.find(arg => arg.startsWith('--network='));
-const NETWORK_NAME = networkArg ? networkArg.split('=')[1] : 'besu';
+const NETWORK_NAME = networkArg ? networkArg.split('=')[1] : 'sepolia';
+if (NETWORK_NAME !== 'sepolia') {
+    console.error(`Unsupported network: ${NETWORK_NAME}. Use --network=sepolia`);
+    process.exit(1);
+}
 
 // RPC URLs by network
 const RPC_URLS = {
-    besu: process.env.BESU_RPC_URL || 'https://akbar-kece.duckdns.org/',
     sepolia: process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org',
-    ganache: 'http://127.0.0.1:7545',
 };
 
-const RPC_URL = RPC_URLS[NETWORK_NAME] || RPC_URLS.besu;
+const RPC_URL = RPC_URLS[NETWORK_NAME] || RPC_URLS.sepolia;
 
 // Configuration
 const deploymentPath = path.join(__dirname, `../deployments/${NETWORK_NAME}.json`);
@@ -98,7 +100,7 @@ const DIAMOND_ABI = [
 
 // Setup chain config
 const chainConfig = {
-    id: NETWORK_NAME === 'besu' ? 287287 : NETWORK_NAME === 'sepolia' ? 11155111 : 1337,
+    id: 11155111,
     name: NETWORK_NAME,
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     rpcUrls: {

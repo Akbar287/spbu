@@ -1,17 +1,27 @@
 
 import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { createPublicClient, createWalletClient, http, keccak256, toBytes, defineChain } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 
 dotenv.config();
 
-// Config
-const DIAMOND_ADDRESS = '0x305afe61b4ad6af5ec1b67b28293e25a726088bf';
-const RPC_URL = 'http://127.0.0.1:7545';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const ganache = defineChain({
-    id: 1337,
-    name: 'Ganache',
+const RPC_URL = process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
+const deploymentFile = path.join(__dirname, '../deployments/sepolia.json');
+if (!fs.existsSync(deploymentFile)) {
+    throw new Error(`Deployment file not found: ${deploymentFile}`);
+}
+const deploymentData = JSON.parse(fs.readFileSync(deploymentFile, 'utf8'));
+const DIAMOND_ADDRESS = deploymentData.contracts.MAIN_DIAMOND;
+
+const sepolia = defineChain({
+    id: 11155111,
+    name: 'Sepolia',
     nativeCurrency: { decimals: 18, name: 'Ether', symbol: 'ETH' },
     rpcUrls: { default: { http: [RPC_URL] } },
 });
@@ -61,6 +71,9 @@ const ABI = [
 
 async function main() {
     const roleHash = keccak256(toBytes("ADMIN_ROLE"));
+    console.log("Network: Sepolia");
+    console.log("RPC URL:", RPC_URL);
+    console.log("Diamond:", DIAMOND_ADDRESS);
     console.log("ADMIN_ROLE Hash:", roleHash);
 
     const privateKey = process.env.DEPLOYER_PRIVATE_KEY;
@@ -69,13 +82,13 @@ async function main() {
     const account = privateKeyToAccount(privateKey.startsWith('0x') ? privateKey : `0x${privateKey}`);
 
     const client = createPublicClient({
-        chain: ganache,
+        chain: sepolia,
         transport: http(RPC_URL)
     });
 
     const wallet = createWalletClient({
         account,
-        chain: ganache,
+        chain: sepolia,
         transport: http(RPC_URL)
     });
 

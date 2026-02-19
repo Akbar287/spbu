@@ -46,13 +46,15 @@ function toScreamingSnakeCase(str) {
         .replace(/^_/, '') + '_FACET';
 }
 // Configuration
-const NETWORK_NAME = args.network || 'besu';
+const NETWORK_NAME = args.network || 'sepolia';
+if (NETWORK_NAME !== 'sepolia') {
+    console.error(`Unsupported network: ${NETWORK_NAME}. Use --network=sepolia`);
+    process.exit(1);
+}
 
 // RPC URLs by network
 const RPC_URLS = {
-    besu: process.env.BESU_RPC_URL || 'https://akbar-kece.duckdns.org/',
     sepolia: process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org',
-    ganache: 'http://127.0.0.1:7545',
 };
 
 const deploymentPath = path.join(__dirname, `../deployments/${NETWORK_NAME}.json`);
@@ -61,7 +63,14 @@ if (!fs.existsSync(deploymentPath)) {
 }
 const deploymentData = require(deploymentPath);
 const DIAMOND_ADDRESS = deploymentData.contracts.MAIN_DIAMOND;
-const RPC_URL = RPC_URLS[NETWORK_NAME] || RPC_URLS.besu;
+const RPC_URL = RPC_URLS[NETWORK_NAME] || RPC_URLS.sepolia;
+
+const chainConfig = {
+    id: 11155111,
+    name: 'Sepolia',
+    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+    rpcUrls: { default: { http: [RPC_URL] } },
+};
 
 console.log(`📡 Network: ${NETWORK_NAME}`);
 console.log(`🔗 RPC URL: ${RPC_URL}`);
@@ -76,11 +85,13 @@ const account = privateKeyToAccount(`0x${PRIVATE_KEY.replace('0x', '')}`);
 
 // Create clients
 const publicClient = createPublicClient({
+    chain: chainConfig,
     transport: http(RPC_URL),
 });
 
 const walletClient = createWalletClient({
     account,
+    chain: chainConfig,
     transport: http(RPC_URL),
 });
 
@@ -152,8 +163,7 @@ async function deployContract(contractName, artifact) {
             bytecode: artifact.bytecode,
             account: account,
             gas: gasLimit,              // Set gas limit to 90% of block
-            gasPrice: 0n,                // Explicit 0 for Besu private network
-            nonce: nonce,                // Explicit nonce
+            nonce: nonce,               // Explicit nonce
         });
 
         console.log(`   📝 Transaction hash: ${hash}`);
@@ -161,8 +171,8 @@ async function deployContract(contractName, artifact) {
 
         const receipt = await publicClient.waitForTransactionReceipt({
             hash,
-            timeout: 60_000,             // 60 seconds timeout
-            pollingInterval: 2_000,      // Poll every 2s (match Besu block time)
+            timeout: 60_000,
+            pollingInterval: 2_000,
         });
 
         if (!receipt.contractAddress) {
@@ -180,10 +190,9 @@ async function deployContract(contractName, artifact) {
         // Better error handling
         if (error.message.includes('Out of gas')) {
             console.error(`   💡 Contract requires more gas than available`);
-            console.error(`   💡 Consider splitting into smaller contracts or increasing genesis gasLimit`);
+            console.error(`   💡 Consider optimizing contract size or splitting logic`);
         } else if (error.message.includes('Block could not be found')) {
-            console.error(`   💡 Transaction timeout - check if Besu is producing blocks`);
-            console.error(`   💡 Run: curl -X POST --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' http://43.163.104.18`);
+            console.error(`   💡 Transaction timeout - check Sepolia RPC availability`);
         }
 
         throw error;
@@ -227,7 +236,7 @@ async function main() {
     const deploymentKey = toScreamingSnakeCase(FACET_NAME);
     deploymentData.contracts[deploymentKey] = facetAddress;
     fs.writeFileSync(deploymentPath, JSON.stringify(deploymentData, null, 2));
-    console.log(`✅ deployments/ganache.json updated (${deploymentKey})`);
+    console.log(`✅ ${path.relative(process.cwd(), deploymentPath)} updated (${deploymentKey})`);
 
     // Update ABI files
     console.log("\n📄 Updating ABI files...");

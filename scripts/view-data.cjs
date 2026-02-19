@@ -13,11 +13,18 @@
 
 require('dotenv').config();
 const { createPublicClient, http } = require('viem');
+const fs = require('fs');
+const path = require('path');
 
 // Configuration
-const DIAMOND_ADDRESS = '0x7ef84473a4e772fb6adfa1b0c6728a3dbf268dd7';
-const ADMIN_ADDRESS = '0xFE3B557E8Fb62b89F4916B721be55cEb828dBd73';
-const RPC_URL = 'https://akbar-kece.duckdns.org/';
+const RPC_URL = process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
+const deploymentPath = path.join(__dirname, '../deployments/sepolia.json');
+if (!fs.existsSync(deploymentPath)) {
+    throw new Error(`Deployment file not found: ${deploymentPath}`);
+}
+const deploymentData = require(deploymentPath);
+const DIAMOND_ADDRESS = deploymentData.contracts.MAIN_DIAMOND;
+const ADMIN_ADDRESS = deploymentData.deployer;
 
 // Load ABIs
 const AccessControlABI = require('../src/contracts/abis/AccessControlFacet.json');
@@ -62,9 +69,9 @@ const getDomain = () => {
 };
 
 // Setup chain
-const localGanache = {
-    id: 1337,
-    name: 'Ganache Local',
+const sepolia = {
+    id: 11155111,
+    name: 'Sepolia',
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     rpcUrls: {
         default: { http: [RPC_URL] },
@@ -126,7 +133,7 @@ async function main() {
     console.log(`RPC: ${RPC_URL}\n`);
 
     const publicClient = createPublicClient({
-        chain: localGanache,
+        chain: sepolia,
         transport: http(RPC_URL),
     });
 

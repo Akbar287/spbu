@@ -11,8 +11,8 @@ const { createPublicClient, createWalletClient, http } = require('viem');
 const { privateKeyToAccount } = require('viem/accounts');
 
 // Configuration
-const NETWORK_NAME = 'besu';
-const RPC_URL = 'https://akbar-kece.duckdns.org/';
+const NETWORK_NAME = 'sepolia';
+const RPC_URL = process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
 
 const deploymentPath = path.join(__dirname, `../deployments/${NETWORK_NAME}.json`);
 const deploymentData = require(deploymentPath);
@@ -28,8 +28,8 @@ const IdentityMemberABI = require('../src/contracts/abis/IdentityMemberFacet.jso
 
 // Chain config
 const chainConfig = {
-    id: 287287,
-    name: 'Besu IBFT Private',
+    id: 11155111,
+    name: 'Sepolia',
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     rpcUrls: { default: { http: [RPC_URL] } },
 };

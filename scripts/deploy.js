@@ -3,9 +3,9 @@
  * Hardhat 3.x Compatible with Viem
  * 
  * Usage:
- *   Besu:  npx hardhat run scripts/deploy.js --network besu
+ *   Sepolia: npx hardhat run scripts/deploy.js --network sepolia
  * 
- * Set environment variable DEPLOYER_PRIVATE_KEY with Besu account private key
+ * Set environment variable DEPLOYER_PRIVATE_KEY with deployer account private key
  */
 
 import hardhat from "hardhat";
@@ -35,28 +35,9 @@ const sepoliaChain = defineChain({
     },
 });
 
-const besuPrivate = defineChain({
-    id: 287287,
-    name: 'Besu IBFT Private',
-    nativeCurrency: { decimals: 18, name: 'Ether', symbol: 'ETH' },
-    rpcUrls: {
-        default: { http: [process.env.BESU_RPC_URL || 'https://akbar-kece.duckdns.org/'] },
-    },
-});
-
-// Define Ganache chain
-const ganache = defineChain({
-    id: 1337,
-    name: 'Ganache',
-    nativeCurrency: { decimals: 18, name: 'Ether', symbol: 'ETH' },
-    rpcUrls: { default: { http: ['http://127.0.0.1:7545'] } },
-});
-
 // Network configurations map
 const NETWORKS = {
     sepolia: sepoliaChain,
-    besu: besuPrivate,
-    ganache: ganache,
 };
 
 async function main() {
@@ -74,8 +55,9 @@ async function main() {
     const formattedKey = privateKey.startsWith('0x') ? privateKey : `0x${privateKey}`;
 
     // Detect network from hardhat runtime environment
-    const networkName = hardhat.network?.name || 'besu';
-    const activeChain = NETWORKS[networkName] || besuPrivate;
+    const requestedNetwork = hardhat.network?.name || 'sepolia';
+    const networkName = NETWORKS[requestedNetwork] ? requestedNetwork : 'sepolia';
+    const activeChain = NETWORKS[networkName];
     const rpcUrl = activeChain.rpcUrls.default.http[0];
 
     console.log(`📡 Network: ${networkName}`);
@@ -206,10 +188,10 @@ async function main() {
         fs.mkdirSync(deploymentsDir, { recursive: true });
     }
 
-    const deploymentFile = path.join(deploymentsDir, "besu.json");
+    const deploymentFile = path.join(deploymentsDir, `${networkName}.json`);
     const deploymentData = {
-        network: "besu",
-        chainId: 287287,
+        network: networkName,
+        chainId: activeChain.id,
         deployer: account.address,
         deployedAt: new Date().toISOString(),
         contracts: deployedAddresses,

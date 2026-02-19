@@ -5,16 +5,21 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuration
-const DIAMOND_ADDRESS = '0x305afe61b4ad6af5ec1b67b28293e25a726088bf';
-const RPC_URL = 'http://127.0.0.1:7545';
+const RPC_URL = process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
+const deploymentPath = path.join(__dirname, '../deployments/sepolia.json');
+if (!fs.existsSync(deploymentPath)) {
+    throw new Error(`Deployment file not found: ${deploymentPath}`);
+}
+const deploymentData = require(deploymentPath);
+const DIAMOND_ADDRESS = deploymentData.contracts.MAIN_DIAMOND;
 
 // Load ABIs
 const InventoryDocsFacetABI = require('../src/contracts/abis/InventoryDocsFacet.json');
 
 // Chain Config
-const localGanache = {
-    id: 1337,
-    name: 'Ganache Local',
+const sepolia = {
+    id: 11155111,
+    name: 'Sepolia',
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
     rpcUrls: {
         default: { http: [RPC_URL] },
@@ -25,7 +30,7 @@ async function main() {
     console.log("🚀 Verifying Import...");
 
     const publicClient = createPublicClient({
-        chain: localGanache,
+        chain: sepolia,
         transport: http(RPC_URL)
     });
 

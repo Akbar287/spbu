@@ -47,7 +47,7 @@
                 "tempatLahir": "Jakarta",
                 "tanggalLahir": "1990-02-10",
                 "verified": true,
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "email": "superadmin@spbu.com",
                 "noHp": "081234567890",
                 "noWa": "081234567890",
@@ -156,69 +156,69 @@
         ],
         "walletToJabatanIds": [
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "Komisaris"
             },
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "Partner"
             },
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "Direktur Utama"
             },
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "Direktur"
             },
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "Admin"
             },
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "Operator"
             },
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "Security"
             },
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "OfficeBoy"
             }
         ],
         "jabatanToWalletIds": [
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "Komisaris"
             },
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "Partner"
             },
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "Direktur Utama"
             },
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "Direktur"
             },
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "Admin"
             },
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "Operator"
             },
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "Security"
             },
             {
-                "walletAddress": "0xbc6cEd7495E205014E5bA41302DdE8B02d7371f1",
+                "walletAddress": "0x884693Ab85d4b8c6Fa9126Ad4ffeD8AfD066c6Bb",
                 "namaJabatan": "OfficeBoy"
             }
         ],

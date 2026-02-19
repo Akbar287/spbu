@@ -7,9 +7,15 @@ const { createPublicClient, createWalletClient, http, keccak256, toHex, stringTo
 const { privateKeyToAccount } = require('viem/accounts');
 
 // Configuration
-const deploymentPath = path.join(__dirname, '../deployments/ganache.json');
-const RPC_URL = process.env.RPC_URL || 'http://127.0.0.1:7545';
+const deploymentPath = path.join(__dirname, '../deployments/sepolia.json');
+const RPC_URL = process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
 const DEPLOYER_PK = process.env.DEPLOYER_PRIVATE_KEY;
+const CHAIN_CONFIG = {
+    id: 11155111,
+    name: 'Sepolia',
+    nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+    rpcUrls: { default: { http: [RPC_URL] } },
+};
 
 // Role Definitions (Must match AccessControlFacet.sol)
 const ROLES = {
@@ -113,25 +119,15 @@ async function main() {
     const roleHash = roleName ? ROLES[roleName] : null;
 
     // Setup Client
-    const account = privateKeyToAccount(DEPLOYER_PK);
+    const account = privateKeyToAccount(DEPLOYER_PK.startsWith('0x') ? DEPLOYER_PK : `0x${DEPLOYER_PK}`);
     const client = createWalletClient({
         account,
-        chain: {
-            id: 1337,
-            name: 'Ganache',
-            nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-            rpcUrls: { default: { http: [RPC_URL] } }
-        },
+        chain: CHAIN_CONFIG,
         transport: http(RPC_URL)
     });
 
     const publicClient = createPublicClient({
-        chain: {
-            id: 1337,
-            name: 'Ganache',
-            nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-            rpcUrls: { default: { http: [RPC_URL] } }
-        },
+        chain: CHAIN_CONFIG,
         transport: http(RPC_URL)
     });
 
@@ -326,4 +322,3 @@ async function main() {
 }
 
 main().catch(console.error);
-
