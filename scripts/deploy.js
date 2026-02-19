@@ -31,7 +31,7 @@ const sepoliaChain = defineChain({
     name: 'Sepolia',
     nativeCurrency: { decimals: 18, name: 'Ether', symbol: 'ETH' },
     rpcUrls: {
-        default: { http: [process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org'] },
+        default: { http: [process.env.REACT_APP_SEPOLIA_RPC_URL || 'https://rpc.sepolia.org'] },
     },
 });
 

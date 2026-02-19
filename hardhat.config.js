@@ -19,7 +19,7 @@ export default defineConfig({
     networks: {
         sepolia: {
             type: "http",
-            url: process.env.SEPOLIA_RPC_URL || "https://rpc.sepolia.org",
+            url: process.env.REACT_APP_SEPOLIA_RPC_URL || "https://rpc.sepolia.org",
             chainId: 11155111,
             accounts: DEPLOYER_PRIVATE_KEY ? [DEPLOYER_PRIVATE_KEY] : [],
             gas: 6000000,

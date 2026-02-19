@@ -17,7 +17,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuration
-const RPC_URL = process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
+const RPC_URL = process.env.REACT_APP_SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
 const deploymentPath = path.join(__dirname, '../deployments/sepolia.json');
 if (!fs.existsSync(deploymentPath)) {
     throw new Error(`Deployment file not found: ${deploymentPath}`);

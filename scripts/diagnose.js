@@ -11,7 +11,7 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const RPC_URL = process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
+const RPC_URL = process.env.REACT_APP_SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
 const deploymentFile = path.join(__dirname, '../deployments/sepolia.json');
 if (!fs.existsSync(deploymentFile)) {
     throw new Error(`Deployment file not found: ${deploymentFile}`);

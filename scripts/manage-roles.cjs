@@ -8,7 +8,7 @@ const { privateKeyToAccount } = require('viem/accounts');
 
 // Configuration
 const deploymentPath = path.join(__dirname, '../deployments/sepolia.json');
-const RPC_URL = process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
+const RPC_URL = process.env.REACT_APP_SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
 const DEPLOYER_PK = process.env.DEPLOYER_PRIVATE_KEY;
 const CHAIN_CONFIG = {
     id: 11155111,

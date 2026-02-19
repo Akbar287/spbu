@@ -43,7 +43,7 @@ export {
 
 export const NETWORK_CONFIG = {
     chainId: 11155111,
-    rpcUrl: process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org',
+    rpcUrl: process.env.REACT_APP_SEPOLIA_RPC_URL || 'https://rpc.sepolia.org',
     networkName: 'Ethereum Sepolia',
 } as const;
 

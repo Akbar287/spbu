@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useReadContract, useWriteContract } from 'wagmi';
+import { useReadContract } from 'wagmi';
 import {
     ClipboardCheck, Hash, Calendar, Clock,
-    Plus, Edit3, Trash2, Eye, ChevronLeft, ChevronRight,
-    ArrowLeft, Grid3X3, List, Loader2, Search, X, Filter
+    Plus, ChevronLeft, ChevronRight,
+    ArrowLeft, Loader2
 } from 'lucide-react';
 import { DIAMOND_ADDRESS, DIAMOND_ABI } from '@/contracts/config';
 import { formatNumber, formatDate } from '@/lib/utils'; // Assuming utilities exist
@@ -41,32 +41,6 @@ interface BlockchainJamKerja {
     namaJamKerja: string;
     deleted: boolean;
 }
-
-// Display Interface
-interface StandMeter {
-    dokumenStokId: number;
-    tanggal: Date;
-    typeMovement: string;
-    namaProduk: string;
-    namaNozzle: string;
-    namaDombak: string;
-    namaJamKerja: string;
-    stokAwal: number;
-    stokAkhir: number;
-    simbol: string;
-    stokLosses: number;
-    createdAt: Date;
-    updatedAt: Date;
-}
-
-// Animation Variants
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: { staggerChildren: 0.1 }
-    }
-} as const;
 
 const cardVariants = {
     hidden: { opacity: 0, y: 20, scale: 0.95 },

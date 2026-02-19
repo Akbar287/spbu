@@ -21,7 +21,7 @@ if (NETWORK_NAME !== 'sepolia') {
 
 // RPC URLs by network
 const RPC_URLS = {
-    sepolia: process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org',
+    sepolia: process.env.REACT_APP_SEPOLIA_RPC_URL || 'https://rpc.sepolia.org',
 };
 
 const RPC_URL = RPC_URLS[NETWORK_NAME] || RPC_URLS.sepolia;

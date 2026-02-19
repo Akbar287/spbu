@@ -14,7 +14,6 @@ import {
 } from 'lucide-react';
 import { DIAMOND_ADDRESS, DIAMOND_ABI } from '@/contracts/config';
 import { getIPFSUrl } from '@/config/ipfs';
-import { formatDate } from '@/lib/utils';
 
 // Blockchain interfaces - matches PenerimaanDetailInfo struct from ViewStructs.sol
 interface BlockchainPembayaran {

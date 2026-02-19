@@ -391,18 +391,42 @@ function categorizeConnectors(connectors: readonly Connector[]) {
     return { installed, popular, others };
 }
 
+function getFriendlyConnectError(error: unknown, isWrongNetwork: boolean) {
+    if (isWrongNetwork) {
+        return 'Jaringan wallet Anda bukan Ethereum Sepolia. Silakan ganti network ke Sepolia (Chain ID 11155111), lalu coba lagi.';
+    }
+
+    const message =
+        (error as any)?.shortMessage ||
+        (error as any)?.message ||
+        '';
+
+    if (/chain|network|mismatch|switch/i.test(message)) {
+        return 'Koneksi ditolak karena network tidak sesuai. Ganti ke Ethereum Sepolia (Chain ID 11155111), lalu coba lagi.';
+    }
+
+    return '';
+}
+
 
 function ConnectWalletDialog({ openDialog, setOpenDialog }: { openDialog: boolean; setOpenDialog: (open: boolean) => void }) {
     const connectors = useConnectors();
-    const { connect, isPending, error } = useConnect();
+    const { isConnected, chainId } = useAccount();
+    const { connectAsync, isPending, error } = useConnect();
     const [selectedConnector, setSelectedConnector] = React.useState<Connector | null>(null);
     const [connectionStatus, setConnectionStatus] = React.useState<'idle' | 'connecting' | 'success' | 'error'>('idle');
+    const [friendlyError, setFriendlyError] = React.useState('');
+    const isWrongNetwork = isConnected && chainId !== localChain.id;
 
-    // Filter out injected connector
-    const filteredConnectors = React.useMemo(() =>
-        connectors.filter(c => (c as any).id !== 'injected'),
-        [connectors]
-    );
+    // Keep injected connector if it is the only available browser wallet.
+    const filteredConnectors = React.useMemo(() => {
+        const hasNamedInjected = connectors.some(c =>
+            ['metaMask', 'coinbaseWallet'].includes((c as any).id)
+        );
+        return hasNamedInjected
+            ? connectors.filter(c => (c as any).id !== 'injected')
+            : connectors;
+    }, [connectors]);
 
     const { installed, popular, others } = React.useMemo(() =>
         categorizeConnectors(filteredConnectors),
@@ -413,26 +437,31 @@ function ConnectWalletDialog({ openDialog, setOpenDialog }: { openDialog: boolea
     const handleWalletClick = async (connector: Connector) => {
         setSelectedConnector(connector);
         setConnectionStatus('idle'); // Reset status when selecting again
+        setFriendlyError('');
 
-        // For WalletConnect, just select it (user will scan QR)
-        if ((connector as any).id === 'walletConnect') {
-            return;
-        }
-
-        // For other wallets, auto-connect
+        // Auto-connect and wait for actual result
         setConnectionStatus('connecting');
         try {
-            await connect({ connector });
+            await connectAsync({ connector });
             setConnectionStatus('success');
             setTimeout(() => {
                 setOpenDialog(false);
             }, 1000);
         } catch (err) {
             console.error('Connection error:', err);
+            setFriendlyError(getFriendlyConnectError(err, isWrongNetwork));
             setConnectionStatus('error');
             // Don't close dialog, let user retry
         }
     };
+
+    // Keep UI in sync with wagmi connection state
+    React.useEffect(() => {
+        if (isConnected) {
+            setConnectionStatus('success');
+            setTimeout(() => setOpenDialog(false), 500);
+        }
+    }, [isConnected, setOpenDialog]);
 
     // Retry connection for the currently selected wallet
     const handleRetry = () => {
@@ -606,6 +635,11 @@ function ConnectWalletDialog({ openDialog, setOpenDialog }: { openDialog: boolea
                                                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                                                     Terjadi kesalahan saat menghubungkan ke {selectedConnector.name}
                                                 </p>
+                                                {friendlyError && (
+                                                    <p className="text-sm text-amber-600 dark:text-amber-400 mb-3 max-w-sm mx-auto font-medium">
+                                                        {friendlyError}
+                                                    </p>
+                                                )}
                                                 {error && (
                                                     <p className="text-xs text-gray-500 mb-4 max-w-sm mx-auto">
                                                         {error.message}

@@ -18,7 +18,7 @@ if (NETWORK_NAME !== 'sepolia') {
     process.exit(1);
 }
 
-const RPC_URL = process.env.SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
+const RPC_URL = process.env.REACT_APP_SEPOLIA_RPC_URL || 'https://rpc.sepolia.org';
 
 const sepoliaChain = defineChain({
     id: 11155111,
