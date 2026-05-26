@@ -1,0 +1,38 @@
+{
+  "timestamp": "2026-05-26T10:26:00.613Z",
+  "network": "sepolia",
+  "chainId": 11155111,
+  "dryRun": false,
+  "batchSize": 50,
+  "scope": [
+    "kategori",
+    "tag",
+    "artikel"
+  ],
+  "migrateLegacyXor": true,
+  "stats": {
+    "migrated": 0,
+    "skipped": 0,
+    "failed": 0,
+    "domains": {
+      "kategori": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0
+      },
+      "tag": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0
+      },
+      "artikel": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0
+      }
+    }
+  }
+}

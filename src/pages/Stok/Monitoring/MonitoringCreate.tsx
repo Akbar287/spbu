@@ -8,7 +8,7 @@ import {
     Loader2, AlertCircle, Plus, Trash2, Activity, Hash
 } from 'lucide-react';
 import { DIAMOND_ABI, DIAMOND_ADDRESS } from '@/contracts/config';
-import { useReadContract, useWriteContract } from 'wagmi';
+import { useReadContract, useWriteContract } from '@/services/blockchain/wagmi';
 import { formatNumber } from '@/lib/utils';
 
 // Blockchain interfaces

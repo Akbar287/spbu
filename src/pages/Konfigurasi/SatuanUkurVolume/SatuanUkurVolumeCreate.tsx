@@ -11,7 +11,7 @@ import {
     AlertCircle, CheckCircle2, Loader2, Sparkles
 } from 'lucide-react';
 import { DIAMOND_ABI, DIAMOND_ADDRESS } from '@/contracts/config';
-import { simulateContract, writeContract } from '@wagmi/core';
+import { simulateContract, writeContract } from '@/services/blockchain/wagmiCore';
 import { config } from '@/config/wagmi';
 
 const satuanUkurVolumeValidationSchema = yup.object().shape({

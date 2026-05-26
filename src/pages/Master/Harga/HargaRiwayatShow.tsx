@@ -3,7 +3,7 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useReadContract } from 'wagmi';
+import { useReadContract } from '@/services/blockchain/wagmi';
 import {
     DollarSign, ArrowLeft, Hash,
     AlertCircle, Loader2, Sparkles, Package, TrendingUp, TrendingDown, Clock, History

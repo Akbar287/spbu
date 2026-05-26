@@ -3,7 +3,7 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useReadContract, useWriteContract } from 'wagmi';
+import { useReadContract, useWriteContract } from '@/services/blockchain/wagmi';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { DIAMOND_ADDRESS, DIAMOND_ABI } from '@/contracts/config';
 import { waitForTransactionReceipt } from 'viem/actions';
-import { useConfig } from 'wagmi';
+import { useConfig } from '@/services/blockchain/wagmi';
 import { pembayaranSchema, PembayaranValues } from '@/validation/pembayaran.validation';
 
 interface BlockchainPembayaran {

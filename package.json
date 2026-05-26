@@ -13,6 +13,9 @@
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-slot": "^1.2.4",
+    "@stablelib/aes": "^2.0.1",
+    "@stablelib/gcm": "^2.0.1",
+    "@stablelib/sha256": "^2.0.1",
     "@tanstack/react-query": "^5.90.16",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -55,7 +58,12 @@
     "deploy:sepolia": "npx hardhat run scripts/deploy.js --network sepolia",
     "upgrade:sepolia": "node scripts/upgrade-facet.cjs --network=sepolia",
     "register:sepolia": "node scripts/register-facets.cjs --network=sepolia",
-    "seed:sepolia": "node scripts/seed-data.cjs --network=sepolia"
+    "seed:sepolia": "node scripts/seed-data.cjs --network=sepolia",
+    "migrate:cms:dry": "node scripts/migrate-cms-encryption.mjs --network=sepolia --dry-run",
+    "migrate:cms": "node scripts/migrate-cms-encryption.mjs --network=sepolia",
+    "migrate:global:dry": "node scripts/migrate-encryption-global.mjs --network=sepolia --dry-run",
+    "migrate:global": "node scripts/migrate-encryption-global.mjs --network=sepolia",
+    "check:secure-crud-imports": "node scripts/check-secure-crud-imports.mjs"
   },
   "eslintConfig": {
     "extends": [

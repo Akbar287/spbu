@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useReadContract, useWriteContract } from 'wagmi';
+import { useReadContract, useWriteContract } from '@/services/blockchain/wagmi';
 import {
     Briefcase, ArrowLeft, Save, BarChart2, FileText,
     AlertCircle, CheckCircle2, Loader2, Sparkles, Building2

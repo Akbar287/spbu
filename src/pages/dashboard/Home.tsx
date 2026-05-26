@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@/services/blockchain/wagmi'
 import Authenticated from './Authenticated';
 import ClientPage from '../LandingPage/ClientPage';
 

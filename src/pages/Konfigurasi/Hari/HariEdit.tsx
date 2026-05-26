@@ -6,13 +6,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useReadContract } from 'wagmi';
+import { useReadContract } from '@/services/blockchain/wagmi';
 import {
     Calendar, ArrowLeft, Save, FileText,
     AlertCircle, CheckCircle2, Loader2, Sparkles, ToggleLeft, ToggleRight, AlertTriangle
 } from 'lucide-react';
 import { DIAMOND_ABI, DIAMOND_ADDRESS } from '@/contracts/config';
-import { simulateContract, writeContract } from '@wagmi/core';
+import { simulateContract, writeContract } from '@/services/blockchain/wagmiCore';
 import { config } from '@/config/wagmi';
 
 // Blockchain interface

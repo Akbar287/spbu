@@ -11,7 +11,7 @@ import {
     AlertCircle, CheckCircle2, Loader2, Sparkles, Check, ToggleLeft, ToggleRight
 } from 'lucide-react';
 import { DIAMOND_ABI, DIAMOND_ADDRESS } from '@/contracts/config';
-import { useReadContract, useWriteContract } from 'wagmi';
+import { useReadContract, useWriteContract } from '@/services/blockchain/wagmi';
 
 // Blockchain interfaces
 interface BlockchainKategori {

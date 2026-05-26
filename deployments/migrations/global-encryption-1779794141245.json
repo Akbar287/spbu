@@ -1,0 +1,337 @@
+{
+  "timestamp": "2026-05-26T11:15:41.247Z",
+  "network": "sepolia",
+  "chainId": 11155111,
+  "dryRun": true,
+  "batchSize": 50,
+  "includeScope": [],
+  "excludeScope": [],
+  "migrateLegacyXor": true,
+  "stats": {
+    "migrated": 0,
+    "skipped": 32,
+    "failed": 0,
+    "entities": {
+      "updateAreaMember": {
+        "checked": 1,
+        "migrated": 0,
+        "skipped": 1,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateArtikel": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateAset": {
+        "checked": 1,
+        "migrated": 0,
+        "skipped": 1,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateBonus": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateDetailGaji": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateDetailTera": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateDispenser": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateDivisi": {
+        "checked": 2,
+        "migrated": 0,
+        "skipped": 2,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateDombak": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updatedStatusPurchase": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateFasilitas": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateFileAset": {
+        "checked": 1,
+        "migrated": 0,
+        "skipped": 1,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateFileFasilitas": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateFileLo": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateGaji": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateHari": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateJabatan": {
+        "checked": 8,
+        "migrated": 0,
+        "skipped": 8,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateJamKerja": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateKategori": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateKtp": {
+        "checked": 1,
+        "migrated": 0,
+        "skipped": 1,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateLevel": {
+        "checked": 4,
+        "migrated": 0,
+        "skipped": 4,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateNotifikasi": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateNozzle": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updatePayung": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updatePembayaran": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updatePenarikan": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updatePettyCash": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateProduk": {
+        "checked": 5,
+        "migrated": 0,
+        "skipped": 5,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateRencanaPembelian": {
+        "checked": 1,
+        "migrated": 0,
+        "skipped": 1,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateSatuanUkurTinggi": {
+        "checked": 2,
+        "migrated": 0,
+        "skipped": 2,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateSatuanUkurVolume": {
+        "checked": 2,
+        "migrated": 0,
+        "skipped": 2,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateSegel": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateSpbu": {
+        "checked": 1,
+        "migrated": 0,
+        "skipped": 1,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateStatusKehadiran": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateStatusMember": {
+        "checked": 3,
+        "migrated": 0,
+        "skipped": 3,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateStatusPresensi": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateStatusSetoran": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateTag": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateTera": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateTypeDokumenStok": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      }
+    }
+  }
+}

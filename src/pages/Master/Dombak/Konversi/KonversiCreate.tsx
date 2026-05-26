@@ -8,7 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { ArrowLeft, Save, X, CheckCircle2, Loader2, AlertCircle, Ruler, Droplets, ArrowUpDown, Hash } from 'lucide-react';
 import { DIAMOND_ABI, DIAMOND_ADDRESS } from '@/contracts/config';
-import { useReadContract, useWriteContract } from 'wagmi';
+import { useReadContract, useWriteContract } from '@/services/blockchain/wagmi';
 
 // Interfaces
 interface BlockchainSatuanUkurTinggi {

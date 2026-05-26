@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-05-26T11:06:32.916Z",
+  "network": "sepolia",
+  "chainId": 11155111,
+  "dryRun": true,
+  "batchSize": 50,
+  "includeScope": [
+    "updatePembayaran"
+  ],
+  "excludeScope": [],
+  "migrateLegacyXor": true,
+  "stats": {
+    "migrated": 0,
+    "skipped": 0,
+    "failed": 0,
+    "entities": {
+      "updatePembayaran": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      }
+    }
+  }
+}

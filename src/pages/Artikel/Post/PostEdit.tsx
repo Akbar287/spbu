@@ -6,8 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useReadContract, useWriteContract } from 'wagmi';
-import { readContract } from '@wagmi/core';
+import { useReadContract, useWriteContract } from '@/services/blockchain/wagmi';
+import { readContract } from '@/services/blockchain/wagmiCore';
 import {
     Newspaper, ArrowLeft, Save, FileText, Tag, Bookmark,
     AlertCircle, CheckCircle2, Loader2, Sparkles, RefreshCw, Check, ToggleLeft, ToggleRight

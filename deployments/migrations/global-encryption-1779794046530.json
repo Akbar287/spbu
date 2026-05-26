@@ -1,0 +1,117 @@
+{
+  "timestamp": "2026-05-26T11:14:06.531Z",
+  "network": "sepolia",
+  "chainId": 11155111,
+  "dryRun": true,
+  "batchSize": 50,
+  "includeScope": [
+    "updateFileAset",
+    "updateFileFasilitas",
+    "updateAreaMember",
+    "updateNotifikasi",
+    "updateTypeDokumenStok",
+    "updateDetailTera",
+    "updateDetailGaji",
+    "updateBonus",
+    "updateFileLo",
+    "updateSegel",
+    "updateRencanaPembelian"
+  ],
+  "excludeScope": [],
+  "migrateLegacyXor": true,
+  "stats": {
+    "migrated": 3,
+    "skipped": 0,
+    "failed": 0,
+    "entities": {
+      "updateAreaMember": {
+        "checked": 1,
+        "migrated": 1,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateBonus": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateDetailGaji": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateDetailTera": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateFileAset": {
+        "checked": 1,
+        "migrated": 1,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateFileFasilitas": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateFileLo": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateNotifikasi": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateRencanaPembelian": {
+        "checked": 1,
+        "migrated": 1,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateSegel": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      },
+      "updateTypeDokumenStok": {
+        "checked": 0,
+        "migrated": 0,
+        "skipped": 0,
+        "failed": 0,
+        "unsupported": false,
+        "notes": []
+      }
+    }
+  }
+}

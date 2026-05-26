@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useReadContract, useWriteContract } from 'wagmi';
+import { useReadContract, useWriteContract } from '@/services/blockchain/wagmi';
 import {
     FileImage, ArrowLeft, Upload, Building,
     AlertCircle, CheckCircle2, Loader2, Sparkles, FileText, Image, X

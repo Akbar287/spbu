@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { levelValidationSchema, LevelFormData } from '@/validation/level.validation';
 import { DIAMOND_ABI, DIAMOND_ADDRESS } from '@/contracts/config';
-import { useReadContract, useWriteContract } from 'wagmi';
+import { useReadContract, useWriteContract } from '@/services/blockchain/wagmi';
 
 // Interfaces
 interface BlockchainDivisi {

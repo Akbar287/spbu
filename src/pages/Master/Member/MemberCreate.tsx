@@ -12,7 +12,7 @@ import {
     MapPin, Calendar, Wallet, UserCheck
 } from 'lucide-react';
 import { DIAMOND_ABI, DIAMOND_ADDRESS } from '@/contracts/config';
-import { useReadContract, useWriteContract } from 'wagmi';
+import { useReadContract, useWriteContract } from '@/services/blockchain/wagmi';
 
 // Interfaces
 interface BlockchainStatusMember {

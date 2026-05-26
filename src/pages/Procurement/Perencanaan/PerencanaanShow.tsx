@@ -3,8 +3,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useReadContract, useAccount } from 'wagmi';
-import { simulateContract, writeContract } from '@wagmi/core';
+import { useReadContract, useAccount } from '@/services/blockchain/wagmi';
+import { simulateContract, writeContract } from '@/services/blockchain/wagmiCore';
 import {
     ClipboardList, ArrowLeft, Hash, Calendar, User, Package,
     AlertCircle, CheckCircle2, Loader2, XCircle, Edit3, Trash2,

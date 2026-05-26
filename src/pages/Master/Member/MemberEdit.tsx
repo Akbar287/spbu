@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useReadContract, useWriteContract } from 'wagmi';
+import { useReadContract, useWriteContract } from '@/services/blockchain/wagmi';
 import {
     Users, ArrowLeft, Save, CheckCircle2, Loader2, Sparkles,
     AlertCircle, Hash, User, Mail, Phone, MapPin, Calendar, Wallet, UserCheck

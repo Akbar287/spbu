@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useReadContract, useWriteContract, useAccount } from 'wagmi';
+import { useReadContract, useWriteContract, useAccount } from '@/services/blockchain/wagmi';
 import {
     Users, Hash, Mail, Phone, Calendar,
     Plus, Edit3, Trash2, Eye, ChevronLeft, ChevronRight,

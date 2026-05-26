@@ -3,8 +3,8 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useReadContract, useConfig } from 'wagmi';
-import { readContract } from '@wagmi/core';
+import { useReadContract, useConfig } from '@/services/blockchain/wagmi';
+import { readContract } from '@/services/blockchain/wagmiCore';
 import {
     ArrowLeft, Building2, Truck,
     AlertCircle, Loader2, Droplet, FileText,

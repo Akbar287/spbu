@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useReadContract } from 'wagmi';
-import { simulateContract, writeContract } from '@wagmi/core';
+import { useReadContract } from '@/services/blockchain/wagmi';
+import { simulateContract, writeContract } from '@/services/blockchain/wagmiCore';
 import * as yup from 'yup';
 import {
     Ruler, ArrowLeft, Save, Tag, Type,

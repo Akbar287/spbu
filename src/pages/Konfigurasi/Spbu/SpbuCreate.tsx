@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { spbuValidationSchema, SpbuFormData } from '@/validation/spbu.validation';
 import { DIAMOND_ABI, DIAMOND_ADDRESS } from '@/contracts/config';
-import { simulateContract, writeContract } from '@wagmi/core'
+import { simulateContract, writeContract } from '@/services/blockchain/wagmiCore'
 import { config } from '@/config/wagmi';
 
 export default function SpbuCreate() {
