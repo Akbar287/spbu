@@ -333,7 +333,7 @@ export default function Authenticated() {
                     }}
                 />
 
-                {/* Large animated gradient orbs - Green & Purple */}
+                {/* Large animated gradient orbs - Green & Purple (reduced to 2) */}
                 <motion.div
                     className="absolute -top-1/4 -left-1/4 w-[900px] h-[900px] rounded-full blur-3xl"
                     style={{ background: 'radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, transparent 60%)' }}
@@ -346,63 +346,23 @@ export default function Authenticated() {
                     animate={{ x: [0, -120, 0], y: [0, 100, 0], scale: [1.2, 0.9, 1.2] }}
                     transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
                 />
-                <motion.div
-                    className="absolute -bottom-1/4 left-1/3 w-[700px] h-[700px] rounded-full blur-3xl"
-                    style={{ background: 'radial-gradient(circle, rgba(56, 239, 125, 0.35) 0%, transparent 60%)' }}
-                    animate={{ x: [0, -80, 0], y: [0, -60, 0], scale: [1, 1.4, 1] }}
-                    transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-                />
-                <motion.div
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-2xl"
-                    style={{ background: 'radial-gradient(circle, rgba(168, 85, 247, 0.3) 0%, transparent 50%)' }}
-                    animate={{ scale: [1, 1.5, 1], rotate: [0, 180, 360] }}
-                    transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-                />
-                <motion.div
-                    className="absolute bottom-1/4 right-1/3 w-[500px] h-[500px] rounded-full blur-3xl"
-                    style={{ background: 'radial-gradient(circle, rgba(52, 211, 153, 0.35) 0%, transparent 60%)' }}
-                    animate={{ x: [0, 100, 0], y: [0, -80, 0], scale: [1.1, 0.8, 1.1] }}
-                    transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
-                />
 
-                {/* Floating particles - mixed green & purple */}
-                {[...Array(20)].map((_, i) => (
+                {/* Floating particles - reduced to 6 */}
+                {[...Array(6)].map((_, i) => (
                     <motion.div
                         key={i}
                         className={`absolute rounded-full ${i % 2 === 0 ? 'bg-emerald-400/40' : 'bg-violet-400/40'}`}
                         style={{
-                            left: `${3 + i * 5}%`,
-                            top: `${8 + (i % 6) * 16}%`,
-                            width: `${6 + (i % 4) * 3}px`,
-                            height: `${6 + (i % 4) * 3}px`,
+                            left: `${5 + i * 16}%`,
+                            top: `${10 + (i % 3) * 30}%`,
+                            width: `${6 + (i % 3) * 3}px`,
+                            height: `${6 + (i % 3) * 3}px`,
                         }}
                         animate={{
-                            y: [0, -50 - (i % 3) * 20, 0],
-                            x: [0, i % 2 === 0 ? 30 : -30, 0],
-                            opacity: [0.3, 0.8, 0.3],
-                            scale: [1, 1.5 + (i % 3) * 0.2, 1],
-                        }}
-                        transition={{ duration: 4 + i * 0.3, repeat: Infinity, delay: i * 0.2, ease: 'easeInOut' }}
-                    />
-                ))}
-
-                {/* Glowing lines */}
-                {[...Array(5)].map((_, i) => (
-                    <motion.div
-                        key={`line-${i}`}
-                        className="absolute h-px"
-                        style={{
-                            left: `${i * 20}%`,
-                            top: `${20 + i * 15}%`,
-                            width: '200px',
-                            background: `linear-gradient(90deg, transparent, ${i % 2 === 0 ? 'rgba(16, 185, 129, 0.5)' : 'rgba(139, 92, 246, 0.5)'}, transparent)`,
-                        }}
-                        animate={{
-                            x: [0, 100, 0],
+                            y: [0, -40 - (i % 3) * 15, 0],
                             opacity: [0.3, 0.7, 0.3],
-                            scaleX: [1, 1.5, 1],
                         }}
-                        transition={{ duration: 5 + i, repeat: Infinity, delay: i * 0.5 }}
+                        transition={{ duration: 5 + i * 0.5, repeat: Infinity, delay: i * 0.4, ease: 'easeInOut' }}
                     />
                 ))}
             </div>
@@ -433,14 +393,14 @@ export default function Authenticated() {
                             transition={{ duration: 6, repeat: Infinity }}
                         />
 
-                        {/* Sparkles */}
-                        {[...Array(5)].map((_, i) => (
+                        {/* Sparkles - reduced to 2 */}
+                        {[...Array(2)].map((_, i) => (
                             <motion.div
                                 key={i}
                                 className="absolute"
-                                style={{ left: `${20 + i * 15}%`, top: `${20 + (i % 3) * 25}%` }}
-                                animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8], rotate: [0, 180, 360] }}
-                                transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
+                                style={{ left: `${25 + i * 30}%`, top: `${25 + i * 25}%` }}
+                                animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
+                                transition={{ duration: 4, repeat: Infinity, delay: i * 1 }}
                             >
                                 <Sparkles className="w-4 h-4 text-white/50" />
                             </motion.div>
@@ -584,13 +544,9 @@ export default function Authenticated() {
                                 <div className={`inline-flex p-2 rounded-lg bg-gradient-to-br ${stat.color} mb-3`}>
                                     <stat.icon className="w-5 h-5 text-white" />
                                 </div>
-                                <motion.p
-                                    className="text-2xl font-bold text-slate-900 dark:text-white"
-                                    animate={{ opacity: [0.8, 1, 0.8] }}
-                                    transition={{ duration: 2, repeat: Infinity }}
-                                >
+                                <p className="text-2xl font-bold text-slate-900 dark:text-white">
                                     {stat.value}
-                                </motion.p>
+                                </p>
                                 <p className="text-sm text-slate-500 dark:text-white/50">{stat.label}</p>
                             </motion.div>
                         ))}
@@ -643,11 +599,7 @@ export default function Authenticated() {
                                             animate={{ width: `${(fuel.stock / fuel.max) * 100}%` }}
                                             transition={{ duration: 1, delay: index * 0.15, ease: 'easeOut' }}
                                         >
-                                            <motion.div
-                                                className="absolute inset-0 bg-white/20"
-                                                animate={{ x: ['-100%', '200%'] }}
-                                                transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
-                                            />
+
                                         </motion.div>
                                         {/* Grid lines */}
                                         {[8, 16].map(line => (
@@ -752,13 +704,7 @@ export default function Authenticated() {
                                             {/* 3D Effect - Top Highlight */}
                                             <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-white/40 to-transparent" />
 
-                                            {/* Shimmer Effect */}
-                                            <motion.div
-                                                className="absolute inset-0 bg-gradient-to-t from-transparent via-white/20 to-transparent"
-                                                initial={{ y: '100%' }}
-                                                animate={{ y: '-100%' }}
-                                                transition={{ duration: 2, repeat: Infinity, delay: index * 0.3, repeatDelay: 1 }}
-                                            />
+
                                         </motion.div>
 
                                         {/* Label */}
@@ -940,12 +886,7 @@ export default function Authenticated() {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.4 }}
                         >
-                            <motion.span
-                                animate={{ rotate: [0, 360] }}
-                                transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-                            >
-                                <Sparkles className="w-6 h-6 text-violet-500" />
-                            </motion.span>
+                            <Sparkles className="w-6 h-6 text-violet-500" />
                             Menu {roleNames[currentRole]}
                         </motion.h2>
 
@@ -977,12 +918,7 @@ export default function Authenticated() {
                                     </motion.button>
                                 )}
                             </div>
-                            {/* Search Glow Effect */}
-                            <motion.div
-                                className="absolute inset-0 rounded-2xl bg-gradient-to-r from-violet-500/20 to-purple-500/20 blur-xl -z-10"
-                                animate={{ opacity: searchQuery ? [0.5, 0.8, 0.5] : 0 }}
-                                transition={{ duration: 2, repeat: Infinity }}
-                            />
+
                         </motion.div>
                     </div>
 
@@ -1056,12 +992,7 @@ export default function Authenticated() {
                                                         <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/30 to-transparent" />
                                                         <category.icon className="relative w-10 h-10 md:w-12 md:h-12 text-white drop-shadow-lg" />
                                                     </div>
-                                                    {/* Glow effect */}
-                                                    <motion.div
-                                                        className="absolute inset-0 rounded-2xl bg-white/20 blur-xl"
-                                                        animate={{ opacity: [0.3, 0.6, 0.3] }}
-                                                        transition={{ duration: 2, repeat: Infinity }}
-                                                    />
+
                                                 </motion.div>
 
                                                 {/* Title and Description */}

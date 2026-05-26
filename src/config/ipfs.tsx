@@ -35,6 +35,27 @@ const buildPinataUnpinUrl = (cid: string) => {
     return uploadUrl.toString();
 };
 
+const fixMissingHttpScheme = (value: string) => {
+    const trimmed = value.trim();
+    if (trimmed.startsWith('ttps://') || trimmed.startsWith('ttp://')) {
+        return `h${trimmed}`;
+    }
+    return trimmed;
+};
+
+const extractCid = (value: string) => {
+    const cleaned = value.trim();
+    const withoutIpfsScheme = cleaned.replace(/^ipfs:\/\//i, '');
+    const ipfsPathMarker = '/ipfs/';
+    const markerIndex = withoutIpfsScheme.indexOf(ipfsPathMarker);
+
+    if (markerIndex >= 0) {
+        return withoutIpfsScheme.slice(markerIndex + ipfsPathMarker.length).replace(/^\/+/, '');
+    }
+
+    return withoutIpfsScheme.replace(/^\/+/, '');
+};
+
 export const uploadToIPFS = async (file: File) => {
     try {
         const formData = new FormData();
@@ -66,9 +87,23 @@ export const uploadToIPFS = async (file: File) => {
 };
 
 export const getIPFSUrl = (cid: string) => {
-    if (!gatewayUrl) return cid;
-    const normalizedGateway = gatewayUrl.endsWith('/') ? gatewayUrl : `${gatewayUrl}/`;
-    return `${normalizedGateway}${cid}`;
+    if (!cid) return '';
+
+    const fixedCidValue = fixMissingHttpScheme(cid);
+    if (/^https?:\/\//i.test(fixedCidValue)) {
+        return fixedCidValue;
+    }
+
+    const extractedCid = extractCid(fixedCidValue);
+
+    const rawGateway = gatewayUrl?.trim() || 'https://gateway.pinata.cloud/ipfs/';
+    const fixedGatewayValue = fixMissingHttpScheme(rawGateway);
+    const gatewayWithScheme = /^https?:\/\//i.test(fixedGatewayValue)
+        ? fixedGatewayValue
+        : `https://${fixedGatewayValue.replace(/^\/+/, '')}`;
+    const normalizedGateway = gatewayWithScheme.endsWith('/') ? gatewayWithScheme : `${gatewayWithScheme}/`;
+
+    return `${normalizedGateway}${extractedCid}`;
 };
 
 
