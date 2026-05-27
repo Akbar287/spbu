@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useReadContract, useWriteContract } from '@/services/blockchain/wagmi';
@@ -43,6 +43,13 @@ interface BlockchainTag {
     deleted: boolean;
 }
 
+interface BlockchainKtp {
+    ktpId: bigint;
+    nama: string;
+    nik: string;
+    walletAddress: string;
+}
+
 // Display interfaces
 interface ArtikelData {
     artikelId: number;
@@ -54,6 +61,52 @@ interface ArtikelData {
     updatedAt: Date;
     kategoris: { id: number; nama: string }[];
     tags: { id: number; nama: string }[];
+}
+
+function toArtikelRow(response: unknown): BlockchainArtikel | null {
+    if (!response || typeof response !== 'object') return null;
+    const row = response as Partial<BlockchainArtikel>;
+    if (row.artikelId === undefined || row.title === undefined || row.content === undefined) return null;
+    return row as BlockchainArtikel;
+}
+
+function toKategoriLookup(response: unknown): Map<number, string> {
+    if (!Array.isArray(response)) return new Map<number, string>();
+    const result = new Map<number, string>();
+    for (const item of response) {
+        if (!item || typeof item !== 'object') continue;
+        const kategori = item as BlockchainKategori;
+        if (kategori.deleted) continue;
+        result.set(Number(kategori.kategoriId), kategori.kategori);
+    }
+    return result;
+}
+
+function toTagLookup(response: unknown): Map<number, string> {
+    if (!Array.isArray(response)) return new Map<number, string>();
+    const result = new Map<number, string>();
+    for (const item of response) {
+        if (!item || typeof item !== 'object') continue;
+        const tag = item as BlockchainTag;
+        if (tag.deleted) continue;
+        result.set(Number(tag.tagId), tag.nama);
+    }
+    return result;
+}
+
+async function readWithRetry<T>(task: () => Promise<T>, attempts = 3, baseDelayMs = 600): Promise<T> {
+    let lastError: unknown;
+    for (let i = 0; i < attempts; i++) {
+        try {
+            return await task();
+        } catch (error) {
+            lastError = error;
+            if (i < attempts - 1) {
+                await new Promise((resolve) => setTimeout(resolve, baseDelayMs * (i + 1)));
+            }
+        }
+    }
+    throw lastError;
 }
 
 export default function PostShow() {
@@ -81,85 +134,153 @@ export default function PostShow() {
         abi: DIAMOND_ABI,
         functionName: 'getArtikelById',
         args: postId ? [BigInt(postId)] : undefined,
-        query: { enabled: !!postId },
+        query: {
+            enabled: !!postId,
+            refetchOnWindowFocus: false,
+        },
     });
 
-    // Fetch relations
+    const { data: kategoriResponse } = useReadContract({
+        address: DIAMOND_ADDRESS as `0x${string}`,
+        abi: DIAMOND_ABI,
+        functionName: 'getAllKategori',
+        args: [BigInt(0), BigInt(500)],
+        query: {
+            enabled: !!postId,
+            refetchOnWindowFocus: false,
+        },
+    });
+
+    const { data: tagResponse } = useReadContract({
+        address: DIAMOND_ADDRESS as `0x${string}`,
+        abi: DIAMOND_ABI,
+        functionName: 'getAllTag',
+        args: [BigInt(0), BigInt(500)],
+        query: {
+            enabled: !!postId,
+            refetchOnWindowFocus: false,
+        },
+    });
+
+    const artikelWallet = useMemo(() => {
+        const artikel = toArtikelRow(blockchainArtikel);
+        return artikel?.walletMember || '';
+    }, [blockchainArtikel]);
+
+    const { data: authorKtpResponse } = useReadContract({
+        address: DIAMOND_ADDRESS as `0x${string}`,
+        abi: DIAMOND_ABI,
+        functionName: 'getKtpByWallet',
+        args: artikelWallet ? [artikelWallet as `0x${string}`] : undefined,
+        query: {
+            enabled: !!artikelWallet,
+            refetchOnWindowFocus: false,
+        },
+    });
+
+    const artikelKey = useMemo(() => {
+        const a = toArtikelRow(blockchainArtikel);
+        if (!a) return '';
+        return `${a.artikelId.toString()}-${a.updatedAt.toString()}-${a.deleted ? 1 : 0}`;
+    }, [blockchainArtikel]);
+
+    const kategoriMasterKey = useMemo(() => {
+        if (!Array.isArray(kategoriResponse)) return '';
+        return kategoriResponse
+            .filter((item): item is BlockchainKategori => {
+                if (!item || typeof item !== 'object') return false;
+                return 'kategoriId' in item && 'updatedAt' in item && 'deleted' in item;
+            })
+            .map((k) => `${k.kategoriId.toString()}-${k.updatedAt.toString()}-${k.deleted ? 1 : 0}`)
+            .join('|');
+    }, [kategoriResponse]);
+
+    const tagMasterKey = useMemo(() => {
+        if (!Array.isArray(tagResponse)) return '';
+        return tagResponse
+            .filter((item): item is BlockchainTag => {
+                if (!item || typeof item !== 'object') return false;
+                return 'tagId' in item && 'updatedAt' in item && 'deleted' in item;
+            })
+            .map((t) => `${t.tagId.toString()}-${t.updatedAt.toString()}-${t.deleted ? 1 : 0}`)
+            .join('|');
+    }, [tagResponse]);
+
+    // Fetch relations (stable dependency to avoid RPC loop)
     useEffect(() => {
+        let isCancelled = false;
+
         const fetchRelations = async () => {
-            if (!blockchainArtikel) return;
-            const a = blockchainArtikel as BlockchainArtikel;
+            if (!artikelKey) {
+                setArtikelData(null);
+                setIsLoadingRelations(false);
+                return;
+            }
+
+            const a = toArtikelRow(blockchainArtikel);
+            if (!a) {
+                setArtikelData(null);
+                setIsLoadingRelations(false);
+                return;
+            }
+
             if (a.deleted || Number(a.artikelId) === 0) {
                 setArtikelData(null);
+                setIsLoadingRelations(false);
                 return;
             }
 
             setIsLoadingRelations(true);
+            const kategoriLookup = toKategoriLookup(kategoriResponse);
+            const tagLookup = toTagLookup(tagResponse);
 
             // Fetch kategori IDs
             let kategoriIds: bigint[] = [];
             let tagIds: bigint[] = [];
 
             try {
-                const kIds = await readContract(config, {
-                    address: DIAMOND_ADDRESS as `0x${string}`,
-                    abi: DIAMOND_ABI,
-                    functionName: 'getKategoriesByArtikel',
-                    args: [a.artikelId],
-                });
+                const kIds = await readWithRetry(() =>
+                    readContract(config, {
+                        address: DIAMOND_ADDRESS as `0x${string}`,
+                        abi: DIAMOND_ABI,
+                        functionName: 'getKategoriesByArtikel',
+                        args: [a.artikelId],
+                    }),
+                );
                 kategoriIds = kIds as bigint[];
             } catch (e) {
                 console.error('Error fetching kategoris:', e);
             }
 
             try {
-                const tIds = await readContract(config, {
-                    address: DIAMOND_ADDRESS as `0x${string}`,
-                    abi: DIAMOND_ABI,
-                    functionName: 'getTagsByArtikel',
-                    args: [a.artikelId],
-                });
+                const tIds = await readWithRetry(() =>
+                    readContract(config, {
+                        address: DIAMOND_ADDRESS as `0x${string}`,
+                        abi: DIAMOND_ABI,
+                        functionName: 'getTagsByArtikel',
+                        args: [a.artikelId],
+                    }),
+                );
                 tagIds = tIds as bigint[];
             } catch (e) {
                 console.error('Error fetching tags:', e);
             }
 
-            // Fetch kategori details
-            const kategoris: { id: number; nama: string }[] = [];
-            for (const kId of kategoriIds) {
-                try {
-                    const k = await readContract(config, {
-                        address: DIAMOND_ADDRESS as `0x${string}`,
-                        abi: DIAMOND_ABI,
-                        functionName: 'getKategoriById',
-                        args: [kId],
-                    }) as BlockchainKategori;
-                    if (!k.deleted) {
-                        kategoris.push({ id: Number(k.kategoriId), nama: k.kategori });
-                    }
-                } catch (e) {
-                    console.error('Error fetching kategori:', e);
-                }
-            }
+            const kategoris = kategoriIds
+                .map((kId) => ({
+                    id: Number(kId),
+                    nama: kategoriLookup.get(Number(kId)) || `Kategori #${kId.toString()}`,
+                }))
+                .filter((k) => !!k.nama);
 
-            // Fetch tag details
-            const tags: { id: number; nama: string }[] = [];
-            for (const tId of tagIds) {
-                try {
-                    const t = await readContract(config, {
-                        address: DIAMOND_ADDRESS as `0x${string}`,
-                        abi: DIAMOND_ABI,
-                        functionName: 'getTagById',
-                        args: [tId],
-                    }) as BlockchainTag;
-                    if (!t.deleted) {
-                        tags.push({ id: Number(t.tagId), nama: t.nama });
-                    }
-                } catch (e) {
-                    console.error('Error fetching tag:', e);
-                }
-            }
+            const tags = tagIds
+                .map((tId) => ({
+                    id: Number(tId),
+                    nama: tagLookup.get(Number(tId)) || `Tag #${tId.toString()}`,
+                }))
+                .filter((t) => !!t.nama);
 
+            if (isCancelled) return;
             setArtikelData({
                 artikelId: Number(a.artikelId),
                 title: a.title,
@@ -175,13 +296,23 @@ export default function PostShow() {
         };
 
         fetchRelations();
-    }, [blockchainArtikel]);
+        return () => {
+            isCancelled = true;
+        };
+    }, [artikelKey, kategoriMasterKey, tagMasterKey]);
 
     const notFound = !isLoading && !isLoadingRelations && !error && !artikelData;
     const isPageLoading = isLoading || isLoadingRelations;
 
     const formatDate = (date: Date) => date.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
     const truncateAddress = (address: string) => `${address.slice(0, 6)}...${address.slice(-4)}`;
+    const authorKtp = authorKtpResponse as Partial<BlockchainKtp> | undefined;
+    const authorDisplayName =
+        typeof authorKtp?.nama === 'string' && authorKtp.nama.trim().length > 0
+            ? authorKtp.nama
+            : artikelData?.walletMember
+                ? truncateAddress(artikelData.walletMember)
+                : '-';
 
     const handleDelete = async () => {
         if (!postId) return;
@@ -370,8 +501,9 @@ export default function PostShow() {
                         <motion.div className="flex items-start gap-4 p-4 bg-white/50 dark:bg-slate-700/30 rounded-2xl border border-slate-100 dark:border-slate-700/50" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.55 }}>
                             <div className={`p-3 ${colorMap.slate.bg} ${colorMap.slate.darkBg} rounded-xl`}><User className={`w-5 h-5 ${colorMap.slate.text} ${colorMap.slate.darkText}`} /></div>
                             <div className="flex-1 min-w-0">
-                                <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide">Penulis (Wallet)</p>
-                                <p className="mt-1 text-lg font-semibold text-slate-700 dark:text-slate-200 font-mono">{truncateAddress(artikelData.walletMember)}</p>
+                                <p className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide">Penulis</p>
+                                <p className="mt-1 text-lg font-semibold text-slate-700 dark:text-slate-200">{authorDisplayName}</p>
+                                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400 font-mono">{truncateAddress(artikelData.walletMember)}</p>
                             </div>
                         </motion.div>
 

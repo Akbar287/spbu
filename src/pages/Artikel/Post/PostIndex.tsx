@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useReadContract, useWriteContract } from '@/services/blockchain/wagmi';
@@ -9,7 +9,7 @@ import {
     Hash, FileText, Calendar,
     Plus, Edit3, Trash2, Eye, ChevronLeft, ChevronRight,
     Sparkles, ArrowLeft, Grid3X3, List, Loader2, AlertCircle,
-    Newspaper, Tag, Bookmark, CheckCircle, XCircle
+    Newspaper, Tag, Bookmark, CheckCircle, XCircle, User
 } from 'lucide-react';
 import { DIAMOND_ADDRESS, DIAMOND_ABI } from '@/contracts/config';
 import { config } from '@/config/wagmi';
@@ -44,6 +44,13 @@ interface BlockchainTag {
     deleted: boolean;
 }
 
+interface BlockchainKtp {
+    ktpId: bigint;
+    nama: string;
+    nik: string;
+    walletAddress: string;
+}
+
 // Converted Artikel for display
 interface Artikel {
     artikelId: number;
@@ -51,6 +58,7 @@ interface Artikel {
     content: string;
     active: boolean;
     walletMember: string;
+    authorName: string;
     createdAt: Date;
     updatedAt: Date;
     kategoris: { id: number; nama: string }[];
@@ -73,6 +81,70 @@ const headerVariants = {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 } as const;
 
+function toArtikelRows(response: unknown): BlockchainArtikel[] {
+    if (!Array.isArray(response)) return [];
+    return response.filter((item): item is BlockchainArtikel => {
+        if (!item || typeof item !== 'object') return false;
+        return 'artikelId' in item && 'title' in item && 'content' in item;
+    });
+}
+
+function toKategoriLookup(response: unknown): Map<number, string> {
+    if (!Array.isArray(response)) return new Map<number, string>();
+    const result = new Map<number, string>();
+    for (const item of response) {
+        if (!item || typeof item !== 'object') continue;
+        const kategori = item as BlockchainKategori;
+        if (kategori.deleted) continue;
+        result.set(Number(kategori.kategoriId), kategori.kategori);
+    }
+    return result;
+}
+
+function toTagLookup(response: unknown): Map<number, string> {
+    if (!Array.isArray(response)) return new Map<number, string>();
+    const result = new Map<number, string>();
+    for (const item of response) {
+        if (!item || typeof item !== 'object') continue;
+        const tag = item as BlockchainTag;
+        if (tag.deleted) continue;
+        result.set(Number(tag.tagId), tag.nama);
+    }
+    return result;
+}
+
+function toAuthorLookup(response: unknown): Map<string, string> {
+    if (!Array.isArray(response)) return new Map<string, string>();
+    const result = new Map<string, string>();
+    for (const item of response) {
+        if (!item || typeof item !== 'object') continue;
+        const member = item as Partial<BlockchainKtp>;
+        if (!member.walletAddress || !member.nama) continue;
+        result.set(member.walletAddress.toLowerCase(), member.nama);
+    }
+    return result;
+}
+
+function truncateAddress(address: string): string {
+    if (!address) return '-';
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+}
+
+async function readWithRetry<T>(task: () => Promise<T>, attempts = 3, baseDelayMs = 600): Promise<T> {
+    let lastError: unknown;
+    for (let i = 0; i < attempts; i++) {
+        try {
+            return await task();
+        } catch (error) {
+            lastError = error;
+            if (i < attempts - 1) {
+                await new Promise((resolve) => setTimeout(resolve, baseDelayMs * (i + 1)));
+            }
+        }
+    }
+    throw lastError;
+}
+
 export default function PostIndex() {
     const navigate = useNavigate();
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -89,6 +161,9 @@ export default function PostIndex() {
         abi: DIAMOND_ABI,
         functionName: 'getAllArtikel',
         args: [BigInt((currentPage - 1) * pageSize), BigInt(pageSize)],
+        query: {
+            refetchOnWindowFocus: false,
+        },
     });
 
     // Fetch total count
@@ -96,6 +171,39 @@ export default function PostIndex() {
         address: DIAMOND_ADDRESS as `0x${string}`,
         abi: DIAMOND_ABI,
         functionName: 'getCountArtikel',
+        query: {
+            refetchOnWindowFocus: false,
+        },
+    });
+
+    // Fetch master kategori & tag once per page load
+    const { data: kategoriResponse } = useReadContract({
+        address: DIAMOND_ADDRESS as `0x${string}`,
+        abi: DIAMOND_ABI,
+        functionName: 'getAllKategori',
+        args: [BigInt(0), BigInt(500)],
+        query: {
+            refetchOnWindowFocus: false,
+        },
+    });
+
+    const { data: tagResponse } = useReadContract({
+        address: DIAMOND_ADDRESS as `0x${string}`,
+        abi: DIAMOND_ABI,
+        functionName: 'getAllTag',
+        args: [BigInt(0), BigInt(500)],
+        query: {
+            refetchOnWindowFocus: false,
+        },
+    });
+
+    const { data: authorResponse } = useReadContract({
+        address: DIAMOND_ADDRESS as `0x${string}`,
+        abi: DIAMOND_ABI,
+        functionName: 'getAllKtpIdAndNama',
+        query: {
+            refetchOnWindowFocus: false,
+        },
     });
 
     // Write contract hook
@@ -110,81 +218,112 @@ export default function PostIndex() {
         }
     }, [isWriteSuccess, refetch]);
 
-    // Fetch relations for each artikel
+    const artikelRows = useMemo(() => toArtikelRows(artikelResponse), [artikelResponse]);
+    const relationKey = useMemo(
+        () =>
+            artikelRows
+                .map((a) => `${a.artikelId.toString()}-${a.updatedAt.toString()}-${a.deleted ? 1 : 0}`)
+                .join('|'),
+        [artikelRows],
+    );
+    const kategoriMasterKey = useMemo(() => {
+        if (!Array.isArray(kategoriResponse)) return '';
+        return kategoriResponse
+            .filter((item): item is BlockchainKategori => {
+                if (!item || typeof item !== 'object') return false;
+                return 'kategoriId' in item && 'updatedAt' in item && 'deleted' in item;
+            })
+            .map((k) => `${k.kategoriId.toString()}-${k.updatedAt.toString()}-${k.deleted ? 1 : 0}`)
+            .join('|');
+    }, [kategoriResponse]);
+
+    const tagMasterKey = useMemo(() => {
+        if (!Array.isArray(tagResponse)) return '';
+        return tagResponse
+            .filter((item): item is BlockchainTag => {
+                if (!item || typeof item !== 'object') return false;
+                return 'tagId' in item && 'updatedAt' in item && 'deleted' in item;
+            })
+            .map((t) => `${t.tagId.toString()}-${t.updatedAt.toString()}-${t.deleted ? 1 : 0}`)
+            .join('|');
+    }, [tagResponse]);
+
+    const authorMasterKey = useMemo(() => {
+        if (!Array.isArray(authorResponse)) return '';
+        return authorResponse
+            .filter((item): item is BlockchainKtp => {
+                if (!item || typeof item !== 'object') return false;
+                return 'walletAddress' in item && 'nama' in item;
+            })
+            .map((m) => `${m.walletAddress.toLowerCase()}-${m.nama}`)
+            .join('|');
+    }, [authorResponse]);
+
+    // Fetch relations for each artikel (stable key to prevent loop fetch)
     useEffect(() => {
+        let isCancelled = false;
+
         const fetchRelations = async () => {
-            if (!artikelResponse) return;
+            if (!relationKey) {
+                setArtikelList([]);
+                setIsLoadingRelations(false);
+                return;
+            }
+
             setIsLoadingRelations(true);
 
-            const rawArtikels = artikelResponse as BlockchainArtikel[];
+            const rawArtikels = toArtikelRows(artikelResponse).filter((a) => !a.deleted);
+            const kategoriLookup = toKategoriLookup(kategoriResponse);
+            const tagLookup = toTagLookup(tagResponse);
+            const authorLookup = toAuthorLookup(authorResponse);
             const artikelsWithRelations: Artikel[] = [];
 
             for (const a of rawArtikels) {
-                if (a.deleted) continue;
-
                 // Fetch kategori IDs for this artikel
                 let kategoriIds: bigint[] = [];
                 let tagIds: bigint[] = [];
 
                 try {
-                    const kIds = await readContract(config, {
-                        address: DIAMOND_ADDRESS as `0x${string}`,
-                        abi: DIAMOND_ABI,
-                        functionName: 'getKategoriesByArtikel',
-                        args: [a.artikelId],
-                    });
+                    const kIds = await readWithRetry(() =>
+                        readContract(config, {
+                            address: DIAMOND_ADDRESS as `0x${string}`,
+                            abi: DIAMOND_ABI,
+                            functionName: 'getKategoriesByArtikel',
+                            args: [a.artikelId],
+                        }),
+                    );
                     kategoriIds = kIds as bigint[];
                 } catch (e) {
                     console.error('Error fetching kategoris:', e);
                 }
 
                 try {
-                    const tIds = await readContract(config, {
-                        address: DIAMOND_ADDRESS as `0x${string}`,
-                        abi: DIAMOND_ABI,
-                        functionName: 'getTagsByArtikel',
-                        args: [a.artikelId],
-                    });
+                    const tIds = await readWithRetry(() =>
+                        readContract(config, {
+                            address: DIAMOND_ADDRESS as `0x${string}`,
+                            abi: DIAMOND_ABI,
+                            functionName: 'getTagsByArtikel',
+                            args: [a.artikelId],
+                        }),
+                    );
                     tagIds = tIds as bigint[];
                 } catch (e) {
                     console.error('Error fetching tags:', e);
                 }
 
-                // Fetch kategori details
-                const kategoris: { id: number; nama: string }[] = [];
-                for (const kId of kategoriIds) {
-                    try {
-                        const k = await readContract(config, {
-                            address: DIAMOND_ADDRESS as `0x${string}`,
-                            abi: DIAMOND_ABI,
-                            functionName: 'getKategoriById',
-                            args: [kId],
-                        }) as BlockchainKategori;
-                        if (!k.deleted) {
-                            kategoris.push({ id: Number(k.kategoriId), nama: k.kategori });
-                        }
-                    } catch (e) {
-                        console.error('Error fetching kategori:', e);
-                    }
-                }
+                const kategoris = kategoriIds
+                    .map((kId) => ({
+                        id: Number(kId),
+                        nama: kategoriLookup.get(Number(kId)) || `Kategori #${kId.toString()}`,
+                    }))
+                    .filter((k) => !!k.nama);
 
-                // Fetch tag details
-                const tags: { id: number; nama: string }[] = [];
-                for (const tId of tagIds) {
-                    try {
-                        const t = await readContract(config, {
-                            address: DIAMOND_ADDRESS as `0x${string}`,
-                            abi: DIAMOND_ABI,
-                            functionName: 'getTagById',
-                            args: [tId],
-                        }) as BlockchainTag;
-                        if (!t.deleted) {
-                            tags.push({ id: Number(t.tagId), nama: t.nama });
-                        }
-                    } catch (e) {
-                        console.error('Error fetching tag:', e);
-                    }
-                }
+                const tags = tagIds
+                    .map((tId) => ({
+                        id: Number(tId),
+                        nama: tagLookup.get(Number(tId)) || `Tag #${tId.toString()}`,
+                    }))
+                    .filter((t) => !!t.nama);
 
                 artikelsWithRelations.push({
                     artikelId: Number(a.artikelId),
@@ -192,6 +331,7 @@ export default function PostIndex() {
                     content: a.content,
                     active: a.active,
                     walletMember: a.walletMember,
+                    authorName: authorLookup.get(a.walletMember.toLowerCase()) || truncateAddress(a.walletMember),
                     createdAt: new Date(Number(a.createdAt) * 1000),
                     updatedAt: new Date(Number(a.updatedAt) * 1000),
                     kategoris,
@@ -199,12 +339,16 @@ export default function PostIndex() {
                 });
             }
 
+            if (isCancelled) return;
             setArtikelList(artikelsWithRelations);
             setIsLoadingRelations(false);
         };
 
         fetchRelations();
-    }, [artikelResponse]);
+        return () => {
+            isCancelled = true;
+        };
+    }, [relationKey, kategoriMasterKey, tagMasterKey, authorMasterKey]);
 
     const totalItems = totalCountData ? Number(totalCountData) : 0;
     const totalPages = Math.ceil(totalItems / pageSize);
@@ -337,6 +481,14 @@ export default function PostIndex() {
                                                 <div className="flex-1 min-w-0">
                                                     <p className="text-xs font-medium text-slate-400 dark:text-blue-300/70 uppercase tracking-wide">Konten</p>
                                                     <p className="text-sm text-slate-600 dark:text-slate-200 line-clamp-2 mt-0.5">{truncateContent(item.content)}</p>
+                                                </div>
+                                            </motion.div>
+
+                                            <motion.div className="flex items-start gap-3">
+                                                <div className="p-2.5 bg-gradient-to-br from-slate-100 to-zinc-100 dark:from-slate-800/50 dark:to-zinc-800/50 rounded-xl shadow-sm"><User className="w-4 h-4 text-slate-600 dark:text-slate-300" /></div>
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="text-xs font-medium text-slate-400 dark:text-slate-400 uppercase tracking-wide">Penulis</p>
+                                                    <p className="text-sm font-semibold text-slate-700 dark:text-slate-200 mt-0.5 truncate">{item.authorName}</p>
                                                 </div>
                                             </motion.div>
 
