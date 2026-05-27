@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useReadContract, useWriteContract, useAccount } from '@/services/blockchain/wagmi';
+import { keccak256, stringToBytes } from 'viem';
 import {
     Users, ArrowLeft, Edit3, Trash2, Hash, FileText,
     AlertCircle, Loader2, Sparkles, CheckCircle2, Clock,
@@ -147,9 +148,12 @@ interface JabatanWithRoleCheckProps {
     walletAddress: string;
 }
 
-function JabatanWithRoleCheck({ walletAddress }: JabatanWithRoleCheckProps) {
-    const EMPTY_HASH = '0x0000000000000000000000000000000000000000000000000000000000000000';
+function deriveRoleHashFromJabatanName(namaJabatan: string): `0x${string}` {
+    const normalized = namaJabatan.trim().toUpperCase().replace(/\s+/g, '_');
+    return keccak256(stringToBytes(`${normalized}_ROLE`)) as `0x${string}`;
+}
 
+function JabatanWithRoleCheck({ walletAddress }: JabatanWithRoleCheckProps) {
     // Fetch all Jabatan from blockchain
     const { data: jabatanResponse, isLoading } = useReadContract({
         address: DIAMOND_ADDRESS as `0x${string}`,
@@ -162,12 +166,12 @@ function JabatanWithRoleCheck({ walletAddress }: JabatanWithRoleCheckProps) {
         if (!jabatanResponse) return [];
         const [rawJabatan] = jabatanResponse as [BlockchainJabatanRole[], bigint];
         return rawJabatan
-            .filter(j => !j.deleted && j.roleHash && j.roleHash !== EMPTY_HASH)
+            .filter(j => !j.deleted && !!j.namaJabatan)
             .map(j => ({
                 jabatanId: Number(j.jabatanId),
                 namaJabatan: j.namaJabatan,
                 keterangan: j.keterangan || '-',
-                roleHash: j.roleHash as `0x${string}`,
+                roleHash: deriveRoleHashFromJabatanName(j.namaJabatan),
             }));
     }, [jabatanResponse]);
 
@@ -348,18 +352,17 @@ function RoleManagementModal({ walletAddress, memberName, onClose }: RoleManagem
         args: [BigInt(0), BigInt(100)],
     });
 
-    // Parse jabatan list - use roleHash directly from blockchain
+    // Parse jabatan list - derive roleHash from plain jabatan name (canonical *_ROLE format)
     const jabatanList = useMemo(() => {
         if (!jabatanResponse) return [];
         const [rawJabatan] = jabatanResponse as [BlockchainJabatanRole[], bigint];
-        const EMPTY_HASH = '0x0000000000000000000000000000000000000000000000000000000000000000';
         return rawJabatan
-            .filter(j => !j.deleted && j.roleHash && j.roleHash !== EMPTY_HASH)
+            .filter(j => !j.deleted && !!j.namaJabatan)
             .map((j, idx) => ({
                 jabatanId: Number(j.jabatanId),
                 namaJabatan: j.namaJabatan,
                 keterangan: j.keterangan,
-                roleHash: j.roleHash as `0x${string}`, // Use roleHash from blockchain
+                roleHash: deriveRoleHashFromJabatanName(j.namaJabatan),
                 color: getJabatanColor(idx),
             }));
     }, [jabatanResponse]);
